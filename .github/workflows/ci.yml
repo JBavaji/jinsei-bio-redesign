@@ -1,0 +1,91 @@
+name: Jinsei Bio Multi-Platform Monorepo CI
+
+on:
+  push:
+    branches: [ main, staging, develop ]
+  pull_request:
+    branches: [ main, staging, develop ]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Ubuntu Job: Format, Static Analysis, Unit/Widget Tests, Web & Android Build
+  # ---------------------------------------------------------------------------
+  analyze_test_and_build_ubuntu:
+    name: "Ubuntu: Monorepo Analyze, Test, Web & Android Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK (for Android build)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Display Flutter & Dart Info
+        run: |
+          flutter --version
+          dart --version
+
+      - name: Install Monorepo Dependencies
+        run: |
+          cd jinsei_bio_redesign_client && flutter pub get
+          cd ../jinsei_bio_redesign_server && flutter pub get
+          cd ../jinsei_bio_redesign_flutter && flutter pub get
+
+      - name: Check Formatting (dart format)
+        run: |
+          cd jinsei_bio_redesign_flutter && dart format --output=none --set-exit-if-changed .
+
+      - name: Run Static Analysis (dart analyze)
+        run: |
+          cd jinsei_bio_redesign_flutter && flutter analyze --no-fatal-infos
+
+      - name: Run Automated Tests & Coverage
+        run: |
+          if [ -d "jinsei_bio_redesign_flutter/test" ]; then
+            cd jinsei_bio_redesign_flutter && flutter test --coverage
+          fi
+
+      - name: Verify Flutter Web Build
+        run: |
+          cd jinsei_bio_redesign_flutter && flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO
+
+      - name: Verify Flutter Android APK Build
+        run: |
+          cd jinsei_bio_redesign_flutter && flutter build apk --debug --dart-define=APP_MODE=UNOFFICIAL_DEMO
+
+  # ---------------------------------------------------------------------------
+  # 2. macOS Job: Flutter iOS Build Verification
+  # ---------------------------------------------------------------------------
+  build_ios_macos:
+    name: "macOS: iOS Build Verification"
+    runs-on: macos-latest
+    needs: analyze_test_and_build_ubuntu
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: |
+          cd jinsei_bio_redesign_client && flutter pub get
+          cd ../jinsei_bio_redesign_flutter && flutter pub get
+
+      - name: Verify Flutter iOS Build (No-codesign)
+        run: |
+          cd jinsei_bio_redesign_flutter && flutter build ios --debug --no-codesign --dart-define=APP_MODE=UNOFFICIAL_DEMO

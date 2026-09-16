@@ -1,0 +1,20 @@
+name: jinsei_bio_redesign
+repository: https://github.com/jbavaji/jinsei-bio-redesign
+
+packages:
+  - jinsei_bio_redesign_server
+  - jinsei_bio_redesign_client
+  - jinsei_bio_redesign_flutter
+
+scripts:
+  analyze:
+    run: melos exec -- "dart analyze"
+    description: Run static analysis across all packages in monorepo.
+
+  format:
+    run: melos exec -- "dart format ."
+    description: Format code across all packages.
+
+  serverpod_generate:
+    run: cd jinsei_bio_redesign_server && serverpod generate
+    description: Run Serverpod code generator to sync client and server protocols.

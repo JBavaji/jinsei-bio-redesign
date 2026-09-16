@@ -1,0 +1,9 @@
+name: jinsei_bio_redesign_workspace
+description: "Root Dart workspace for Jinsei Bio Redesign monorepo"
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+workspace:
+  - jinsei_bio_redesign_server
+  - jinsei_bio_redesign_client
+  - jinsei_bio_redesign_flutter

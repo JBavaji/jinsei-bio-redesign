@@ -1,0 +1,102 @@
+# Jinsei Bio Redesign — Multi-Platform Monorepo .gitignore
+
+# Flutter & Dart Artifacts
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+ephemeral/
+*.pub-props
+
+# FVM (Flutter Version Management)
+.fvm/flutter_sdk
+
+# Symbol & Coverage Maps
+coverage/
+*.lcov
+*.g.dart.bak
+
+# Serverpod Backend Artifacts
+config/passwords.yaml
+config/passwords_local.yaml
+*.sqlite
+*.sqlite-journal
+*.db
+pgdata/
+
+# Sub-package build artifacts
+jinsei_bio_redesign_client/.dart_tool/
+jinsei_bio_redesign_client/build/
+jinsei_bio_redesign_server/.dart_tool/
+jinsei_bio_redesign_server/build/
+jinsei_bio_redesign_flutter/.dart_tool/
+jinsei_bio_redesign_flutter/build/
+
+# Android Artifacts
+android/.gradle/
+android/app/build/
+android/app/src/main/assets/
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# iOS & macOS Artifacts
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/ServiceDefinitions.json
+ios/Runner.xcodeproj/project.xcworkspace
+ios/Runner.xcodeproj/xcuserdata/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Firebase & Environment Secrets
+**/google-services.json
+**/GoogleService-Info.plist
+**/firebase_options.dart
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.p8
+*.p12
+*.crt
+
+# IDE & Operating System Artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+scratch/
+tmp/
+*.log
