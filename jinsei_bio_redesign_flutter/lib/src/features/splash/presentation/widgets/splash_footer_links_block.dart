@@ -13,21 +13,21 @@ class SplashFooterLinksBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 16,
+      runSpacing: 6,
       children: [
         LinkButton(
           label: 'Privacy Policy',
           url: 'https://policies.google.com/privacy',
           isDark: isDark,
         ),
-        const SizedBox(width: 16),
         LinkButton(
           label: 'Terms of Service',
           url: 'https://policies.google.com/terms',
           isDark: isDark,
         ),
-        const SizedBox(width: 16),
         LinkButton(
           label: 'Scientific Disclosure',
           url: 'https://policies.google.com/technologies',
