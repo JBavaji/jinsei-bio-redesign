@@ -46,8 +46,8 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
           children: [
             // Ambient Bioluminescent Radial Glow Halo
             Container(
-              width: widget.size * 2.5,
-              height: widget.size * 2.5,
+              width: widget.size + 48,
+              height: widget.size + 48,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
@@ -55,13 +55,13 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
                   radius: 0.5,
                   colors: isDark
                       ? [
-                          const Color(0x3D0F7D8A), // Teal ambient glow
-                          const Color(0x2610B981), // Emerald ambient glow
+                          const Color(0x660F7D8A), // Teal ambient glow
+                          const Color(0x4D10B981), // Emerald ambient glow
                           Colors.transparent,
                         ]
                       : [
-                          const Color(0x280F7D8A), // Light teal glow
-                          const Color(0x1810B981), // Light emerald glow
+                          const Color(0x380F7D8A), // Light teal glow
+                          const Color(0x2010B981), // Light emerald glow
                           Colors.transparent,
                         ],
                 ),
