@@ -43,13 +43,30 @@ class AppTheme {
         outline: AppColors.darkBorder,
       ),
       textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
-        displayLarge: TextStyle(
+        displayLarge: GoogleFonts.montserrat(
           color: AppColors.darkTextPrimary,
+          fontSize: 48,
           fontWeight: FontWeight.bold,
           letterSpacing: -0.5,
         ),
-        bodyLarge: TextStyle(color: AppColors.darkTextPrimary),
-        bodyMedium: TextStyle(color: AppColors.darkTextSecondary),
+        displayMedium: GoogleFonts.montserrat(
+          color: AppColors.darkTextPrimary,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+        ),
+        headlineMedium: GoogleFonts.montserrat(
+          color: AppColors.darkTextPrimary,
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyLarge: GoogleFonts.inter(color: AppColors.darkTextPrimary, fontSize: 18),
+        bodyMedium: GoogleFonts.inter(color: AppColors.darkTextSecondary, fontSize: 16),
+        labelLarge: GoogleFonts.inter(
+          color: AppColors.bioluminescentGreen,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1.2,
+        ),
       ),
       cardTheme: CardThemeData(
         color: AppColors.darkSurfaceCard,
@@ -76,13 +93,30 @@ class AppTheme {
         outline: AppColors.lightBorder,
       ),
       textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
-        displayLarge: TextStyle(
+        displayLarge: GoogleFonts.montserrat(
           color: AppColors.lightTextPrimary,
+          fontSize: 48,
           fontWeight: FontWeight.bold,
           letterSpacing: -0.5,
         ),
-        bodyLarge: TextStyle(color: AppColors.lightTextPrimary),
-        bodyMedium: TextStyle(color: AppColors.lightTextSecondary),
+        displayMedium: GoogleFonts.montserrat(
+          color: AppColors.lightTextPrimary,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+        ),
+        headlineMedium: GoogleFonts.montserrat(
+          color: AppColors.lightTextPrimary,
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),
+        bodyLarge: GoogleFonts.inter(color: AppColors.lightTextPrimary, fontSize: 18),
+        bodyMedium: GoogleFonts.inter(color: AppColors.lightTextSecondary, fontSize: 16),
+        labelLarge: GoogleFonts.inter(
+          color: AppColors.primaryContainerTeal,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1.2,
+        ),
       ),
       cardTheme: CardThemeData(
         color: AppColors.lightSurfaceCard,
