@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_theme.dart';
 import 'widgets/splash_emblem_crucible.dart';
 import 'widgets/splash_footer_bar.dart';
@@ -25,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3));
+    hasInitialSplashCompleted = true;
     if (mounted) {
       context.go('/home');
     }
