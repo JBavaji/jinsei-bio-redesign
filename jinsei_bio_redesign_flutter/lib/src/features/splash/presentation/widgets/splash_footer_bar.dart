@@ -28,14 +28,11 @@ class SplashFooterBar extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 12,
-              runSpacing: 8,
-              children: [
-                // Left Brand + Copyright
-                Row(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isWide = constraints.maxWidth > 640;
+
+                final leftBrandBlock = Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -67,20 +64,40 @@ class SplashFooterBar extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                );
 
-                // Right Legal Links
-                Row(
+                final rightLinksBlock = Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildLink('Privacy Policy', isDark),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16),
                     _buildLink('Terms of Service', isDark),
-                    const SizedBox(width: 12),
+                    const SizedBox(width: 16),
                     _buildLink('Scientific Disclosure', isDark),
                   ],
-                ),
-              ],
+                );
+
+                if (isWide) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      leftBrandBlock,
+                      rightLinksBlock,
+                    ],
+                  );
+                }
+
+                return Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 16,
+                  runSpacing: 10,
+                  children: [
+                    leftBrandBlock,
+                    rightLinksBlock,
+                  ],
+                );
+              },
             ),
           ),
 
