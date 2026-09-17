@@ -55,7 +55,7 @@ class SplashFooterBar extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '|   © 2024 All Rights Reserved.',
+                      '|   © ${DateTime.now().year} All Rights Reserved.',
                       style: TextStyle(
                         fontSize: 11,
                         color: isDark
