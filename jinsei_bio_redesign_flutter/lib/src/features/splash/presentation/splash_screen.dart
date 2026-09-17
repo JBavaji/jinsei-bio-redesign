@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
-import '../../../core/widgets/disclaimer_banner.dart';
+import 'widgets/splash_emblem_crucible.dart';
+import 'widgets/splash_footer_bar.dart';
+import 'widgets/splash_header_telemetry.dart';
+import 'widgets/splash_progress_tracker.dart';
+import 'widgets/splash_protocol_chips.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,107 +30,91 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
+      backgroundColor: isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
       body: Stack(
         children: [
-          // Background Glow Gradient
-          Container(
-            decoration: const BoxDecoration(
-              gradient: RadialGradient(
-                center: Alignment.center,
-                radius: 0.8,
-                colors: [
-                  Color(0x1F66DD8B), // Subtle green bioluminescent glow
-                  AppColors.darkObsidianBg,
-                ],
+          // Background Ambient Bioluminescent Radial Gradients
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(
+                  center: Alignment.center,
+                  radius: 0.9,
+                  colors: isDark
+                      ? [
+                          const Color(0x260F7D8A), // Teal ambient glow
+                          const Color(0x1A10B981), // Emerald ambient glow
+                          AppColors.darkObsidianBg,
+                        ]
+                      : [
+                          const Color(0x180F7D8A), // Light teal glow
+                          const Color(0x1210B981), // Light emerald glow
+                          AppColors.lightBg,
+                        ],
+                ),
               ),
             ),
           ),
 
-          // Centered Redesigned Logomark & Title
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Official Brand Logo Image from Stitch Assets
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.bioluminescentGreen
-                            .withValues(alpha: 0.3),
-                        blurRadius: 30,
-                        spreadRadius: 5,
+          // Main Layout Structure (Header, Center Content, Footer)
+          Column(
+            children: [
+              // Top System Telemetry / ISO Header
+              const SplashHeaderTelemetry(),
+
+              // Central Brand & Initialization Section
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 16,
                       ),
-                    ],
-                  ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/logo/official_brand_logo.png',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isLargeScreen = constraints.maxWidth > 600;
+                          final emblemSize = isLargeScreen ? 128.0 : 100.0;
+                          final verticalSpacing = isLargeScreen ? 32.0 : 20.0;
+
+                          return ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxWidth: isLargeScreen ? 520 : 380,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Official Brand Emblem & Crucible
+                                SplashEmblemCrucible(size: emblemSize),
+                                SizedBox(height: verticalSpacing),
+
+                                // Metagenomic Progress Tracker Bar
+                                const SplashProgressTracker(
+                                  progress: 0.78,
+                                  statusText:
+                                      'Calibrating metagenomic consortia...',
+                                ),
+                                SizedBox(height: verticalSpacing),
+
+                                // Protocol & Certification Chips
+                                const SplashProtocolChips(),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                )
-                    .animate()
-                    .scale(duration: 800.ms, curve: Curves.easeOutBack)
-                    .fadeIn(duration: 600.ms),
+                ),
+              ),
 
-                const SizedBox(height: 24),
-
-                // Brand Title Text
-                Text(
-                  'JINSEI BIO',
-                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        fontSize: 32,
-                        letterSpacing: 4.0,
-                        color: AppColors.darkTextPrimary,
-                      ),
-                )
-                    .animate()
-                    .fadeIn(delay: 400.ms, duration: 600.ms)
-                    .slideY(begin: 0.2, end: 0),
-
-                const SizedBox(height: 8),
-
-                // Tagline
-                Text(
-                  'Microbiome & Bioscience Redesign',
-                  style: TextStyle(
-                    fontSize: 14,
-                    letterSpacing: 1.2,
-                    color: AppColors.bioluminescentGreen,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ).animate().fadeIn(delay: 700.ms, duration: 600.ms),
-
-                const SizedBox(height: 48),
-
-                // Loading Indicator
-                const SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.bioluminescentGreen,
-                    ),
-                  ),
-                ).animate().fadeIn(delay: 1000.ms),
-              ],
-            ),
-          ),
-
-          // Bottom Disclaimer Footer
-          const Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: DisclaimerBanner(),
+              // Bottom Diagnostic Footer with Legal Links & Disclaimer
+              const SplashFooterBar(),
+            ],
           ),
         ],
       ),
