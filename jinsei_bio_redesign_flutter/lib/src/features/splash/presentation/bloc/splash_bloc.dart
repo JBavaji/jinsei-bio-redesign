@@ -28,17 +28,24 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     ));
     await Future.delayed(const Duration(milliseconds: 700));
 
-    // 3. Step 2 Calibration: Metagenomic Consortia (78%)
+    // 3. Step 2 Calibration: Metagenomic Consortia (65%)
     emit(state.copyWith(
-      progress: 0.78,
+      progress: 0.65,
       statusText: 'Calibrating metagenomic consortia...',
     ));
-    await Future.delayed(const Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 800));
 
-    // 4. Step 3 Calibration: Diagnostic Handshake (78%)
+    // 4. Step 3 Calibration: Diagnostic Handshake (88%)
     emit(state.copyWith(
-      progress: 0.78,
-      statusText: 'Calibrating metagenomic consortia...',
+      progress: 0.88,
+      statusText: 'Initializing diagnostic handshake...',
+    ));
+    await Future.delayed(const Duration(milliseconds: 700));
+
+    // 5. Step 4 Calibration: System Ready (100%)
+    emit(state.copyWith(
+      progress: 1.00,
+      statusText: 'System ready. Calibration complete.',
     ));
 
     // TEMP UI INSPECTION MODE: Do not emit isCompleted = true so SplashScreen
