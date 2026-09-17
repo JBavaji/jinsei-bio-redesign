@@ -3,10 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   // Primary & Accent Brand Tokens from Stitch Project 436455633155776431
-  static const Color primaryTeal = Color(0xFF7BD4E2); // Deep Science Primary Teal
-  static const Color primaryContainerTeal = Color(0xFF0F7D8A); // Deep Teal Container
-  static const Color bioluminescentGreen = Color(0xFF66DD8B); // Secondary Bioluminescent Green
-  static const Color secondaryContainerGreen = Color(0xFF25A55A); // Secondary Green Container
+  static const Color primaryTeal =
+      Color(0xFF7BD4E2); // Deep Science Primary Teal
+  static const Color primaryContainerTeal =
+      Color(0xFF0F7D8A); // Deep Teal Container
+  static const Color bioluminescentGreen =
+      Color(0xFF66DD8B); // Secondary Bioluminescent Green
+  static const Color secondaryContainerGreen =
+      Color(0xFF25A55A); // Secondary Green Container
   static const Color emeraldGreen = Color(0xFF50C878); // Override Emerald Green
 
   // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
@@ -42,7 +46,8 @@ class AppTheme {
         onSurface: AppColors.darkTextPrimary,
         outline: AppColors.darkBorder,
       ),
-      textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
+      textTheme:
+          GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
         displayLarge: GoogleFonts.montserrat(
           color: AppColors.darkTextPrimary,
           fontSize: 48,
@@ -59,8 +64,10 @@ class AppTheme {
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
-        bodyLarge: GoogleFonts.inter(color: AppColors.darkTextPrimary, fontSize: 18),
-        bodyMedium: GoogleFonts.inter(color: AppColors.darkTextSecondary, fontSize: 16),
+        bodyLarge:
+            GoogleFonts.inter(color: AppColors.darkTextPrimary, fontSize: 18),
+        bodyMedium:
+            GoogleFonts.inter(color: AppColors.darkTextSecondary, fontSize: 16),
         labelLarge: GoogleFonts.inter(
           color: AppColors.bioluminescentGreen,
           fontSize: 12,
@@ -92,7 +99,8 @@ class AppTheme {
         onSurface: AppColors.lightTextPrimary,
         outline: AppColors.lightBorder,
       ),
-      textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
+      textTheme:
+          GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
         displayLarge: GoogleFonts.montserrat(
           color: AppColors.lightTextPrimary,
           fontSize: 48,
@@ -109,8 +117,10 @@ class AppTheme {
           fontSize: 24,
           fontWeight: FontWeight.w600,
         ),
-        bodyLarge: GoogleFonts.inter(color: AppColors.lightTextPrimary, fontSize: 18),
-        bodyMedium: GoogleFonts.inter(color: AppColors.lightTextSecondary, fontSize: 16),
+        bodyLarge:
+            GoogleFonts.inter(color: AppColors.lightTextPrimary, fontSize: 18),
+        bodyMedium: GoogleFonts.inter(
+            color: AppColors.lightTextSecondary, fontSize: 16),
         labelLarge: GoogleFonts.inter(
           color: AppColors.primaryContainerTeal,
           fontSize: 12,

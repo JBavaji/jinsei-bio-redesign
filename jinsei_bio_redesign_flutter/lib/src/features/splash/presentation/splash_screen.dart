@@ -57,7 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.bioluminescentGreen.withValues(alpha: 0.3),
+                        color: AppColors.bioluminescentGreen
+                            .withValues(alpha: 0.3),
                         blurRadius: 30,
                         spreadRadius: 5,
                       ),
@@ -102,9 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: AppColors.bioluminescentGreen,
                     fontWeight: FontWeight.w500,
                   ),
-                )
-                    .animate()
-                    .fadeIn(delay: 700.ms, duration: 600.ms),
+                ).animate().fadeIn(delay: 700.ms, duration: 600.ms),
 
                 const SizedBox(height: 48),
 

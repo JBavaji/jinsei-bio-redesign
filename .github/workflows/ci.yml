@@ -2,9 +2,9 @@ name: Jinsei Bio Multi-Platform Monorepo CI
 
 on:
   push:
-    branches: [ main, staging, develop ]
+    branches: [ main, staging, develop, 'feat/**', 'develop/**' ]
   pull_request:
-    branches: [ main, staging, develop ]
+    branches: [ main, staging, develop, 'feat/**', 'develop/**' ]
 
 jobs:
   # ---------------------------------------------------------------------------
@@ -38,7 +38,7 @@ jobs:
       - name: Install Monorepo Dependencies
         run: |
           cd jinsei_bio_redesign_client && flutter pub get
-          cd ../jinsei_bio_redesign_server && flutter pub get
+          cd ../jinsei_bio_redesign_server && dart pub get
           cd ../jinsei_bio_redesign_flutter && flutter pub get
 
       - name: Check Formatting (dart format)

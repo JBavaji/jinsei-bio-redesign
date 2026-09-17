@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 letterSpacing: 1.0,
-                color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                color: isDark
+                    ? AppColors.darkTextPrimary
+                    : AppColors.lightTextPrimary,
               ),
             ),
           ],
@@ -41,7 +43,9 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: Icon(
               isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-              color: isDark ? AppColors.bioluminescentGreen : AppColors.emeraldGreen,
+              color: isDark
+                  ? AppColors.bioluminescentGreen
+                  : AppColors.emeraldGreen,
             ),
             tooltip: 'Toggle Dark / Light Theme',
             onPressed: () {
@@ -74,7 +78,8 @@ class HomeScreen extends StatelessWidget {
                                   vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.bioluminescentGreen.withOpacity(0.15),
+                                  color: AppColors.bioluminescentGreen
+                                      .withOpacity(0.15),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: AppColors.bioluminescentGreen,
@@ -94,7 +99,10 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 20),
                           Text(
                             'Welcome to Jinsei Bio Redesign use-case',
-                            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayLarge
+                                ?.copyWith(
                                   fontSize: 32,
                                   height: 1.2,
                                   color: isDark
@@ -105,7 +113,10 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           Text(
                             'Multi-platform Flutter & Serverpod monorepo architecture targeting Web, Android, and iOS.',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   fontSize: 16,
                                   height: 1.5,
                                 ),
@@ -123,7 +134,9 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                      color: isDark
+                          ? AppColors.darkTextPrimary
+                          : AppColors.lightTextPrimary,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -207,7 +220,9 @@ class _TechBadge extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
-                    color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                    color: isDark
+                        ? AppColors.darkTextPrimary
+                        : AppColors.lightTextPrimary,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -215,7 +230,9 @@ class _TechBadge extends StatelessWidget {
                   subtitle,
                   style: TextStyle(
                     fontSize: 11,
-                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                    color: isDark
+                        ? AppColors.darkTextSecondary
+                        : AppColors.lightTextSecondary,
                   ),
                 ),
               ],

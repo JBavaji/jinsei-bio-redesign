@@ -9,7 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:jinsei_bio_redesign/main.dart';
 
 void main() {
-  testWidgets('App renders JinseiBioApp successfully', (WidgetTester tester) async {
+  testWidgets('App renders JinseiBioApp successfully',
+      (WidgetTester tester) async {
     await tester.pumpWidget(const JinseiBioApp());
     expect(find.byType(JinseiBioApp), findsOneWidget);
   });
