@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/disclaimer_banner.dart';
+import 'splash_footer_brand_block.dart';
+import 'splash_footer_links_block.dart';
 
 class SplashFooterBar extends StatelessWidget {
   const SplashFooterBar({super.key});
@@ -33,69 +34,15 @@ class SplashFooterBar extends StatelessWidget {
               builder: (context, constraints) {
                 final isWide = constraints.maxWidth > 640;
 
-                final leftBrandBlock = Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'JINSEI ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: isDark
-                            ? AppColors.darkTextPrimary
-                            : AppColors.lightTextPrimary,
-                      ),
-                    ),
-                    const Text(
-                      'BIOSCIENCE',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 11,
-                        color: AppColors.primaryContainerTeal,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '|   © ${DateTime.now().year} All Rights Reserved.',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.lightTextSecondary,
-                      ),
-                    ),
-                  ],
-                );
-
-                final rightLinksBlock = Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildLink(
-                      'Privacy Policy',
-                      'https://policies.google.com/privacy',
-                      isDark,
-                    ),
-                    const SizedBox(width: 16),
-                    _buildLink(
-                      'Terms of Service',
-                      'https://policies.google.com/terms',
-                      isDark,
-                    ),
-                    const SizedBox(width: 16),
-                    _buildLink(
-                      'Scientific Disclosure',
-                      'https://policies.google.com/technologies',
-                      isDark,
-                    ),
-                  ],
-                );
+                final brandBlock = SplashFooterBrandBlock(isDark: isDark);
+                final linksBlock = SplashFooterLinksBlock(isDark: isDark);
 
                 if (isWide) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      leftBrandBlock,
-                      rightLinksBlock,
+                      brandBlock,
+                      linksBlock,
                     ],
                   );
                 }
@@ -106,8 +53,8 @@ class SplashFooterBar extends StatelessWidget {
                   spacing: 16,
                   runSpacing: 10,
                   children: [
-                    leftBrandBlock,
-                    rightLinksBlock,
+                    brandBlock,
+                    linksBlock,
                   ],
                 );
               },
@@ -117,30 +64,6 @@ class SplashFooterBar extends StatelessWidget {
           // Unofficial Redesign Disclaimer Guardrail
           const DisclaimerBanner(),
         ],
-      ),
-    );
-  }
-
-  Widget _buildLink(String text, String url, bool isDark) {
-    return InkWell(
-      onTap: () async {
-        final uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
-        }
-      },
-      borderRadius: BorderRadius.circular(4),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 11,
-            color: isDark
-                ? AppColors.darkTextSecondary
-                : AppColors.lightTextSecondary,
-          ),
-        ),
       ),
     );
   }
