@@ -1,36 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:go_router/go_router.dart';
-import '../../../core/router/app_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/app_theme.dart';
+import 'bloc/splash_bloc.dart';
 import 'widgets/splash_emblem_crucible.dart';
 import 'widgets/splash_footer_bar.dart';
 import 'widgets/splash_header_telemetry.dart';
 import 'widgets/splash_progress_tracker.dart';
 import 'widgets/splash_protocol_chips.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    FlutterNativeSplash.remove();
-    _navigateToHome();
-  }
-
-  Future<void> _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 3));
-    hasInitialSplashCompleted = true;
-    if (mounted) {
-      context.go('/home');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +75,14 @@ class _SplashScreenState extends State<SplashScreen> {
                                 SplashEmblemCrucible(size: emblemSize),
                                 SizedBox(height: verticalSpacing),
 
-                                // Metagenomic Progress Tracker Bar
-                                const SplashProgressTracker(
-                                  progress: 0.78,
-                                  statusText:
-                                      'Calibrating metagenomic consortia...',
+                                // Metagenomic Progress Tracker Bar driven by SplashBloc
+                                BlocBuilder<SplashBloc, SplashState>(
+                                  builder: (context, splashState) {
+                                    return SplashProgressTracker(
+                                      progress: splashState.progress,
+                                      statusText: splashState.statusText,
+                                    );
+                                  },
                                 ),
                                 SizedBox(height: verticalSpacing),
 
