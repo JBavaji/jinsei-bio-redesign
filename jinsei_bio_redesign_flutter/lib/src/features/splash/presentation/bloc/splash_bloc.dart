@@ -47,9 +47,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       progress: 1.00,
       statusText: 'System ready. Calibration complete.',
     ));
+    await Future.delayed(const Duration(milliseconds: 400));
 
-    // TEMP UI INSPECTION MODE: Do not emit isCompleted = true so SplashScreen
-    // remains active on screen while fine-tuning executive design components.
-    // emit(state.copyWith(isCompleted: true));
+    // 6. Calibration Complete: Transition to HomeScreen
+    emit(state.copyWith(isCompleted: true));
   }
 }
