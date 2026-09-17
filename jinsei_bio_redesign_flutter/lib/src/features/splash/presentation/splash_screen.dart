@@ -17,92 +17,97 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
-      body: Stack(
-        children: [
-          // Background Ambient Bioluminescent Radial Gradients
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: Alignment.center,
-                  radius: 0.9,
-                  colors: isDark
-                      ? [
-                          const Color(0x260F7D8A), // Teal ambient glow
-                          const Color(0x1A10B981), // Emerald ambient glow
-                          AppColors.darkObsidianBg,
-                        ]
-                      : [
-                          const Color(0x180F7D8A), // Light teal glow
-                          const Color(0x1210B981), // Light emerald glow
-                          AppColors.lightBg,
-                        ],
-                ),
-              ),
-            ),
-          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Top System Telemetry / ISO Header
+            const SplashHeaderTelemetry(),
 
-          // Main Layout Structure (Header, Center Content, Footer)
-          Column(
-            children: [
-              // Top System Telemetry / ISO Header
-              const SplashHeaderTelemetry(),
+            // Central Brand & Initialization Section
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 16,
+                    ),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final isLargeScreen = constraints.maxWidth > 600;
+                        final emblemSize = isLargeScreen ? 128.0 : 100.0;
+                        final verticalSpacing = isLargeScreen ? 32.0 : 20.0;
 
-              // Central Brand & Initialization Section
-              Expanded(
-                child: Center(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 16,
-                      ),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          final isLargeScreen = constraints.maxWidth > 600;
-                          final emblemSize = isLargeScreen ? 128.0 : 100.0;
-                          final verticalSpacing = isLargeScreen ? 32.0 : 20.0;
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: isLargeScreen ? 520 : 380,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // Official Brand Emblem & Crucible with Localized Radial Glow
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: emblemSize * 2.5,
+                                    height: emblemSize * 2.5,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: RadialGradient(
+                                        center: Alignment.center,
+                                        radius: 0.5,
+                                        colors: isDark
+                                            ? [
+                                                const Color(
+                                                    0x3D0F7D8A), // Teal ambient glow
+                                                const Color(
+                                                    0x2610B981), // Emerald ambient glow
+                                                Colors.transparent,
+                                              ]
+                                            : [
+                                                const Color(
+                                                    0x280F7D8A), // Light teal glow
+                                                const Color(
+                                                    0x1810B981), // Light emerald glow
+                                                Colors.transparent,
+                                              ],
+                                      ),
+                                    ),
+                                  ),
+                                  SplashEmblemCrucible(size: emblemSize),
+                                ],
+                              ),
+                              SizedBox(height: verticalSpacing),
 
-                          return ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxWidth: isLargeScreen ? 520 : 380,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Official Brand Emblem & Crucible
-                                SplashEmblemCrucible(size: emblemSize),
-                                SizedBox(height: verticalSpacing),
+                              // Metagenomic Progress Tracker Bar driven by SplashBloc
+                              BlocBuilder<SplashBloc, SplashState>(
+                                builder: (context, splashState) {
+                                  return SplashProgressTracker(
+                                    progress: splashState.progress,
+                                    statusText: splashState.statusText,
+                                  );
+                                },
+                              ),
+                              SizedBox(height: verticalSpacing),
 
-                                // Metagenomic Progress Tracker Bar driven by SplashBloc
-                                BlocBuilder<SplashBloc, SplashState>(
-                                  builder: (context, splashState) {
-                                    return SplashProgressTracker(
-                                      progress: splashState.progress,
-                                      statusText: splashState.statusText,
-                                    );
-                                  },
-                                ),
-                                SizedBox(height: verticalSpacing),
-
-                                // Protocol & Certification Chips
-                                const SplashProtocolChips(),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              // Protocol & Certification Chips
+                              const SplashProtocolChips(),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
               ),
+            ),
 
-              // Bottom Diagnostic Footer with Legal Links & Disclaimer
-              const SplashFooterBar(),
-            ],
-          ),
-        ],
+            // Bottom Diagnostic Footer with Legal Links & Disclaimer
+            const SplashFooterBar(),
+          ],
+        ),
       ),
     );
   }
