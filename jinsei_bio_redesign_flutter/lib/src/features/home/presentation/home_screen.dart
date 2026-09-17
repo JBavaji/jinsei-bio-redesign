@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 decoration: BoxDecoration(
                                   color: AppColors.bioluminescentGreen
-                                      .withOpacity(0.15),
+                                      .withValues(alpha: 0.15),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: AppColors.bioluminescentGreen,
@@ -150,10 +150,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  Wrap(
+                  const Wrap(
                     spacing: 16,
                     runSpacing: 16,
-                    children: const [
+                    children: [
                       _TechBadge(
                         title: 'Flutter Bloc',
                         subtitle: 'Reactive State Management (ADR-005)',

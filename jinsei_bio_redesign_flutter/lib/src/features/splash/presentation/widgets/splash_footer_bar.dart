@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/disclaimer_banner.dart';
 
@@ -69,11 +70,23 @@ class SplashFooterBar extends StatelessWidget {
                 final rightLinksBlock = Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _buildLink('Privacy Policy', isDark),
+                    _buildLink(
+                      'Privacy Policy',
+                      'https://policies.google.com/privacy',
+                      isDark,
+                    ),
                     const SizedBox(width: 16),
-                    _buildLink('Terms of Service', isDark),
+                    _buildLink(
+                      'Terms of Service',
+                      'https://policies.google.com/terms',
+                      isDark,
+                    ),
                     const SizedBox(width: 16),
-                    _buildLink('Scientific Disclosure', isDark),
+                    _buildLink(
+                      'Scientific Disclosure',
+                      'https://policies.google.com/technologies',
+                      isDark,
+                    ),
                   ],
                 );
 
@@ -108,13 +121,26 @@ class SplashFooterBar extends StatelessWidget {
     );
   }
 
-  Widget _buildLink(String text, bool isDark) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 11,
-        color:
-            isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+  Widget _buildLink(String text, String url, bool isDark) {
+    return InkWell(
+      onTap: () async {
+        final uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        }
+      },
+      borderRadius: BorderRadius.circular(4),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 11,
+            color: isDark
+                ? AppColors.darkTextSecondary
+                : AppColors.lightTextSecondary,
+          ),
+        ),
       ),
     );
   }
