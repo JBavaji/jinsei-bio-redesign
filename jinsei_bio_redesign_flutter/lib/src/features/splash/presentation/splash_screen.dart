@@ -49,33 +49,26 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Circular Bioluminescent Logomark Icon
+                // Official Brand Logo Image from Stitch Assets
                 Container(
-                  width: 100,
-                  height: 100,
+                  width: 120,
+                  height: 120,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        AppColors.bioluminescentGreen,
-                        AppColors.emeraldGreen,
-                      ],
-                    ),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.bioluminescentGreen.withOpacity(0.4),
+                        color: AppColors.bioluminescentGreen.withValues(alpha: 0.3),
                         blurRadius: 30,
                         spreadRadius: 5,
                       ),
                     ],
                   ),
-                  child: const Center(
-                    child: Icon(
-                      Icons.biotech_rounded,
-                      size: 56,
-                      color: Color(0xFF0A0F1E),
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/logo/official_brand_logo.png',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 )

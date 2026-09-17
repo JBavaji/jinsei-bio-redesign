@@ -17,9 +17,14 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: Row(
           children: [
-            const Icon(
-              Icons.biotech_rounded,
-              color: AppColors.bioluminescentGreen,
+            Image.asset(
+              'assets/images/logo/official_brand_logo.png',
+              height: 32,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.biotech_rounded,
+                color: AppColors.bioluminescentGreen,
+              ),
             ),
             const SizedBox(width: 8),
             Text(
