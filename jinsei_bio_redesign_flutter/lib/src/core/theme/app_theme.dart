@@ -2,22 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Brand Primary & Accent
-  static const Color bioluminescentGreen = Color(0xFF66DD8B);
-  static const Color emeraldGreen = Color(0xFF10B981);
+  // Primary & Accent Brand Tokens from Stitch Project 436455633155776431
+  static const Color primaryTeal = Color(0xFF7BD4E2); // Deep Science Primary Teal
+  static const Color primaryContainerTeal = Color(0xFF0F7D8A); // Deep Teal Container
+  static const Color bioluminescentGreen = Color(0xFF66DD8B); // Secondary Bioluminescent Green
+  static const Color secondaryContainerGreen = Color(0xFF25A55A); // Secondary Green Container
+  static const Color emeraldGreen = Color(0xFF50C878); // Override Emerald Green
 
-  // Dark Mode Tokens (Default)
-  static const Color darkObsidianBg = Color(0xFF0A0F1E);
-  static const Color darkSurfaceCard = Color(0xFF111827);
-  static const Color darkBorder = Color(0xFF1F2937);
-  static const Color darkTextPrimary = Color(0xFFF9FAFB);
-  static const Color darkTextSecondary = Color(0xFF9CA3AF);
+  // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
+  static const Color darkObsidianBg = Color(0xFF121414);
+  static const Color darkSurfaceCard = Color(0xFF1E2020);
+  static const Color darkSurfaceHigh = Color(0xFF282A2B);
+  static const Color darkBorder = Color(0xFF3E494A);
+  static const Color darkTextPrimary = Color(0xFFE2E2E2);
+  static const Color darkTextSecondary = Color(0xFFBDC8CA);
 
-  // Light Mode Tokens
+  // Light Mode Tokens (Clinical White #FFFFFF)
   static const Color lightBg = Color(0xFFFFFFFF);
   static const Color lightSurfaceCard = Color(0xFFF8FAFC);
   static const Color lightBorder = Color(0xFFE2E8F0);
-  static const Color lightTextPrimary = Color(0xFF0F172A);
+  static const Color lightTextPrimary = Color(0xFF121414);
   static const Color lightTextSecondary = Color(0xFF475569);
 }
 
@@ -28,12 +32,15 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkObsidianBg,
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.bioluminescentGreen,
-        secondary: AppColors.emeraldGreen,
+        primary: AppColors.primaryTeal,
+        primaryContainer: AppColors.primaryContainerTeal,
+        secondary: AppColors.bioluminescentGreen,
+        secondaryContainer: AppColors.secondaryContainerGreen,
         surface: AppColors.darkSurfaceCard,
-        background: AppColors.darkObsidianBg,
-        onPrimary: Colors.black,
+        onPrimary: Color(0xFF00363D),
+        onSecondary: Color(0xFF003919),
         onSurface: AppColors.darkTextPrimary,
+        outline: AppColors.darkBorder,
       ),
       textTheme: GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
         displayLarge: TextStyle(
@@ -60,12 +67,13 @@ class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBg,
       colorScheme: const ColorScheme.light(
-        primary: AppColors.emeraldGreen,
-        secondary: AppColors.bioluminescentGreen,
+        primary: AppColors.primaryContainerTeal,
+        secondary: AppColors.secondaryContainerGreen,
         surface: AppColors.lightSurfaceCard,
-        background: AppColors.lightBg,
         onPrimary: Colors.white,
+        onSecondary: Colors.white,
         onSurface: AppColors.lightTextPrimary,
+        outline: AppColors.lightBorder,
       ),
       textTheme: GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
         displayLarge: TextStyle(
