@@ -35,14 +35,14 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     ));
     await Future.delayed(const Duration(milliseconds: 1000));
 
-    // 4. Step 3 Calibration: Diagnostic Handshake (100%)
+    // 4. Step 3 Calibration: Diagnostic Handshake (78%)
     emit(state.copyWith(
-      progress: 1.0,
-      statusText: 'Diagnostic gateway ready.',
+      progress: 0.78,
+      statusText: 'Calibrating metagenomic consortia...',
     ));
-    await Future.delayed(const Duration(milliseconds: 500));
 
-    // 5. Signal boot completion for seamless Gateway transition
-    emit(state.copyWith(isCompleted: true));
+    // TEMP UI INSPECTION MODE: Do not emit isCompleted = true so SplashScreen
+    // remains active on screen while fine-tuning executive design components.
+    // emit(state.copyWith(isCompleted: true));
   }
 }

@@ -21,72 +21,13 @@
   <meta name="theme-color" content="#121414">
 
   <style>
-    body {
+    html, body {
       background-color: #121414;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      overflow: hidden;
-    }
-    #splash-loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      width: 100vw;
-      background: radial-gradient(circle at center, #1A2222 0%, #121414 70%);
-      color: #FFFFFF;
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 99999;
-      transition: opacity 0.5s ease-out;
-    }
-    .logo-container {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      box-shadow: 0 0 30px rgba(102, 221, 139, 0.35);
-      margin-bottom: 24px;
-      overflow: hidden;
-      animation: pulse 2s infinite ease-in-out;
-    }
-    .logo-container img {
-      width: 100%;
       height: 100%;
-      object-fit: cover;
-    }
-    .brand-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      color: #7BD4E2;
-      margin-bottom: 8px;
-    }
-    .brand-subtitle {
-      font-size: 14px;
-      letter-spacing: 1.2px;
-      color: #66DD8B;
-      font-weight: 500;
-      margin-bottom: 32px;
-    }
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid rgba(102, 221, 139, 0.2);
-      border-top-color: #66DD8B;
-      border-radius: 50%;
-      animation: spin 1s infinite linear;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.05); opacity: 1; }
+      width: 100%;
+      overflow: hidden;
     }
   </style>
 
@@ -96,94 +37,9 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer=""></script>
-  <style id="splash-screen-style">
-    html {
-      height: 100%
-    }
-
-    body {
-      margin: 0;
-      min-height: 100%;
-      background-color: #121414;
-          background-size: 100% 100%;
-    }
-
-    .center {
-      margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-    }
-
-    .contain {
-      display:block;
-      width:100%; height:100%;
-      object-fit: contain;
-    }
-
-    .stretch {
-      display:block;
-      width:100%; height:100%;
-    }
-
-    .cover {
-      display:block;
-      width:100%; height:100%;
-      object-fit: cover;
-    }
-
-    .bottom {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-    }
-
-    .bottomLeft {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
-    .bottomRight {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #121414;
-          }
-    }
-  </style>
-  <script id="splash-screen-script">
-    function removeSplashFromWeb() {
-      document.getElementById("splash")?.remove();
-      document.getElementById("splash-branding")?.remove();
-      document.body.style.background = "transparent";
-    }
-  </script>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 </head>
-<body>
-  <picture id="splash">
-      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
-      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
-      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-  </picture>
-  <!-- Initial HTML Executive Splash Screen while Flutter Canvaskit initializes -->
-  <div id="splash-loading">
-    <div class="logo-container">
-      <img src="icons/Icon-192.png" alt="Jinsei Bio Brand Logo">
-    </div>
-    <div class="brand-title">JINSEI BIO</div>
-    <div class="brand-subtitle">Microbiome &amp; Bioscience Redesign</div>
-    <div class="spinner"></div>
-  </div>
+<body style="background-color: #121414;">
 
   <script>
     window.addEventListener('load', function(ev) {
@@ -196,19 +52,11 @@
             renderer: "canvaskit"
           }).then(function(appRunner) {
             appRunner.runApp();
-            // Remove HTML splash loader once Flutter engine completes render
-            setTimeout(function() {
-              const loader = document.getElementById('splash-loading');
-              if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.remove(), 500);
-              }
-            }, 300);
           });
         }
       });
     });
   </script>
 
-
 </body></html>
+tml>
