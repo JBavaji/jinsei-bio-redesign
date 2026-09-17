@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/theme_cubit.dart';
 import '../../../core/widgets/disclaimer_banner.dart';
@@ -15,29 +16,37 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/logo/official_brand_logo.png',
-              height: 32,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.biotech_rounded,
-                color: AppColors.bioluminescentGreen,
-              ),
+        title: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () => context.go('/splash'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/logo/official_brand_logo.png',
+                  height: 32,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.biotech_rounded,
+                    color: AppColors.bioluminescentGreen,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Jinsei Bio',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                    color: isDark
+                        ? AppColors.darkTextPrimary
+                        : AppColors.lightTextPrimary,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 8),
-            Text(
-              'Jinsei Bio',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-                color: isDark
-                    ? AppColors.darkTextPrimary
-                    : AppColors.lightTextPrimary,
-              ),
-            ),
-          ],
+          ),
         ),
         actions: [
           IconButton(
