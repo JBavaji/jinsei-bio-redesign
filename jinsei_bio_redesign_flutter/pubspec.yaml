@@ -27,6 +27,9 @@ dependencies:
   # Routing
   go_router: ^13.1.0
 
+  # Storage & Persistence
+  shared_preferences: ^2.2.2
+
   # UI & Design Tokens (DESIGN.md)
   google_fonts: ^6.1.0
   flutter_animate: ^4.5.0
