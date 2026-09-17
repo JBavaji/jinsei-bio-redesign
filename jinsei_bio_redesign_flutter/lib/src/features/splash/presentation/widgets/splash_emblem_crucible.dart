@@ -44,20 +44,26 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
         Stack(
           alignment: Alignment.center,
           children: [
-            // Ambient Radial Glow Halo
+            // Ambient Bioluminescent Radial Glow Halo
             Container(
-              width: widget.size + 40,
-              height: widget.size + 40,
+              width: widget.size * 2.5,
+              height: widget.size * 2.5,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [
-                    (isDark
-                            ? AppColors.bioluminescentGreen
-                            : AppColors.primaryContainerTeal)
-                        .withValues(alpha: 0.35),
-                    Colors.transparent,
-                  ],
+                  center: Alignment.center,
+                  radius: 0.5,
+                  colors: isDark
+                      ? [
+                          const Color(0x3D0F7D8A), // Teal ambient glow
+                          const Color(0x2610B981), // Emerald ambient glow
+                          Colors.transparent,
+                        ]
+                      : [
+                          const Color(0x280F7D8A), // Light teal glow
+                          const Color(0x1810B981), // Light emerald glow
+                          Colors.transparent,
+                        ],
                 ),
               ),
             ),
@@ -85,31 +91,12 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
               },
             ),
 
-            // Official Emblem Container
-            Container(
+            // Official Emblem Image (Preserving Native Transparency)
+            Image.asset(
+              'assets/images/logo/official_brand_logo.png',
               width: widget.size,
               height: widget.size,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: (isDark
-                            ? AppColors.bioluminescentGreen
-                            : AppColors.primaryContainerTeal)
-                        .withValues(alpha: 0.3),
-                    blurRadius: 24,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/logo/official_brand_logo.png',
-                  width: widget.size,
-                  height: widget.size,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              fit: BoxFit.contain,
             )
                 .animate()
                 .scale(duration: 800.ms, curve: Curves.easeOutBack)

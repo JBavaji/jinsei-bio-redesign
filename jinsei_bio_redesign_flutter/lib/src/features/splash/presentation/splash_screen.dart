@@ -46,39 +46,8 @@ class SplashScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // Official Brand Emblem & Crucible with Localized Radial Glow
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                    width: emblemSize * 2.5,
-                                    height: emblemSize * 2.5,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      gradient: RadialGradient(
-                                        center: Alignment.center,
-                                        radius: 0.5,
-                                        colors: isDark
-                                            ? [
-                                                const Color(
-                                                    0x3D0F7D8A), // Teal ambient glow
-                                                const Color(
-                                                    0x2610B981), // Emerald ambient glow
-                                                Colors.transparent,
-                                              ]
-                                            : [
-                                                const Color(
-                                                    0x280F7D8A), // Light teal glow
-                                                const Color(
-                                                    0x1810B981), // Light emerald glow
-                                                Colors.transparent,
-                                              ],
-                                      ),
-                                    ),
-                                  ),
-                                  SplashEmblemCrucible(size: emblemSize),
-                                ],
-                              ),
+                              // Official Brand Emblem & Crucible with Encapsulated Localized Glow
+                              SplashEmblemCrucible(size: emblemSize),
                               SizedBox(height: verticalSpacing),
 
                               // Metagenomic Progress Tracker Bar driven by SplashBloc
