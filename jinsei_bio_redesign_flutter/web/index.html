@@ -22,12 +22,22 @@
 
   <style>
     html, body {
-      background-color: #121414;
       margin: 0;
       padding: 0;
       height: 100%;
       width: 100%;
       overflow: hidden;
+      background-color: #121414; /* Dark mode default */
+    }
+    @media (prefers-color-scheme: light) {
+      html, body {
+        background-color: #FFFFFF; /* Light mode */
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      html, body {
+        background-color: #121414; /* Dark mode */
+      }
     }
   </style>
 
@@ -39,7 +49,7 @@
   <script src="flutter.js" defer=""></script>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 </head>
-<body style="background-color: #121414;">
+<body>
 
   <script>
     window.addEventListener('load', function(ev) {
@@ -58,5 +68,5 @@
     });
   </script>
 
-</body></html>
-tml>
+</body>
+</html>
