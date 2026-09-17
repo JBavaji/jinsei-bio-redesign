@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'splash_event.dart';
@@ -16,10 +17,12 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     StartSplashCalibrationEvent event,
     Emitter<SplashState> emit,
   ) async {
-    // 1. Dismiss native boot splash overlay
-    try {
-      FlutterNativeSplash.remove();
-    } catch (_) {}
+    // 1. Dismiss native mobile boot splash overlay (Android / iOS)
+    if (!kIsWeb) {
+      try {
+        FlutterNativeSplash.remove();
+      } catch (_) {}
+    }
 
     // 2. Step 1 Calibration: RPC & Serverpod (30%)
     emit(state.copyWith(
