@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_theme.dart';
-import '../../../core/theme/theme_cubit.dart';
+import '../../../core/theme/theme_bloc.dart';
 import '../../../core/widgets/disclaimer_banner.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,29 +16,37 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/logo/official_brand_logo.png',
-              height: 32,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) => const Icon(
-                Icons.biotech_rounded,
-                color: AppColors.bioluminescentGreen,
-              ),
+        title: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () => context.go('/splash'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/images/logo/official_brand_logo.png',
+                  height: 32,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.biotech_rounded,
+                    color: AppColors.bioluminescentGreen,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Jinsei Bio',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.0,
+                    color: isDark
+                        ? AppColors.darkTextPrimary
+                        : AppColors.lightTextPrimary,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 8),
-            Text(
-              'Jinsei Bio',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-                color: isDark
-                    ? AppColors.darkTextPrimary
-                    : AppColors.lightTextPrimary,
-              ),
-            ),
-          ],
+          ),
         ),
         actions: [
           IconButton(
@@ -49,7 +58,7 @@ class HomeScreen extends StatelessWidget {
             ),
             tooltip: 'Toggle Dark / Light Theme',
             onPressed: () {
-              context.read<ThemeCubit>().toggleTheme();
+              context.read<ThemeBloc>().add(const ToggleThemeEvent());
             },
           ),
           const SizedBox(width: 8),
@@ -79,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 decoration: BoxDecoration(
                                   color: AppColors.bioluminescentGreen
-                                      .withOpacity(0.15),
+                                      .withValues(alpha: 0.15),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
                                     color: AppColors.bioluminescentGreen,
@@ -141,10 +150,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  Wrap(
+                  const Wrap(
                     spacing: 16,
                     runSpacing: 16,
-                    children: const [
+                    children: [
                       _TechBadge(
                         title: 'Flutter Bloc',
                         subtitle: 'Reactive State Management (ADR-005)',

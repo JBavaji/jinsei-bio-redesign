@@ -12,6 +12,7 @@ void main() {
   testWidgets('App renders JinseiBioApp successfully',
       (WidgetTester tester) async {
     await tester.pumpWidget(const JinseiBioApp());
+    await tester.pump(const Duration(seconds: 4));
     expect(find.byType(JinseiBioApp), findsOneWidget);
   });
 }
