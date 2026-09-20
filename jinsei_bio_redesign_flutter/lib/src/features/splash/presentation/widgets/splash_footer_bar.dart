@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
-import '../../../../core/widgets/disclaimer_banner.dart';
 import 'splash_footer_brand_block.dart';
 import 'splash_footer_links_block.dart';
 
@@ -25,26 +24,31 @@ class SplashFooterBar extends StatelessWidget {
           ),
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 16,
-              runSpacing: 10,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth > 900) {
+              return Row(
+                children: [
+                  SplashFooterBrandBlock(isDark: isDark),
+                  const Spacer(),
+                  SplashFooterLinksBlock(isDark: isDark),
+                ],
+              );
+            }
+
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SplashFooterBrandBlock(isDark: isDark),
+                const SizedBox(height: 8),
                 SplashFooterLinksBlock(isDark: isDark),
               ],
-            ),
-          ),
-
-          // Unofficial Redesign Disclaimer Guardrail
-          const DisclaimerBanner(),
-        ],
+            );
+          },
+        ),
       ),
     );
   }
