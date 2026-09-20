@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 class SplashEmblemCrucible extends StatefulWidget {
   final double size;
@@ -111,23 +112,25 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
           children: [
             Text(
               'JINSEI ',
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: widget.size > 110 ? 32 : 26,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 3.0,
-                    color: isDark
-                        ? AppColors.darkTextPrimary
-                        : AppColors.lightTextPrimary,
-                  ),
+              style: AppTypography.displayLarge(
+                color: isDark
+                    ? AppColors.darkTextPrimary
+                    : AppColors.lightTextPrimary,
+                fontSize: widget.size > 110 ? 32 : 26,
+              ).copyWith(
+                fontWeight: FontWeight.w800,
+                letterSpacing: 3.0,
+              ),
             ),
             Text(
               'BIOSCIENCE',
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: widget.size > 110 ? 32 : 26,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 3.0,
-                    color: AppColors.primaryContainerTeal,
-                  ),
+              style: AppTypography.displayLarge(
+                color: AppColors.primaryContainerTeal,
+                fontSize: widget.size > 110 ? 32 : 26,
+              ).copyWith(
+                fontWeight: FontWeight.w800,
+                letterSpacing: 3.0,
+              ),
             ),
           ],
         )
@@ -138,3 +141,4 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
     );
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 class SplashProtocolChips extends StatelessWidget {
   const SplashProtocolChips({super.key});
@@ -59,12 +60,13 @@ class SplashProtocolChips extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 c.label,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
+                style: AppTypography.bodySmall(
                   color: isDark
                       ? AppColors.darkTextSecondary
                       : AppColors.lightTextPrimary,
+                  fontSize: 11,
+                ).copyWith(
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -81,3 +83,4 @@ class _ChipData {
 
   _ChipData({required this.dotColor, required this.label});
 }
+

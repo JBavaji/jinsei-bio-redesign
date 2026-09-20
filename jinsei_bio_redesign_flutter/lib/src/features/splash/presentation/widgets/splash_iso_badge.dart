@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 /// Responsive ISO Certification & Facility Badge for the header.
 class SplashIsoBadge extends StatelessWidget {
@@ -45,11 +46,12 @@ class SplashIsoBadge extends StatelessWidget {
                     ? 'ISO 9001:2015'
                     : 'ISO 9001:2015 • NCL Innovation Park',
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: AppTypography.bodySmall(
+                  color: AppColors.primaryContainerTeal,
                   fontSize: 10,
+                ).copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'monospace',
-                  color: AppColors.primaryContainerTeal,
                 ),
               ),
             ),
@@ -59,3 +61,4 @@ class SplashIsoBadge extends StatelessWidget {
     );
   }
 }
+
