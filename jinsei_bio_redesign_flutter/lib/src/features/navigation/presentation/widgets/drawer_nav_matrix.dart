@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/theme/app_theme.dart';
 import '../bloc/navigation_bloc.dart';
 import '../bloc/navigation_event.dart';
 import '../bloc/navigation_state.dart';
@@ -17,52 +16,35 @@ class DrawerNavMatrix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'NAVIGATION MATRIX',
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
-            color: isDark
-                ? AppColors.darkTextSecondary
-                : AppColors.lightTextSecondary,
-          ),
-        ),
-        const SizedBox(height: 12),
-        BlocBuilder<NavigationBloc, NavigationState>(
-          builder: (context, navState) {
-            final mobileItems =
-                navState.items.where((item) => item.isMobileVisible).toList();
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, navState) {
+        final mobileItems =
+            navState.items.where((item) => item.isMobileVisible).toList();
 
-            return Column(
-              children: mobileItems.map((item) {
-                final isActive = navState.activeRoute == item.route ||
-                    (item.route == '/' && navState.activeRoute == '/home');
+        return Column(
+          children: mobileItems.map((item) {
+            final isActive = navState.activeRoute == item.route ||
+                (item.route == '/' && navState.activeRoute == '/home');
 
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: MobileNavItem(
-                    title: item.title,
-                    iconKey: item.iconKey,
-                    isActive: isActive,
-                    isDark: isDark,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      context.read<NavigationBloc>().add(
-                            SelectNavItemEvent(item.route),
-                          );
-                      context.go(item.route);
-                    },
-                  ),
-                );
-              }).toList(),
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: MobileNavItem(
+                title: item.title,
+                isActive: isActive,
+                isDark: isDark,
+                onTap: () {
+                  Navigator.of(context).pop();
+                  context.read<NavigationBloc>().add(
+                        SelectNavItemEvent(item.route),
+                      );
+                  context.go(item.route);
+                },
+              ),
             );
-          },
-        ),
-      ],
+          }).toList(),
+        );
+      },
     );
   }
 }
+
