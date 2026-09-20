@@ -5,6 +5,7 @@ import 'drawer_header_block.dart';
 import 'drawer_info_section.dart';
 import 'drawer_nav_matrix.dart';
 import 'drawer_theme_switcher.dart';
+import 'sample_button.dart';
 
 class AppMobileNavDrawer extends StatelessWidget {
   final VoidCallback? onRequestB2bSample;
@@ -58,29 +59,14 @@ class AppMobileNavDrawer extends StatelessWidget {
                         children: [
                           DrawerNavMatrix(isDark: isDark),
                           const SizedBox(height: 16),
-                          SizedBox(
+                          SampleButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              onRequestB2bSample?.call();
+                            },
                             width: double.infinity,
                             height: 44,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                onRequestB2bSample?.call();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.emeraldGreen,
-                                foregroundColor: AppColors.darkObsidianBg,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: const Text(
-                                'Request B2B Sample',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
+                            borderRadius: 10,
                           ),
                           const SizedBox(height: 24),
                           Divider(

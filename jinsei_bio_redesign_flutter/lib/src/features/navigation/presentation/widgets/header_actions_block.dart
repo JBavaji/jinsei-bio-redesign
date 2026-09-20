@@ -80,7 +80,7 @@ class HeaderActionsBlock extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
           ),
-          child: const Text('Sample'),
+          child: const Text('Request B2B Sample'),
         ),
         const SizedBox(width: 8),
         IconButton(
