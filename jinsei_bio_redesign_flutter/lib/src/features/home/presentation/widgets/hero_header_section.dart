@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 import 'executive_stats_bar.dart';
 
 class HeroHeaderSection extends StatelessWidget {
@@ -10,12 +11,13 @@ class HeroHeaderSection extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 900;
+    final isMobile = screenWidth <= 600;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
-        horizontal: 24,
-        vertical: isDesktop ? 64 : 40,
+        horizontal: isMobile ? 16 : 24,
+        vertical: isDesktop ? 64 : (isMobile ? 32 : 44),
       ),
       child: Center(
         child: ConstrainedBox(
@@ -26,14 +28,11 @@ class HeroHeaderSection extends StatelessWidget {
               RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: isDesktop ? 52 : 36,
-                    height: 1.15,
+                  style: AppTypography.displayLarge(
                     color: isDark
                         ? AppColors.darkTextPrimary
                         : AppColors.lightTextPrimary,
+                    fontSize: isDesktop ? 52 : (isMobile ? 28 : 38),
                   ),
                   children: [
                     const TextSpan(text: 'The Indigenous \n'),
@@ -56,22 +55,21 @@ class HeroHeaderSection extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
 
               // Subtitle
               Text(
                 'Harnessing native Lactobacillus strains through clinical R&D for global health.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: isDesktop ? 18 : 15,
-                  height: 1.5,
+                style: AppTypography.bodyMedium(
                   color: isDark
                       ? AppColors.darkTextSecondary
                       : AppColors.lightTextSecondary,
+                  fontSize: isDesktop ? 18 : (isMobile ? 14 : 16),
                 ),
               ),
 
-              const SizedBox(height: 48),
+              SizedBox(height: isMobile ? 32 : 48),
 
               // Executive Stats Bar Component
               const ExecutiveStatsBar(),
