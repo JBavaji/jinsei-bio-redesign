@@ -27,10 +27,15 @@ dependencies:
   # Routing
   go_router: ^13.1.0
 
+  # Storage & Persistence
+  shared_preferences: ^2.2.2
+
   # UI & Design Tokens (DESIGN.md)
   google_fonts: ^6.1.0
   flutter_animate: ^4.5.0
-  cupertino_icons: ^1.0.6
+  url_launcher: ^6.2.4
+  # Native Splash Screen
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +54,17 @@ flutter_launcher_icons:
     theme_color: "#7BD4E2"
   image_path: "assets/images/logo/official_brand_logo.png"
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#121414"
+  image: "assets/images/logo/official_brand_logo.png"
+  color_dark: "#121414"
+  image_dark: "assets/images/logo/official_brand_logo.png"
+  android_12:
+    image: "assets/images/logo/official_brand_logo.png"
+    color: "#121414"
+    icon_background_color: "#121414"
+  web: true
 
 flutter:
   uses-material-design: true
