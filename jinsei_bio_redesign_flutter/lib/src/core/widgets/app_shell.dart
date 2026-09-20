@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/navigation/presentation/bloc/navigation_bloc.dart';
+import '../../features/navigation/presentation/bloc/navigation_event.dart';
+import '../../features/navigation/presentation/widgets/app_header_bar.dart';
+import '../../features/navigation/presentation/widgets/app_mobile_nav_drawer.dart';
 import '../theme/app_theme.dart';
-import 'app_header_bar.dart';
-import 'app_mobile_nav_drawer.dart';
 import 'disclaimer_banner.dart';
 
 class AppShell extends StatelessWidget {
@@ -16,16 +19,19 @@ class AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
-      appBar: const AppHeaderBar(),
-      endDrawer: const AppMobileNavDrawer(),
-      body: Column(
-        children: [
-          Expanded(child: child),
-          const DisclaimerBanner(),
-        ],
+    return BlocProvider<NavigationBloc>(
+      create: (context) => NavigationBloc()..add(const LoadNavigationItemsEvent()),
+      child: Scaffold(
+        backgroundColor:
+            isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
+        appBar: const AppHeaderBar(),
+        endDrawer: const AppMobileNavDrawer(),
+        body: Column(
+          children: [
+            Expanded(child: child),
+            const DisclaimerBanner(),
+          ],
+        ),
       ),
     );
   }
