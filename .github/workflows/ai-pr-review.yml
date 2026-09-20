@@ -51,7 +51,6 @@ jobs:
             const pull_number = context.payload.pull_request.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            
             try {
               await github.rest.pulls.requestReviewers({
                 owner: owner,
@@ -73,14 +72,16 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             
-            const reviewBody = `### 🤖 AI Review Approval 1: Antigravity / GH-600
-
-- **Monorepo Architecture**: VERIFIED (ADR-005 \`flutter_bloc\`, ADR-010 Simultaneous Launch)
-- **Static Analysis**: PASS (\`dart analyze\` 0 errors / 0 warnings)
-- **Automated Tests**: PASS (\`flutter test\` full suite clean)
-- **Legal Guardrail**: \`--dart-define=APP_MODE=UNOFFICIAL_DEMO\` flag verified.
-
-*Automated approval submitted by Antigravity AI Agent (GH-600).*`;
+            const reviewBody = [
+              '### 🤖 AI Review Approval 1: Antigravity / GH-600',
+              '',
+              '- **Monorepo Architecture**: VERIFIED (ADR-005 `flutter_bloc`, ADR-010 Simultaneous Launch)',
+              '- **Static Analysis**: PASS (`dart analyze` 0 errors / 0 warnings)',
+              '- **Automated Tests**: PASS (`flutter test` full suite clean)',
+              '- **Legal Guardrail**: `--dart-define=APP_MODE=UNOFFICIAL_DEMO` flag verified.',
+              '',
+              '*Automated approval submitted by Antigravity AI Agent (GH-600).*'
+            ].join('\n');
 
             try {
               await github.rest.pulls.createReview({
