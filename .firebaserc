@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "jinsei-bio-redesign",
+    "staging": "jinsei-bio-staging"
+  }
+}
