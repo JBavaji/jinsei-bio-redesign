@@ -1,0 +1,4 @@
+# CODEOWNERS — Automated AI Reviewer Assignment
+
+# Assign AI Agent reviewers to all pull requests automatically
+* @antigravity-ai-bot
