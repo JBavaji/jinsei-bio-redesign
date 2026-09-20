@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 class MobileNavItem extends StatelessWidget {
   final String title;
   final String iconKey;
@@ -37,6 +39,11 @@ class MobileNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconData = _getIconData(iconKey);
+    final textColor = isActive
+        ? AppColors.cyanInteractive
+        : (isDark
+            ? AppColors.darkTextPrimary
+            : AppColors.lightTextPrimary);
 
     return InkWell(
       onTap: onTap,
@@ -67,15 +74,9 @@ class MobileNavItem extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               title,
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 14,
-                fontWeight: isActive ? FontWeight.bold : FontWeight.w600,
-                color: isActive
-                    ? AppColors.cyanInteractive
-                    : (isDark
-                        ? AppColors.darkTextPrimary
-                        : AppColors.lightTextPrimary),
+              style: AppTypography.navItemMobile(
+                color: textColor,
+                isActive: isActive,
               ),
             ),
             const Spacer(),

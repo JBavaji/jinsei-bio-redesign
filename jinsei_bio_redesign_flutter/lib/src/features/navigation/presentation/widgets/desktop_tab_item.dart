@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 class DesktopTabItem extends StatelessWidget {
   final String title;
@@ -17,6 +18,12 @@ class DesktopTabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = isActive
+        ? AppColors.cyanInteractive
+        : (isDark
+            ? AppColors.darkTextSecondary
+            : AppColors.lightTextSecondary);
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(4),
@@ -27,16 +34,9 @@ class DesktopTabItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.0,
-                color: isActive
-                    ? AppColors.cyanInteractive
-                    : (isDark
-                        ? AppColors.darkTextSecondary
-                        : AppColors.lightTextSecondary),
+              style: AppTypography.navTabDesktop(
+                color: textColor,
+                isActive: isActive,
               ),
             ),
             if (isActive)

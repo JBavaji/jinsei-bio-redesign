@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'app_typography.dart';
 
 class AppColors {
   // Primary & Accent Brand Tokens from Stitch Project 436455633155776431
@@ -47,34 +47,14 @@ class AppTheme {
         onSurface: AppColors.darkTextPrimary,
         outline: AppColors.darkBorder,
       ),
-      textTheme:
-          GoogleFonts.interTextTheme(ThemeData.dark().textTheme).copyWith(
-        displayLarge: GoogleFonts.montserrat(
-          color: AppColors.darkTextPrimary,
-          fontSize: 48,
-          fontWeight: FontWeight.bold,
-          letterSpacing: -0.5,
-        ),
-        displayMedium: GoogleFonts.montserrat(
-          color: AppColors.darkTextPrimary,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineMedium: GoogleFonts.montserrat(
-          color: AppColors.darkTextPrimary,
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-        ),
-        bodyLarge:
-            GoogleFonts.inter(color: AppColors.darkTextPrimary, fontSize: 18),
-        bodyMedium:
-            GoogleFonts.inter(color: AppColors.darkTextSecondary, fontSize: 16),
-        labelLarge: GoogleFonts.inter(
-          color: AppColors.bioluminescentGreen,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 1.2,
-        ),
+      textTheme: TextTheme(
+        displayLarge: AppTypography.displayLarge(color: AppColors.darkTextPrimary),
+        displayMedium: AppTypography.displayMedium(color: AppColors.darkTextPrimary),
+        headlineMedium: AppTypography.headlineMedium(color: AppColors.darkTextPrimary),
+        bodyLarge: AppTypography.bodyLarge(color: AppColors.darkTextPrimary),
+        bodyMedium: AppTypography.bodyMedium(color: AppColors.darkTextSecondary),
+        bodySmall: AppTypography.bodySmall(color: AppColors.darkTextSecondary),
+        labelLarge: AppTypography.labelCaps(color: AppColors.bioluminescentGreen),
       ),
       cardTheme: CardThemeData(
         color: AppColors.darkSurfaceCard,
@@ -100,34 +80,14 @@ class AppTheme {
         onSurface: AppColors.lightTextPrimary,
         outline: AppColors.lightBorder,
       ),
-      textTheme:
-          GoogleFonts.interTextTheme(ThemeData.light().textTheme).copyWith(
-        displayLarge: GoogleFonts.montserrat(
-          color: AppColors.lightTextPrimary,
-          fontSize: 48,
-          fontWeight: FontWeight.bold,
-          letterSpacing: -0.5,
-        ),
-        displayMedium: GoogleFonts.montserrat(
-          color: AppColors.lightTextPrimary,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-        headlineMedium: GoogleFonts.montserrat(
-          color: AppColors.lightTextPrimary,
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-        ),
-        bodyLarge:
-            GoogleFonts.inter(color: AppColors.lightTextPrimary, fontSize: 18),
-        bodyMedium: GoogleFonts.inter(
-            color: AppColors.lightTextSecondary, fontSize: 16),
-        labelLarge: GoogleFonts.inter(
-          color: AppColors.primaryContainerTeal,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 1.2,
-        ),
+      textTheme: TextTheme(
+        displayLarge: AppTypography.displayLarge(color: AppColors.lightTextPrimary),
+        displayMedium: AppTypography.displayMedium(color: AppColors.lightTextPrimary),
+        headlineMedium: AppTypography.headlineMedium(color: AppColors.lightTextPrimary),
+        bodyLarge: AppTypography.bodyLarge(color: AppColors.lightTextPrimary),
+        bodyMedium: AppTypography.bodyMedium(color: AppColors.lightTextSecondary),
+        bodySmall: AppTypography.bodySmall(color: AppColors.lightTextSecondary),
+        labelLarge: AppTypography.labelCaps(color: AppColors.primaryContainerTeal),
       ),
       cardTheme: CardThemeData(
         color: AppColors.lightSurfaceCard,

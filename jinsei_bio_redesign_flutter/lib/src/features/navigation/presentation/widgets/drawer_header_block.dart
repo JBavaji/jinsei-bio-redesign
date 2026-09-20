@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 class DrawerHeaderBlock extends StatelessWidget {
   final bool isDark;
@@ -13,6 +14,9 @@ class DrawerHeaderBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleColor =
+        isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
@@ -33,24 +37,16 @@ class DrawerHeaderBlock extends StatelessWidget {
             children: [
               Text(
                 'JINSEI',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.bold,
+                style: AppTypography.brandLogoTitle(
+                  color: titleColor,
                   fontSize: 14,
-                  letterSpacing: 1.5,
-                  color: isDark
-                      ? AppColors.darkTextPrimary
-                      : AppColors.lightTextPrimary,
                 ),
               ),
-              const Text(
+              Text(
                 'BIOSCIENCE',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 9,
-                  letterSpacing: 2.0,
+                style: AppTypography.brandLogoSubtitle(
                   color: AppColors.cyanInteractive,
+                  fontSize: 9,
                 ),
               ),
             ],
