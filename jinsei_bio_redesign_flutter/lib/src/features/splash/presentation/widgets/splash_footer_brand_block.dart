@@ -17,7 +17,7 @@ class SplashFooterBrandBlock extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(
-          'JINSEI ',
+          'JINSEI',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 11,
@@ -25,6 +25,7 @@ class SplashFooterBrandBlock extends StatelessWidget {
                 isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
           ),
         ),
+        const SizedBox(width: 4),
         const Text(
           'BIOSCIENCE',
           style: TextStyle(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
 import 'package:jinsei_bio_redesign/src/core/theme/theme_bloc.dart';
+import 'package:jinsei_bio_redesign/src/core/widgets/app_shell.dart';
 import 'package:jinsei_bio_redesign/src/features/home/presentation/home_screen.dart';
 
 void main() {
@@ -12,12 +14,22 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
+    final router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const AppShell(child: HomeScreen()),
+        ),
+      ],
+    );
+
     await tester.pumpWidget(
       BlocProvider<ThemeBloc>(
         create: (context) => ThemeBloc(),
-        child: MaterialApp(
+        child: MaterialApp.router(
           theme: AppTheme.darkTheme,
-          home: const HomeScreen(),
+          routerConfig: router,
         ),
       ),
     );
