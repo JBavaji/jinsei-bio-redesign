@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_bloc.dart';
+import 'sample_button.dart';
 
 class HeaderActionsBlock extends StatelessWidget {
   final bool isDark;
@@ -42,22 +42,11 @@ class HeaderActionsBlock extends StatelessWidget {
             },
           ),
           const SizedBox(width: 12),
-          ElevatedButton(
-            onPressed: onRequestB2bSample ?? () => context.go('/'),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.emeraldGreen,
-              foregroundColor: AppColors.darkObsidianBg,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-              textStyle: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13,
-                letterSpacing: 0.5,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            child: const Text('Request B2B Sample'),
+          SampleButton(
+            onPressed: onRequestB2bSample,
+            label: 'Request B2B Sample',
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            fontSize: 13,
           ),
         ],
       );
@@ -66,21 +55,11 @@ class HeaderActionsBlock extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ElevatedButton(
-          onPressed: onRequestB2bSample ?? () => context.go('/'),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.emeraldGreen,
-            foregroundColor: AppColors.darkObsidianBg,
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ),
-          child: const Text('Request B2B Sample'),
+        SampleButton(
+          onPressed: onRequestB2bSample,
+          label: 'Sample',
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          fontSize: 12,
         ),
         const SizedBox(width: 8),
         IconButton(

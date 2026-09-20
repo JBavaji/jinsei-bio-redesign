@@ -18,7 +18,7 @@ class SampleButton extends StatelessWidget {
     this.onPressed,
     this.label = 'Request B2B Sample',
     this.padding,
-    this.fontSize = 13,
+    this.fontSize = 12,
     this.borderRadius = 6,
     this.width,
     this.height,
@@ -32,11 +32,10 @@ class SampleButton extends StatelessWidget {
         backgroundColor: AppColors.emeraldGreen,
         foregroundColor: AppColors.darkObsidianBg,
         padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         textStyle: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: fontSize,
-          letterSpacing: 0.5,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
