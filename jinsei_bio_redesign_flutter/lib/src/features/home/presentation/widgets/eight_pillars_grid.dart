@@ -17,16 +17,16 @@ class EightPillarsGrid extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth <= 600;
-    final isTablet = screenWidth > 600 && screenWidth <= 1000;
+    final isTablet = screenWidth > 600 && screenWidth <= 1024;
 
     int crossAxisCount = 4;
-    double mainAxisExtent = 200;
+    double mainAxisExtent = 220;
     if (isMobile) {
       crossAxisCount = 1;
-      mainAxisExtent = 110;
+      mainAxisExtent = 115;
     } else if (isTablet) {
       crossAxisCount = 2;
-      mainAxisExtent = 150;
+      mainAxisExtent = 190;
     }
 
     return Container(

@@ -20,7 +20,7 @@ class PillarCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(isMobile ? 14 : 20),
+      padding: EdgeInsets.all(isMobile ? 14 : 16),
       decoration: BoxDecoration(
         color: isDark
             ? AppColors.darkSurfaceCard.withValues(alpha: 0.8)
@@ -69,7 +69,7 @@ class PillarCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _IconBadge(pillar: pillar),
-                const SizedBox(height: 14),
+                const SizedBox(height: 12),
                 Text(
                   pillar.title,
                   style: AppTypography.headlineSmall(
@@ -79,7 +79,7 @@ class PillarCard extends StatelessWidget {
                     fontSize: 15,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6),
                 Expanded(
                   child: Text(
                     pillar.description,
@@ -89,6 +89,8 @@ class PillarCard extends StatelessWidget {
                           : AppColors.lightTextSecondary,
                       fontSize: 12,
                     ),
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
