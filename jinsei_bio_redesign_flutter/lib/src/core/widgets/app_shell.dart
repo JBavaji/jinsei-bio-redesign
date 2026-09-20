@@ -26,11 +26,14 @@ class AppShell extends StatelessWidget {
             isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
         appBar: const AppHeaderBar(),
         endDrawer: const AppMobileNavDrawer(),
-        body: Column(
-          children: [
-            Expanded(child: child),
-            const DisclaimerBanner(),
-          ],
+        body: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              Expanded(child: child),
+              const DisclaimerBanner(),
+            ],
+          ),
         ),
       ),
     );

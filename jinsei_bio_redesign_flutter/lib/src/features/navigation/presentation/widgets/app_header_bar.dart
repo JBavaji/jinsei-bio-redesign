@@ -27,7 +27,9 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
 
     context.read<NavigationBloc>().add(SyncActiveRouteEvent(currentRoute));
 
-    return LayoutBuilder(
+    return SafeArea(
+      bottom: false,
+      child: LayoutBuilder(
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 900;
 
@@ -71,6 +73,7 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         );
       },
-    );
+    ),
+  );
   }
 }
