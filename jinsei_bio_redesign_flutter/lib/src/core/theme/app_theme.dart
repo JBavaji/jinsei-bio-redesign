@@ -12,6 +12,7 @@ class AppColors {
   static const Color secondaryContainerGreen =
       Color(0xFF25A55A); // Secondary Green Container
   static const Color emeraldGreen = Color(0xFF50C878); // Override Emerald Green
+  static const Color cyanInteractive = Color(0xFF06B6D4); // Interactive Cyan Accent
 
   // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
   static const Color darkObsidianBg = Color(0xFF121414);
