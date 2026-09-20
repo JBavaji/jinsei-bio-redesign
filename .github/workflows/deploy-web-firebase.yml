@@ -44,9 +44,9 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JINSEI_BIO_STAGING }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JINSEI_BIO_REDESIGN }}'
           channelId: 'staging'
-          projectId: jinsei-bio-staging
+          projectId: jinsei-bio-redesign
 
       - name: 🚀 Deploy to Firebase Hosting (Production Release — main branch)
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
