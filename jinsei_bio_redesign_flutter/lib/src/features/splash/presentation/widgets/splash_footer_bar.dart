@@ -30,18 +30,28 @@ class SplashFooterBar extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            child: SizedBox(
-              width: double.infinity,
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                spacing: 16,
-                runSpacing: 10,
-                children: [
-                  SplashFooterBrandBlock(isDark: isDark),
-                  SplashFooterLinksBlock(isDark: isDark),
-                ],
-              ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                if (constraints.maxWidth > 900) {
+                  return Row(
+                    children: [
+                      SplashFooterBrandBlock(isDark: isDark),
+                      const Spacer(),
+                      SplashFooterLinksBlock(isDark: isDark),
+                    ],
+                  );
+                }
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SplashFooterBrandBlock(isDark: isDark),
+                    const SizedBox(height: 8),
+                    SplashFooterLinksBlock(isDark: isDark),
+                  ],
+                );
+              },
             ),
           ),
 
