@@ -62,7 +62,7 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    expect(find.text('Sample'), findsOneWidget);
+    expect(find.text('Request B2B Sample'), findsOneWidget);
     expect(find.byIcon(Icons.menu_rounded), findsOneWidget);
   });
 }

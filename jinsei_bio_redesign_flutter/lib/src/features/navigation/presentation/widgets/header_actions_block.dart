@@ -55,13 +55,15 @@ class HeaderActionsBlock extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SampleButton(
-          onPressed: onRequestB2bSample,
-          label: 'Sample',
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          fontSize: 12,
+        Flexible(
+          child: SampleButton(
+            onPressed: onRequestB2bSample,
+            label: 'Request B2B Sample',
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            fontSize: 11,
+          ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 4),
         IconButton(
           icon: const Icon(
             Icons.menu_rounded,

@@ -41,7 +41,10 @@ class SampleButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
-      child: Text(label),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(label),
+      ),
     );
 
     if (width != null || height != null) {

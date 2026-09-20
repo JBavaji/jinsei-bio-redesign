@@ -38,22 +38,27 @@ class HeaderLogoBlock extends StatelessWidget {
               size: 32,
             ),
           ),
-          const SizedBox(width: 12),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'JINSEI',
-                style: AppTypography.brandLogoTitle(color: titleColor),
-              ),
-              Text(
-                'BIOSCIENCE',
-                style: AppTypography.brandLogoSubtitle(
-                  color: AppColors.cyanInteractive,
+          const SizedBox(width: 8),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'JINSEI',
+                  style: AppTypography.brandLogoTitle(color: titleColor),
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+                Text(
+                  'BIOSCIENCE',
+                  style: AppTypography.brandLogoSubtitle(
+                    color: AppColors.cyanInteractive,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),

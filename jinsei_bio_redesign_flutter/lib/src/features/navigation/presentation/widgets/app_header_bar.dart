@@ -27,30 +27,35 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
 
     context.read<NavigationBloc>().add(SyncActiveRouteEvent(currentRoute));
 
-    return ClipRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-        child: Container(
-          height: 72,
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          decoration: BoxDecoration(
-            color: isDark
-                ? AppColors.darkObsidianBg.withValues(alpha: 0.85)
-                : Colors.white.withValues(alpha: 0.85),
-            border: Border(
-              bottom: BorderSide(
-                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-              ),
-            ),
-          ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isDesktop = constraints.maxWidth >= 900;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isDesktop = constraints.maxWidth >= 900;
 
-              return Row(
+        return ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: Container(
+              height: 72,
+              padding: EdgeInsets.symmetric(
+                horizontal: isDesktop ? 24 : 12,
+              ),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? AppColors.darkObsidianBg.withValues(alpha: 0.85)
+                    : Colors.white.withValues(alpha: 0.85),
+                border: Border(
+                  bottom: BorderSide(
+                    color:
+                        isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                  ),
+                ),
+              ),
+              child: Row(
                 children: [
-                  HeaderLogoBlock(isDark: isDark),
-                  const Spacer(),
+                  Expanded(
+                    child: HeaderLogoBlock(isDark: isDark),
+                  ),
+                  const SizedBox(width: 8),
                   if (isDesktop) ...[
                     HeaderDesktopNavRow(isDark: isDark),
                     const SizedBox(width: 24),
@@ -61,11 +66,11 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
                     onRequestB2bSample: onRequestB2bSample,
                   ),
                 ],
-              );
-            },
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
