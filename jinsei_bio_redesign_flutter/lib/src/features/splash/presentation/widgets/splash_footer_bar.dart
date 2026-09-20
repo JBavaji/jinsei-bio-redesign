@@ -29,16 +29,19 @@ class SplashFooterBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 16,
-              runSpacing: 10,
-              children: [
-                SplashFooterBrandBlock(isDark: isDark),
-                SplashFooterLinksBlock(isDark: isDark),
-              ],
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 16,
+                runSpacing: 10,
+                children: [
+                  SplashFooterBrandBlock(isDark: isDark),
+                  SplashFooterLinksBlock(isDark: isDark),
+                ],
+              ),
             ),
           ),
 
