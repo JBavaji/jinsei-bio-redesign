@@ -58,3 +58,12 @@ Before executing code, AI agents MUST reference:
 3. **Backend Stack:** MUST use Dart **Serverpod** + **PostgreSQL** for core business data. NEVER store business data in Firebase Firestore (ADR-011).
 4. **Theme Support:** MUST support both **Dark Mode** (`#0A0F1E` default) and **Light Mode** (`#FFFFFF`) driven by `ThemeCubit`.
 5. **Launch Priority:** **Splash / Launch Screen** (Priority 0) with centered logo redesign animation MUST be implemented and verified across Web, Android, and iOS before any feature screens are built (ADR-010).
+
+---
+
+## 🌿 GITHUB BRANCHING & PULL REQUEST NON-NEGOTIABLES
+
+1. **NO Direct Merges or Pushes to Protected Branches:** AI Agents MUST NEVER perform local `git merge` directly onto `develop`, `staging`, or `main`, nor execute direct `git push origin develop/staging/main`.
+2. **Mandatory GitHub PR Creation:** All feature (`feat/*`) or bugfix (`fix/*`) branch integrations MUST be submitted via GitHub Pull Request (`create_pull_request` MCP tool or `gh pr create`).
+3. **Enforce Approval Rulesets:** PRs must trigger CI status checks (`flutter analyze` & `flutter test`) and receive required AI/human approvals (`develop`: 1-2 approvals, `staging`: 3 approvals, `main`: 3 approvals) as defined in [`.github/BRANCH_PROTECTION.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/jinsei-bio-redesign/.github/BRANCH_PROTECTION.md) and [`BRANCHING_STRATEGY.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/agile-project-management/github-workflow/BRANCHING_STRATEGY.md).
+

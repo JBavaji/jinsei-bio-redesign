@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 /// Left Status Dot with continuous heartbeat pulse animation & telemetry text.
 class SplashTelemetryStatusDot extends StatefulWidget {
@@ -86,13 +87,12 @@ class _SplashTelemetryStatusDotState extends State<SplashTelemetryStatusDot>
         const SizedBox(width: 8),
         Text(
           'DIAGNOSTIC GATEWAY',
-          style: TextStyle(
-            fontSize: widget.isCompact ? 10 : 11,
-            letterSpacing: widget.isCompact ? 1.0 : 1.5,
-            fontWeight: FontWeight.w600,
+          style: AppTypography.labelCaps(
             color: isDark
                 ? AppColors.darkTextSecondary
                 : AppColors.lightTextSecondary,
+            fontSize: widget.isCompact ? 10 : 11,
+            letterSpacing: widget.isCompact ? 1.0 : 1.5,
           ),
         ),
       ],

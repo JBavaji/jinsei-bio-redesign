@@ -34,6 +34,7 @@ class ExecutiveStatsBar extends StatelessWidget {
         }
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: stats
               .map(
                 (stat) => Padding(
@@ -60,6 +61,7 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: isDark

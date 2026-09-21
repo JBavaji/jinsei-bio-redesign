@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import '../theme/app_typography.dart';
 
 class DisclaimerBanner extends StatelessWidget {
   const DisclaimerBanner({super.key});
@@ -47,12 +48,13 @@ class DisclaimerBanner extends StatelessWidget {
                     'Disclaimer: Independent UI/UX redesign concept created by Jayeshgiri Bavaji. '
                     'Not officially affiliated with or endorsed by Jinsei Bioscience Pvt. Ltd.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                    style: AppTypography.bodySmall(
                       color: isDark
                           ? AppColors.darkTextSecondary
                           : AppColors.lightTextSecondary,
+                      fontSize: 12,
+                    ).copyWith(
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),

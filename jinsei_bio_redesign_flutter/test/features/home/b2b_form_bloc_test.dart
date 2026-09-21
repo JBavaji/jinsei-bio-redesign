@@ -23,7 +23,9 @@ void main() {
       expect(bloc.state.isValid, isFalse);
     });
 
-    test('updating fields sets isValid to true when required inputs are present', () {
+    test(
+        'updating fields sets isValid to true when required inputs are present',
+        () {
       bloc.add(const FullNameChangedEvent('Dr. Jane Doe'));
       bloc.add(const CompanyChangedEvent('BioTech Labs'));
       bloc.add(const EmailChangedEvent('jane@biotechlabs.com'));

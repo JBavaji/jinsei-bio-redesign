@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_typography.dart';
 
 class SplashProgressTracker extends StatefulWidget {
   final double progress;
@@ -110,12 +111,13 @@ class _SplashProgressTrackerState extends State<SplashProgressTracker>
                       child: Text(
                         widget.statusText,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'monospace',
+                        style: AppTypography.bodySmall(
                           color: isDark
                               ? AppColors.bioluminescentGreen
                               : AppColors.primaryContainerTeal,
+                          fontSize: 12,
+                        ).copyWith(
+                          fontFamily: 'monospace',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -130,11 +132,12 @@ class _SplashProgressTrackerState extends State<SplashProgressTracker>
                       (widget.progress * _animController.value * 100).toInt();
                   return Text(
                     '$pct%',
-                    style: const TextStyle(
+                    style: AppTypography.bodySmall(
+                      color: AppColors.primaryContainerTeal,
                       fontSize: 12,
+                    ).copyWith(
                       fontFamily: 'monospace',
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primaryContainerTeal,
                     ),
                   );
                 },

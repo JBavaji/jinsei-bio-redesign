@@ -1,0 +1,42 @@
+[
+  {
+    "id": "overview",
+    "title": "Overview",
+    "route": "/",
+    "iconKey": "grid_view_rounded",
+    "isDesktopVisible": false,
+    "isMobileVisible": true
+  },
+  {
+    "id": "science",
+    "title": "SCIENCE & TECH",
+    "route": "/science",
+    "iconKey": "biotech_rounded",
+    "isDesktopVisible": true,
+    "isMobileVisible": true
+  },
+  {
+    "id": "solutions",
+    "title": "SOLUTIONS",
+    "route": "/solutions",
+    "iconKey": "hub_rounded",
+    "isDesktopVisible": true,
+    "isMobileVisible": true
+  },
+  {
+    "id": "leadership",
+    "title": "LEADERSHIP",
+    "route": "/leadership",
+    "iconKey": "people_rounded",
+    "isDesktopVisible": true,
+    "isMobileVisible": true
+  },
+  {
+    "id": "collaborations",
+    "title": "COLLABORATIONS",
+    "route": "/collaborations",
+    "iconKey": "handshake_rounded",
+    "isDesktopVisible": true,
+    "isMobileVisible": true
+  }
+]
