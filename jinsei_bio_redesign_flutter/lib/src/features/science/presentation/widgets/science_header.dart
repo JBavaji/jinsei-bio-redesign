@@ -11,36 +11,37 @@ class ScienceHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
-          'PROPRIETARY 10-STEP R&D PIPELINE',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.labelLarge?.copyWith(
-            color: AppColors.cyanInteractive,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.5,
+        Text.rich(
+          TextSpan(
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: AppColors.cyanInteractive,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.5,
+              fontSize: 13,
+            ),
+            children: const [
+              TextSpan(text: 'PROPRIETARY '),
+              TextSpan(
+                text: '10-STEP ',
+                style: TextStyle(color: AppColors.emeraldAccent),
+              ),
+              TextSpan(text: 'R&D PIPELINE'),
+            ],
           ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          'Biological Discovery & Clinical Translation Engine',
           textAlign: TextAlign.center,
-          style: theme.textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color:
-                isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
-          ),
         ),
         const SizedBox(height: 12),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 720),
           child: Text(
-            'Transforming indigenous human microbial isolates into validated therapeutic live consortia through our end-to-end multi-disciplinary research pipeline.',
+            'A clinical biological discovery engine transforming indigenous microbial isolates into validated therapeutic consortia.',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: isDark
                   ? AppColors.darkTextSecondary
                   : AppColors.lightTextSecondary,
-              height: 1.5,
+              height: 1.6,
+              letterSpacing: 0.3,
             ),
           ),
         ),
@@ -51,10 +52,10 @@ class ScienceHeader extends StatelessWidget {
             return isWide
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildMetricCards(isDark),
+                    children: _buildMetricCards(theme, isDark),
                   )
                 : Column(
-                    children: _buildMetricCards(isDark),
+                    children: _buildMetricCards(theme, isDark),
                   );
           },
         ),
@@ -62,7 +63,7 @@ class ScienceHeader extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildMetricCards(bool isDark) {
+  List<Widget> _buildMetricCards(ThemeData theme, bool isDark) {
     final metrics = [
       (
         Icons.science_rounded,
@@ -111,20 +112,22 @@ class ScienceHeader extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               m.$2,
-              style: TextStyle(
+              style: theme.textTheme.headlineMedium?.copyWith(
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
-                color: isDark ? Colors.white : Colors.black87,
+                color: isDark ? Colors.white : AppColors.lightTextPrimary,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               m.$3,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: theme.textTheme.bodySmall?.copyWith(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: AppColors.lightTextSecondary,
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.lightTextSecondary,
                 letterSpacing: 0.8,
               ),
             ),
