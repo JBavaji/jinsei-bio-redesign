@@ -61,4 +61,3 @@ class SplashIsoBadge extends StatelessWidget {
     );
   }
 }
-

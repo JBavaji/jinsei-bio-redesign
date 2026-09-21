@@ -47,9 +47,8 @@ class AppMobileNavDrawer extends StatelessWidget {
                   ),
                   Divider(
                     height: 1,
-                    color: isDark
-                        ? AppColors.darkBorder
-                        : AppColors.lightBorder,
+                    color:
+                        isDark ? AppColors.darkBorder : AppColors.lightBorder,
                   ),
                   Expanded(
                     child: SingleChildScrollView(

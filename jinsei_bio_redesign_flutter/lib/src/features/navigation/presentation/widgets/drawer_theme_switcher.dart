@@ -47,9 +47,7 @@ class DrawerThemeSwitcher extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: isDark
-                  ? AppColors.darkObsidianBg
-                  : AppColors.lightBorder,
+              color: isDark ? AppColors.darkObsidianBg : AppColors.lightBorder,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -99,9 +97,8 @@ class _ThemeSegmentButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primaryContainerTeal
-              : Colors.transparent,
+          color:
+              isSelected ? AppColors.primaryContainerTeal : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Text(

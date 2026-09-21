@@ -29,7 +29,8 @@ void main() {
     );
   }
 
-  testWidgets('AppShell renders top AppHeaderBar and DisclaimerBanner on Desktop',
+  testWidgets(
+      'AppShell renders top AppHeaderBar and DisclaimerBanner on Desktop',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -50,7 +51,8 @@ void main() {
     expect(find.textContaining('Disclaimer'), findsOneWidget);
   });
 
-  testWidgets('AppShell mobile viewport displays compact header and drawer icon',
+  testWidgets(
+      'AppShell mobile viewport displays compact header and drawer icon',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(400, 800);
     tester.view.devicePixelRatio = 1.0;

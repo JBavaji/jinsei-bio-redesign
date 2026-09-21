@@ -149,4 +149,3 @@ class _SplashProgressTrackerState extends State<SplashProgressTracker>
     );
   }
 }
-

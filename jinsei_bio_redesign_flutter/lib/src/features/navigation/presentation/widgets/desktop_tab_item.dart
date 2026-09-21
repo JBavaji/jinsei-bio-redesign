@@ -20,9 +20,7 @@ class DesktopTabItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final textColor = isActive
         ? AppColors.cyanInteractive
-        : (isDark
-            ? AppColors.darkTextSecondary
-            : AppColors.lightTextSecondary);
+        : (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary);
 
     return InkWell(
       onTap: onTap,
@@ -56,4 +54,3 @@ class DesktopTabItem extends StatelessWidget {
     );
   }
 }
-

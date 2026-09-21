@@ -66,4 +66,3 @@ class DisclaimerBanner extends StatelessWidget {
     );
   }
 }
-

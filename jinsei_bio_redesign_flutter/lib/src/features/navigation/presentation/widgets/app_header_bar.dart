@@ -30,50 +30,50 @@ class AppHeaderBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       bottom: false,
       child: LayoutBuilder(
-      builder: (context, constraints) {
-        final isDesktop = constraints.maxWidth >= 900;
+        builder: (context, constraints) {
+          final isDesktop = constraints.maxWidth >= 900;
 
-        return ClipRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-            child: Container(
-              height: 72,
-              padding: EdgeInsets.symmetric(
-                horizontal: isDesktop ? 24 : 12,
-              ),
-              decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.darkObsidianBg.withValues(alpha: 0.85)
-                    : Colors.white.withValues(alpha: 0.85),
-                border: Border(
-                  bottom: BorderSide(
-                    color:
-                        isDark ? AppColors.darkBorder : AppColors.lightBorder,
+          return ClipRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+              child: Container(
+                height: 72,
+                padding: EdgeInsets.symmetric(
+                  horizontal: isDesktop ? 24 : 12,
+                ),
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? AppColors.darkObsidianBg.withValues(alpha: 0.85)
+                      : Colors.white.withValues(alpha: 0.85),
+                  border: Border(
+                    bottom: BorderSide(
+                      color:
+                          isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                    ),
                   ),
                 ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: HeaderLogoBlock(isDark: isDark),
-                  ),
-                  const SizedBox(width: 8),
-                  if (isDesktop) ...[
-                    HeaderDesktopNavRow(isDark: isDark),
-                    const SizedBox(width: 24),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: HeaderLogoBlock(isDark: isDark),
+                    ),
+                    const SizedBox(width: 8),
+                    if (isDesktop) ...[
+                      HeaderDesktopNavRow(isDark: isDark),
+                      const SizedBox(width: 24),
+                    ],
+                    HeaderActionsBlock(
+                      isDark: isDark,
+                      isDesktop: isDesktop,
+                      onRequestB2bSample: onRequestB2bSample,
+                    ),
                   ],
-                  HeaderActionsBlock(
-                    isDark: isDark,
-                    isDesktop: isDesktop,
-                    onRequestB2bSample: onRequestB2bSample,
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        );
-      },
-    ),
-  );
+          );
+        },
+      ),
+    );
   }
 }

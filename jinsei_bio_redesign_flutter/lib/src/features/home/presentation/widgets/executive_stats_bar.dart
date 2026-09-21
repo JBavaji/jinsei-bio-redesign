@@ -75,7 +75,6 @@ class _StatCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-
           Icon(
             stat.icon,
             size: 36,

@@ -83,4 +83,3 @@ class _ChipData {
 
   _ChipData({required this.dotColor, required this.label});
 }
-

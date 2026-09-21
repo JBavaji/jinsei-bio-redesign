@@ -68,7 +68,8 @@ class ComingSoonView extends StatelessWidget {
                       shape: BoxShape.circle,
                       gradient: RadialGradient(
                         colors: [
-                          AppColors.primaryContainerTeal.withValues(alpha: 0.25),
+                          AppColors.primaryContainerTeal
+                              .withValues(alpha: 0.25),
                           AppColors.bioluminescentGreen.withValues(alpha: 0.05),
                         ],
                       ),
@@ -94,7 +95,8 @@ class ComingSoonView extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: isDark
                           ? AppColors.darkObsidianBg
-                          : AppColors.primaryContainerTeal.withValues(alpha: 0.1),
+                          : AppColors.primaryContainerTeal
+                              .withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
                         color: AppColors.primaryContainerTeal.withValues(

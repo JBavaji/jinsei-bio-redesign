@@ -21,7 +21,9 @@ void main() {
       expect(navigationBloc.state.items, isEmpty);
     });
 
-    test('LoadNavigationItemsEvent emits NavigationLoaded with fallback or JSON items', () async {
+    test(
+        'LoadNavigationItemsEvent emits NavigationLoaded with fallback or JSON items',
+        () async {
       navigationBloc.add(const LoadNavigationItemsEvent());
       await expectLater(
         navigationBloc.stream,
@@ -38,7 +40,8 @@ void main() {
       await expectLater(
         navigationBloc.stream,
         emits(
-          isA<NavigationLoaded>().having((s) => s.activeRoute, 'activeRoute', '/science'),
+          isA<NavigationLoaded>()
+              .having((s) => s.activeRoute, 'activeRoute', '/science'),
         ),
       );
     });
@@ -48,7 +51,8 @@ void main() {
       await expectLater(
         navigationBloc.stream,
         emits(
-          isA<NavigationLoaded>().having((s) => s.activeRoute, 'activeRoute', '/solutions'),
+          isA<NavigationLoaded>()
+              .having((s) => s.activeRoute, 'activeRoute', '/solutions'),
         ),
       );
     });

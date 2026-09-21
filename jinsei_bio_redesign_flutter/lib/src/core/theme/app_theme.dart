@@ -12,7 +12,8 @@ class AppColors {
   static const Color secondaryContainerGreen =
       Color(0xFF25A55A); // Secondary Green Container
   static const Color emeraldGreen = Color(0xFF50C878); // Override Emerald Green
-  static const Color cyanInteractive = Color(0xFF06B6D4); // Interactive Cyan Accent
+  static const Color cyanInteractive =
+      Color(0xFF06B6D4); // Interactive Cyan Accent
 
   // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
   static const Color darkObsidianBg = Color(0xFF121414);
@@ -48,13 +49,18 @@ class AppTheme {
         outline: AppColors.darkBorder,
       ),
       textTheme: TextTheme(
-        displayLarge: AppTypography.displayLarge(color: AppColors.darkTextPrimary),
-        displayMedium: AppTypography.displayMedium(color: AppColors.darkTextPrimary),
-        headlineMedium: AppTypography.headlineMedium(color: AppColors.darkTextPrimary),
+        displayLarge:
+            AppTypography.displayLarge(color: AppColors.darkTextPrimary),
+        displayMedium:
+            AppTypography.displayMedium(color: AppColors.darkTextPrimary),
+        headlineMedium:
+            AppTypography.headlineMedium(color: AppColors.darkTextPrimary),
         bodyLarge: AppTypography.bodyLarge(color: AppColors.darkTextPrimary),
-        bodyMedium: AppTypography.bodyMedium(color: AppColors.darkTextSecondary),
+        bodyMedium:
+            AppTypography.bodyMedium(color: AppColors.darkTextSecondary),
         bodySmall: AppTypography.bodySmall(color: AppColors.darkTextSecondary),
-        labelLarge: AppTypography.labelCaps(color: AppColors.bioluminescentGreen),
+        labelLarge:
+            AppTypography.labelCaps(color: AppColors.bioluminescentGreen),
       ),
       cardTheme: CardThemeData(
         color: AppColors.darkSurfaceCard,
@@ -81,13 +87,18 @@ class AppTheme {
         outline: AppColors.lightBorder,
       ),
       textTheme: TextTheme(
-        displayLarge: AppTypography.displayLarge(color: AppColors.lightTextPrimary),
-        displayMedium: AppTypography.displayMedium(color: AppColors.lightTextPrimary),
-        headlineMedium: AppTypography.headlineMedium(color: AppColors.lightTextPrimary),
+        displayLarge:
+            AppTypography.displayLarge(color: AppColors.lightTextPrimary),
+        displayMedium:
+            AppTypography.displayMedium(color: AppColors.lightTextPrimary),
+        headlineMedium:
+            AppTypography.headlineMedium(color: AppColors.lightTextPrimary),
         bodyLarge: AppTypography.bodyLarge(color: AppColors.lightTextPrimary),
-        bodyMedium: AppTypography.bodyMedium(color: AppColors.lightTextSecondary),
+        bodyMedium:
+            AppTypography.bodyMedium(color: AppColors.lightTextSecondary),
         bodySmall: AppTypography.bodySmall(color: AppColors.lightTextSecondary),
-        labelLarge: AppTypography.labelCaps(color: AppColors.primaryContainerTeal),
+        labelLarge:
+            AppTypography.labelCaps(color: AppColors.primaryContainerTeal),
       ),
       cardTheme: CardThemeData(
         color: AppColors.lightSurfaceCard,

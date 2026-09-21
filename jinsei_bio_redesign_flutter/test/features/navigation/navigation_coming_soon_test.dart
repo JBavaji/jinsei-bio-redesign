@@ -28,7 +28,8 @@ void main() {
     );
   }
 
-  testWidgets('Navigating to /science displays Science & Technology Coming Soon page',
+  testWidgets(
+      'Navigating to /science displays Science & Technology Coming Soon page',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -43,7 +44,8 @@ void main() {
     expect(find.byIcon(Icons.biotech_rounded), findsWidgets);
   });
 
-  testWidgets('Navigating to /solutions displays Commercial Solutions Coming Soon page',
+  testWidgets(
+      'Navigating to /solutions displays Commercial Solutions Coming Soon page',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -58,7 +60,8 @@ void main() {
     expect(find.byIcon(Icons.hub_rounded), findsWidgets);
   });
 
-  testWidgets('Navigating to /leadership displays Leadership & Advisory Coming Soon page',
+  testWidgets(
+      'Navigating to /leadership displays Leadership & Advisory Coming Soon page',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -73,7 +76,8 @@ void main() {
     expect(find.byIcon(Icons.people_rounded), findsWidgets);
   });
 
-  testWidgets('Navigating to /collaborations displays Global Collaborations Coming Soon page',
+  testWidgets(
+      'Navigating to /collaborations displays Global Collaborations Coming Soon page',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
