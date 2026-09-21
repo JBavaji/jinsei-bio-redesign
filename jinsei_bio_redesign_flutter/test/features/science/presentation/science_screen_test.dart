@@ -17,8 +17,13 @@ void main() {
 
       expect(find.text('PROPRIETARY 10-STEP R&D PIPELINE'), findsOneWidget);
       expect(find.text('Pipeline Milestones'), findsOneWidget);
-      expect(find.text('Target Product Identification'), findsOneWidget);
-      expect(find.text('Metagenomic Strain Isolation'), findsOneWidget);
+      expect(
+          find.text('Target Consumer Product Identification'), findsOneWidget);
+      expect(
+        find.text(
+            'Application-Specific Strain Identification & Characterization'),
+        findsOneWidget,
+      );
     });
   });
 }

@@ -4,6 +4,7 @@ import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
 import 'bloc/science_stepper_bloc.dart';
 import 'bloc/science_stepper_event.dart';
 import 'bloc/science_stepper_state.dart';
+import 'widgets/clinical_quality_banner.dart';
 import 'widgets/science_header.dart';
 import 'widgets/science_stepper_timeline.dart';
 
@@ -67,7 +68,9 @@ class _ScienceScreenView extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 48),
+              const ClinicalQualityBanner(),
+              const SizedBox(height: 40),
             ],
           ),
         ),

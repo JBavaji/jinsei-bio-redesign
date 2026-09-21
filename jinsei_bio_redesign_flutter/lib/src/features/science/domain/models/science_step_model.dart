@@ -17,7 +17,7 @@ class ScienceStepModel {
   final IconData icon;
   final String metricValue;
   final String metricLabel;
-  final bool isCompleted;
+  final String imageUrl;
 
   const ScienceStepModel({
     required this.stepNumber,
@@ -28,119 +28,130 @@ class ScienceStepModel {
     required this.icon,
     required this.metricValue,
     required this.metricLabel,
-    this.isCompleted = true,
+    required this.imageUrl,
   });
 
   static List<ScienceStepModel> get defaultSteps => const [
         ScienceStepModel(
           stepNumber: 1,
-          title: 'Target Product Identification',
+          title: 'Target Consumer Product Identification',
           subtitle: 'Metagenomic Biomarker Mapping',
           description:
-              'Identification of gut microbiota deficiencies and strain requirements using high-throughput WGS data.',
+              'We begin by working with you to clearly define the target consumer product and its intended benefit. This provides immediate application to a market.',
           category: ScienceStepCategory.discovery,
           icon: Icons.search_rounded,
           metricValue: '99.4%',
           metricLabel: 'Target Precision',
+          imageUrl: 'assets/images/science/step_01.jpg',
         ),
         ScienceStepModel(
           stepNumber: 2,
-          title: 'Metagenomic Strain Isolation',
+          title:
+              'Application-Specific Strain Identification & Characterization',
           subtitle: 'Anaerobic Cultivation Protocol',
           description:
-              'Isolation and purifying of novel indigenous human gut isolates in specialized anaerobic workstations.',
+              'We partner with you to identify, screen and characterize indigenous strains, isolating their functional traits to your specific product requirements.',
           category: ScienceStepCategory.discovery,
           icon: Icons.biotech_rounded,
           metricValue: '500+',
           metricLabel: 'Strains Isolated',
+          imageUrl: 'assets/images/science/step_02.jpg',
         ),
         ScienceStepModel(
           stepNumber: 3,
-          title: 'WGS Bio-Analytics & Annotation',
-          subtitle: 'Bioinformatics Pipeline',
+          title: 'Upstream & Downstream Optimization',
+          subtitle: 'Bioinformatics & Fermentation',
           description:
-              'Full genomic sequencing, functional gene annotation, antibiotic resistance profiling, and safety screening.',
+              'We optimize microbial fermentation conditions to ensure high biomass density and scalable yield while establishing post-fermentation stability.',
           category: ScienceStepCategory.analytics,
           icon: Icons.analytics_rounded,
           metricValue: '100%',
           metricLabel: 'Sequence Coverage',
+          imageUrl: 'assets/images/science/step_03.jpg',
         ),
         ScienceStepModel(
           stepNumber: 4,
-          title: 'Consortia Compatibility Matrix',
+          title: 'Pro-Plant Scale Strain Development',
           subtitle: 'In-Vitro Synergistic Modeling',
           description:
-              'Algorithmic selection of complementary bacterial strains to form stable, non-antagonistic live consortia.',
+              'Our R&D team moves to a pro-plant scale strain development phase including robust strain optimization, scale-up feasibility and product performance testing.',
           category: ScienceStepCategory.formulation,
           icon: Icons.hub_rounded,
           metricValue: '10M+',
           metricLabel: 'Pairs Evaluated',
+          imageUrl: 'assets/images/science/step_04.jpg',
         ),
         ScienceStepModel(
           stepNumber: 5,
-          title: 'Bioreactor Scale-Up Protocol',
+          title: 'Formulation & Formats',
           subtitle: 'Fermentation Optimization',
           description:
-              'Optimization of high-density fermentation parameters to maximize biomass yield and cell viability.',
+              'We optimize post-processing of candidate ingredients for full compatibility with specific matrix and packaging formats, maintaining a scale-viable workflow.',
           category: ScienceStepCategory.formulation,
           icon: Icons.precision_manufacturing_rounded,
           metricValue: '10^11',
           metricLabel: 'CFU/g Yield',
+          imageUrl: 'assets/images/science/step_05.jpg',
         ),
         ScienceStepModel(
           stepNumber: 6,
-          title: 'Clinical Safety Screening',
+          title: 'Product-Specific Bioactivity Systemization',
           subtitle: 'In-Vivo Toxicity Studies',
           description:
-              'Rigorous pre-clinical safety, immunogenicity, and metabolite safety evaluations across validated animal models.',
+              'We validate bioactivities and bioactivity data in rigorous clinical frameworks, generating rich numerical evidence to support specific claims.',
           category: ScienceStepCategory.clinical,
           icon: Icons.security_rounded,
           metricValue: '0',
           metricLabel: 'Adverse Events',
+          imageUrl: 'assets/images/science/step_06.jpg',
         ),
         ScienceStepModel(
           stepNumber: 7,
-          title: 'Efficacy Trial Validation',
+          title: 'Scaling for Commercialization',
           subtitle: 'Randomized Double-Blind Studies',
           description:
-              'Human clinical trials assessing biological efficacy, gut colonization persistence, and symptom reduction.',
+              'We seamlessly transfer the manufacturing process from pilot to commercial scale, guaranteeing consistent quality and performance for large-volume production.',
           category: ScienceStepCategory.clinical,
           icon: Icons.verified_rounded,
           metricValue: '88%',
           metricLabel: 'Efficacy Rate',
+          imageUrl: 'assets/images/science/step_07.jpg',
         ),
         ScienceStepModel(
           stepNumber: 8,
-          title: 'Regulatory Dossier Compilation',
+          title: 'Shelf Life Stability & Field Trials',
           subtitle: 'FDA & DCGI Compliance',
           description:
-              'Filing comprehensive safety, manufacturing, and clinical dossiers for live biotherapeutic product approval.',
+              'Our Formulations are engineered for robust shelf life with proven viability retention, supported by stability testing and real-world field trials.',
           category: ScienceStepCategory.clinical,
           icon: Icons.assignment_rounded,
           metricValue: '3',
           metricLabel: 'Patents Filed',
+          imageUrl: 'assets/images/science/step_08.jpg',
         ),
         ScienceStepModel(
           stepNumber: 9,
-          title: 'Industrial Batch Manufacturing',
+          title: 'Regulatory Compliance',
           subtitle: 'cGMP Freeze-Drying Facility',
           description:
-              'Lyophilization and protective micro-encapsulation under cGMP standards for extended shelf-life stability.',
+              'We help navigate complex regulatory standards, ensuring compliance against international accreditation and validation of the final product.',
           category: ScienceStepCategory.commercial,
           icon: Icons.factory_rounded,
           metricValue: '24 Mo.',
           metricLabel: 'Shelf Stability',
+          imageUrl: 'assets/images/science/step_09.jpg',
         ),
         ScienceStepModel(
           stepNumber: 10,
-          title: 'Commercial Market Deployment',
+          title: 'Continuous Improvement of Strains & Process',
           subtitle: 'B2B & B2C Distribution',
           description:
-              'Global supply chain distribution of validated biological therapeutic formulations to health partners.',
+              'Through data-driven R&D iterations, we refine strains, formulations, and scale-up processes for continuous enhancement of product efficiency.',
           category: ScienceStepCategory.commercial,
           icon: Icons.local_shipping_rounded,
           metricValue: '4',
           metricLabel: 'Vertical Markets',
+          imageUrl: 'assets/images/science/step_10.jpg',
         ),
       ];
 }
