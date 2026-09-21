@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/hoverable_metric_card.dart';
 
 class ScienceHeader extends StatelessWidget {
   const ScienceHeader({super.key});
@@ -52,10 +53,10 @@ class ScienceHeader extends StatelessWidget {
             return isWide
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildMetricCards(theme, isDark),
+                    children: _buildMetricCards(),
                   )
                 : Column(
-                    children: _buildMetricCards(theme, isDark),
+                    children: _buildMetricCards(),
                   );
           },
         ),
@@ -63,7 +64,7 @@ class ScienceHeader extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildMetricCards(ThemeData theme, bool isDark) {
+  List<Widget> _buildMetricCards() {
     final metrics = [
       (
         Icons.science_rounded,
@@ -86,53 +87,12 @@ class ScienceHeader extends StatelessWidget {
     ];
 
     return metrics.map((m) {
-      return Container(
+      return HoverableMetricCard(
         width: 220,
-        margin: const EdgeInsets.all(8),
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: isDark
-              ? AppColors.darkSurface.withOpacity(0.85)
-              : AppColors.lightSurface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: m.$4.withOpacity(0.12),
-              blurRadius: 16,
-              spreadRadius: 1,
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Icon(m.$1, color: m.$4, size: 28),
-            const SizedBox(height: 8),
-            Text(
-              m.$2,
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-                color: isDark ? Colors.white : AppColors.lightTextPrimary,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              m.$3,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall?.copyWith(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: isDark
-                    ? AppColors.darkTextSecondary
-                    : AppColors.lightTextSecondary,
-                letterSpacing: 0.8,
-              ),
-            ),
-          ],
-        ),
+        icon: m.$1,
+        value: m.$2,
+        label: m.$3,
+        accentColor: m.$4,
       );
     }).toList();
   }
