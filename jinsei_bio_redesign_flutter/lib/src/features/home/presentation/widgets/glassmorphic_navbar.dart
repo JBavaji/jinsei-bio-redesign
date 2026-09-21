@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_bloc.dart';
 
-class GlassmorphicNavbar extends StatelessWidget implements PreferredSizeWidget {
+class GlassmorphicNavbar extends StatelessWidget
+    implements PreferredSizeWidget {
   final VoidCallback onRequestB2bSample;
 
   const GlassmorphicNavbar({
@@ -86,13 +87,15 @@ class GlassmorphicNavbar extends StatelessWidget implements PreferredSizeWidget 
 
               // Desktop Navigation Links
               if (isLargeScreen) ...[
-                _NavLink(title: 'SCIENCE & TECH', isActive: true, isDark: isDark),
+                _NavLink(
+                    title: 'SCIENCE & TECH', isActive: true, isDark: isDark),
                 const SizedBox(width: 24),
                 _NavLink(title: 'SOLUTIONS', isActive: false, isDark: isDark),
                 const SizedBox(width: 24),
                 _NavLink(title: 'LEADERSHIP', isActive: false, isDark: isDark),
                 const SizedBox(width: 24),
-                _NavLink(title: 'COLLABORATIONS', isActive: false, isDark: isDark),
+                _NavLink(
+                    title: 'COLLABORATIONS', isActive: false, isDark: isDark),
                 const SizedBox(width: 32),
               ],
 
@@ -103,9 +106,8 @@ class GlassmorphicNavbar extends StatelessWidget implements PreferredSizeWidget 
                       ? const Color(0xFF101A24).withValues(alpha: 0.8)
                       : AppColors.lightBg,
                   side: BorderSide(
-                    color: isDark
-                        ? AppColors.darkBorder
-                        : AppColors.lightBorder,
+                    color:
+                        isDark ? AppColors.darkBorder : AppColors.lightBorder,
                   ),
                 ),
                 icon: Icon(
