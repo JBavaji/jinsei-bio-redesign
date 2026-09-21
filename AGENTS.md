@@ -44,7 +44,7 @@ Before executing code, AI agents MUST reference:
 
 2. **Frozen Brand Assets**:
    - The official Jinsei Bioscience logo files (`assets/images/logo/`) are **FROZEN**. Never modify, alter, or synthesize derivative logos.
-   - Primary Brand Colors: `#66DD8B` (bioluminescent green), `#10B981` (emerald), `#0A0F1E` (dark obsidian).
+   - Primary Brand Colors: `#7BD4E2` (deep science teal), `#66DD8B` (bioluminescent green), `#121414` (deep charcoal background).
 
 3. **Data Sandbox Guardrail**:
    - Form endpoints (e.g. B2B requests) MUST route to development sandbox environments (`jbavaji@gmail.com` / PostgreSQL staging DB). NEVER route test data to `@jinseibio.com` corporate inboxes.
@@ -53,11 +53,13 @@ Before executing code, AI agents MUST reference:
 
 ## 🛠️ ARCHITECTURAL NON-NEGOTIABLES
 
-1. **State Management:** MUST use `flutter_bloc` (`flutter_bloc` package with `Bloc` or `Cubit`). NEVER use Riverpod, Provider, or raw `setState` for business logic.
+1. **State Management:** MUST use Event-driven `Bloc` (`Bloc<Event, State>`, e.g., `SplashBloc`, `ThemeBloc`). NEVER use Cubit, Riverpod, Provider, or raw `setState` for business logic.
 2. **Navigation:** MUST use `go_router` for all routing (Web URL support + deep linking).
 3. **Backend Stack:** MUST use Dart **Serverpod** + **PostgreSQL** for core business data. NEVER store business data in Firebase Firestore (ADR-011).
-4. **Theme Support:** MUST support both **Dark Mode** (`#0A0F1E` default) and **Light Mode** (`#FFFFFF`) driven by `ThemeCubit`.
+4. **Theme Support:** MUST support both **Dark Mode** (`#121414` default) and **Light Mode** (`#FFFFFF`) driven by `ThemeBloc`.
 5. **Launch Priority:** **Splash / Launch Screen** (Priority 0) with centered logo redesign animation MUST be implemented and verified across Web, Android, and iOS before any feature screens are built (ADR-010).
+6. **Component Modularity:** Keep UI components simple, focused, and modular. Maximum lines of code per component file MUST NOT exceed 100-150 lines. Decompose lengthy widgets into dedicated sub-component files.
+7. **Mandatory Screen Implementation Plan & Design Alignment:** During screen implementation planning and coding, AI agents MUST inspect and validate both the respective `.html` design reference (`data/modern/design/screens/*.html`) and its corresponding `.png` screenshot image (`data/modern/design/screenshots/*.png`) to ensure zero missing UI elements, layout discrepancies, or unhandled states.
 
 ---
 
@@ -66,4 +68,7 @@ Before executing code, AI agents MUST reference:
 1. **NO Direct Merges or Pushes to Protected Branches:** AI Agents MUST NEVER perform local `git merge` directly onto `develop`, `staging`, or `main`, nor execute direct `git push origin develop/staging/main`.
 2. **Mandatory GitHub PR Creation:** All feature (`feat/*`) or bugfix (`fix/*`) branch integrations MUST be submitted via GitHub Pull Request (`create_pull_request` MCP tool or `gh pr create`).
 3. **Enforce Approval Rulesets:** PRs must trigger CI status checks (`flutter analyze` & `flutter test`) and receive required AI/human approvals (`develop`: 1-2 approvals, `staging`: 3 approvals, `main`: 3 approvals) as defined in [`.github/BRANCH_PROTECTION.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/jinsei-bio-redesign/.github/BRANCH_PROTECTION.md) and [`BRANCHING_STRATEGY.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/agile-project-management/github-workflow/BRANCHING_STRATEGY.md).
+4. **Mandatory Version Bumping Rule:** Whenever a new feature, bug fix, or enhancement is implemented and merged into `develop` or deployed to `staging`, the application version in `pubspec.yaml` (`version: x.y.z+build`) MUST be updated following Semantic Versioning (e.g. bump patch `1.0.1+2` for bug fixes/refactors, bump minor `1.1.0+3` for new features/releases).
+5. **PR Creation & Local Verification Guardrail:** AI Agents MUST NOT create a new GitHub Pull Request (PR) for every intermediate commit or code tweak. Pushes to feature branches (`git push origin feat/*`) are for ongoing work. A PR MUST ONLY be created when the entire feature or bugfix is fully completed, unit tested (`flutter test`), AND visually verified on the locally running application (e.g. `http://localhost:8080`).
+
 
