@@ -66,4 +66,6 @@ Before executing code, AI agents MUST reference:
 1. **NO Direct Merges or Pushes to Protected Branches:** AI Agents MUST NEVER perform local `git merge` directly onto `develop`, `staging`, or `main`, nor execute direct `git push origin develop/staging/main`.
 2. **Mandatory GitHub PR Creation:** All feature (`feat/*`) or bugfix (`fix/*`) branch integrations MUST be submitted via GitHub Pull Request (`create_pull_request` MCP tool or `gh pr create`).
 3. **Enforce Approval Rulesets:** PRs must trigger CI status checks (`flutter analyze` & `flutter test`) and receive required AI/human approvals (`develop`: 1-2 approvals, `staging`: 3 approvals, `main`: 3 approvals) as defined in [`.github/BRANCH_PROTECTION.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/jinsei-bio-redesign/.github/BRANCH_PROTECTION.md) and [`BRANCHING_STRATEGY.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/agile-project-management/github-workflow/BRANCHING_STRATEGY.md).
+4. **Mandatory Version Bumping Rule:** Whenever a new feature, bug fix, or enhancement is implemented and merged into `develop` or deployed to `staging`, the application version in `pubspec.yaml` (`version: x.y.z+build`) MUST be updated following Semantic Versioning (e.g. bump patch `1.0.1+2` for bug fixes/refactors, bump minor `1.1.0+3` for new features/releases).
+
 
