@@ -31,8 +31,8 @@ class SampleButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.emeraldGreen,
         foregroundColor: AppColors.darkObsidianBg,
-        padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        padding:
+            padding ?? const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         textStyle: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: fontSize,

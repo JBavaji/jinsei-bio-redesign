@@ -66,18 +66,16 @@ class B2bDiagnosticForm extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               TextField(
-                onChanged: (val) => context
-                    .read<B2bFormBloc>()
-                    .add(FullNameChangedEvent(val)),
+                onChanged: (val) =>
+                    context.read<B2bFormBloc>().add(FullNameChangedEvent(val)),
                 decoration:
                     _inputDecoration('FULL NAME', 'Dr. Jane Doe', isDark),
                 style: _inputTextStyle(isDark),
               ),
               const SizedBox(height: 12),
               TextField(
-                onChanged: (val) => context
-                    .read<B2bFormBloc>()
-                    .add(CompanyChangedEvent(val)),
+                onChanged: (val) =>
+                    context.read<B2bFormBloc>().add(CompanyChangedEvent(val)),
                 decoration: _inputDecoration(
                   'COMPANY / INSTITUTION',
                   'BioTech Labs Global',
@@ -182,9 +180,8 @@ class B2bDiagnosticForm extends StatelessWidget {
       labelText: label,
       hintText: hint.isNotEmpty ? hint : null,
       labelStyle: AppTypography.labelCaps(
-        color: isDark
-            ? AppColors.darkTextSecondary
-            : AppColors.lightTextSecondary,
+        color:
+            isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
         fontSize: 11,
       ),
       filled: true,

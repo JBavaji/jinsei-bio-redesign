@@ -141,4 +141,3 @@ class _SplashEmblemCrucibleState extends State<SplashEmblemCrucible>
     );
   }
 }
-

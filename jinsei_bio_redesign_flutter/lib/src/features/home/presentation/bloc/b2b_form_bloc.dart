@@ -59,7 +59,8 @@ class B2bFormBloc extends Bloc<B2bFormEvent, B2bFormState> {
     if (!state.isValid) {
       emit(state.copyWith(
         status: B2bFormStatus.failure,
-        errorMessage: 'Please fill in all required fields with a valid email address.',
+        errorMessage:
+            'Please fill in all required fields with a valid email address.',
       ));
       return;
     }

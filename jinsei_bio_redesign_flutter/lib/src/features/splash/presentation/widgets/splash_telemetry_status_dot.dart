@@ -99,4 +99,3 @@ class _SplashTelemetryStatusDotState extends State<SplashTelemetryStatusDot>
     );
   }
 }
-

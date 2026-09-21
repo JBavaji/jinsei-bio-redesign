@@ -21,9 +21,7 @@ class MobileNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final textColor = isActive
         ? AppColors.cyanInteractive
-        : (isDark
-            ? AppColors.darkTextPrimary
-            : AppColors.lightTextPrimary);
+        : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary);
 
     return InkWell(
       onTap: onTap,
@@ -79,4 +77,3 @@ class MobileNavItem extends StatelessWidget {
     );
   }
 }
-

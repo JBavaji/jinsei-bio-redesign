@@ -20,10 +20,10 @@ class AppShell extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return BlocProvider<NavigationBloc>(
-      create: (context) => NavigationBloc()..add(const LoadNavigationItemsEvent()),
+      create: (context) =>
+          NavigationBloc()..add(const LoadNavigationItemsEvent()),
       child: Scaffold(
-        backgroundColor:
-            isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
+        backgroundColor: isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
         appBar: const AppHeaderBar(),
         endDrawer: const AppMobileNavDrawer(),
         body: SafeArea(
