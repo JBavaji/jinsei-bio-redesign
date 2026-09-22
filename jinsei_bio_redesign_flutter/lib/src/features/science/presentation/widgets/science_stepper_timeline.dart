@@ -26,13 +26,24 @@ class ScienceStepperTimeline extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: steps.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 20),
+            separatorBuilder: (context, index) => const SizedBox(height: 24),
             itemBuilder: (context, index) {
               final step = steps[index];
-              return ScienceStepCard(
-                step: step,
-                isSelected: index == selectedIndex,
-                onTap: () => onStepSelected(index),
+              final isSelected = index == selectedIndex;
+              return Column(
+                children: [
+                  _StepImageCard(
+                    imageUrl: step.imageUrl,
+                    title: step.title,
+                    isSelected: isSelected,
+                  ),
+                  const SizedBox(height: 12),
+                  ScienceStepCard(
+                    step: step,
+                    isSelected: isSelected,
+                    onTap: () => onStepSelected(index),
+                  ),
+                ],
               );
             },
           );
@@ -84,7 +95,11 @@ class ScienceStepperTimeline extends StatelessWidget {
                                 isSelected: isSelected,
                                 onTap: () => onStepSelected(index),
                               )
-                            : const SizedBox.shrink(),
+                            : _StepImageCard(
+                                imageUrl: step.imageUrl,
+                                title: step.title,
+                                isSelected: isSelected,
+                              ),
                       ),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -130,7 +145,11 @@ class ScienceStepperTimeline extends StatelessWidget {
                                 isSelected: isSelected,
                                 onTap: () => onStepSelected(index),
                               )
-                            : const SizedBox.shrink(),
+                            : _StepImageCard(
+                                imageUrl: step.imageUrl,
+                                title: step.title,
+                                isSelected: isSelected,
+                              ),
                       ),
                     ],
                   ),
@@ -140,6 +159,91 @@ class ScienceStepperTimeline extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _StepImageCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final bool isSelected;
+
+  const _StepImageCard({
+    required this.imageUrl,
+    required this.title,
+    required this.isSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final accentColor =
+        isSelected ? AppColors.emeraldAccent : AppColors.cyanInteractive;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      height: 190,
+      decoration: BoxDecoration(
+        color: isDark
+            ? AppColors.darkSurface.withOpacity(0.85)
+            : AppColors.lightSurface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: isSelected
+              ? accentColor
+              : (isDark
+                  ? AppColors.cyanInteractive.withOpacity(0.25)
+                  : AppColors.lightBorder),
+          width: isSelected ? 2 : 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: accentColor.withOpacity(isSelected ? 0.20 : 0.05),
+            blurRadius: 16,
+            spreadRadius: isSelected ? 1 : 0,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Image.asset(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              color: isDark
+                  ? AppColors.darkSurfaceCard
+                  : AppColors.lightSurfaceCard,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.biotech_rounded,
+                      size: 44,
+                      color: accentColor.withOpacity(0.7),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: isDark
+                            ? AppColors.darkTextSecondary
+                            : AppColors.lightTextSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
