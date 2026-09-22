@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
 import '../../domain/models/science_step_model.dart';
 import 'science_step_card.dart';
+import 'step_image_card.dart';
+import 'step_number_badge.dart';
 
+/// Clean Timeline Orchestration Widget for 10-Step Science Stepper.
+/// Handles responsive desktop timeline stack vs mobile column list.
 class ScienceStepperTimeline extends StatelessWidget {
   final List<ScienceStepModel> steps;
   final int selectedIndex;
@@ -32,7 +36,7 @@ class ScienceStepperTimeline extends StatelessWidget {
               final isSelected = index == selectedIndex;
               return Column(
                 children: [
-                  _StepImageCard(
+                  StepImageCard(
                     imageUrl: step.imageUrl,
                     title: step.title,
                     isSelected: isSelected,
@@ -95,48 +99,15 @@ class ScienceStepperTimeline extends StatelessWidget {
                                 isSelected: isSelected,
                                 onTap: () => onStepSelected(index),
                               )
-                            : _StepImageCard(
+                            : StepImageCard(
                                 imageUrl: step.imageUrl,
                                 title: step.title,
                                 isSelected: isSelected,
                               ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isSelected
-                              ? AppColors.emeraldAccent
-                              : AppColors.darkObsidianBg,
-                          border: Border.all(
-                            color: isSelected
-                                ? AppColors.emeraldAccent
-                                : AppColors.cyanInteractive,
-                            width: 2,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: (isSelected
-                                      ? AppColors.emeraldAccent
-                                      : AppColors.cyanInteractive)
-                                  .withOpacity(0.4),
-                              blurRadius: 12,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            step.stepNumber.toString().padLeft(2, '0'),
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: isSelected ? Colors.black : Colors.white,
-                            ),
-                          ),
-                        ),
+                      StepNumberBadge(
+                        stepNumber: step.stepNumber,
+                        isSelected: isSelected,
                       ),
                       Expanded(
                         child: !isEven
@@ -145,7 +116,7 @@ class ScienceStepperTimeline extends StatelessWidget {
                                 isSelected: isSelected,
                                 onTap: () => onStepSelected(index),
                               )
-                            : _StepImageCard(
+                            : StepImageCard(
                                 imageUrl: step.imageUrl,
                                 title: step.title,
                                 isSelected: isSelected,
@@ -159,91 +130,6 @@ class ScienceStepperTimeline extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class _StepImageCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final bool isSelected;
-
-  const _StepImageCard({
-    required this.imageUrl,
-    required this.title,
-    required this.isSelected,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final accentColor =
-        isSelected ? AppColors.emeraldAccent : AppColors.cyanInteractive;
-
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      height: 190,
-      decoration: BoxDecoration(
-        color: isDark
-            ? AppColors.darkSurface.withOpacity(0.85)
-            : AppColors.lightSurface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isSelected
-              ? accentColor
-              : (isDark
-                  ? AppColors.cyanInteractive.withOpacity(0.25)
-                  : AppColors.lightBorder),
-          width: isSelected ? 2 : 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: accentColor.withOpacity(isSelected ? 0.20 : 0.05),
-            blurRadius: 16,
-            spreadRadius: isSelected ? 1 : 0,
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15),
-        child: Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              color: isDark
-                  ? AppColors.darkSurfaceCard
-                  : AppColors.lightSurfaceCard,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.biotech_rounded,
-                      size: 44,
-                      color: accentColor.withOpacity(0.7),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.lightTextSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
     );
   }
 }
