@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/app_footer_bar.dart';
 import '../../../core/widgets/disclaimer_banner.dart';
 import 'bloc/splash_bloc.dart';
 import 'widgets/splash_emblem_crucible.dart';
-import 'widgets/splash_footer_bar.dart';
 import 'widgets/splash_header_telemetry.dart';
 import 'widgets/splash_progress_tracker.dart';
 import 'widgets/splash_protocol_chips.dart';
@@ -75,7 +75,7 @@ class SplashScreen extends StatelessWidget {
             ),
 
             // Bottom Diagnostic Footer with Legal Links & Disclaimer
-            const SplashFooterBar(),
+            const AppFooterBar(),
             const DisclaimerBanner(),
           ],
         ),

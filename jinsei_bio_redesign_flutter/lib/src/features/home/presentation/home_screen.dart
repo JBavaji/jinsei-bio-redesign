@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../splash/presentation/widgets/splash_footer_bar.dart';
+import '../../../core/widgets/app_footer_bar.dart';
 import 'bloc/b2b_form_bloc.dart';
 import 'widgets/b2b_contact_console.dart';
 import 'widgets/bioluminescent_particle_canvas.dart';
@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 formKey: _b2bConsoleKey,
               ),
 
-              // 5. Diagnostic Footer Bar
-              const SplashFooterBar(),
+              // 5. Global App Footer Bar
+              const AppFooterBar(),
             ],
           ),
         ),
