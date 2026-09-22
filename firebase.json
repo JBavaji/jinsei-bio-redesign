@@ -1,27 +1,56 @@
 {
-  "hosting": {
-    "public": "jinsei_bio_redesign_flutter/build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
-    "headers": [
-      {
-        "source": "**/*.@(js|css|png|jpg|jpeg|gif|webp|svg|wasm|ttf|woff|woff2)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=31536000, public"
-          }
-        ]
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "site": "jinsei-bio-redesign",
+      "public": "jinsei_bio_redesign_flutter/build/web",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(js|css|png|jpg|jpeg|gif|webp|svg|wasm|ttf|woff|woff2)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000, public"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "site": "jinsei-bio-staging",
+      "public": "jinsei_bio_redesign_flutter/build/web",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(js|css|png|jpg|jpeg|gif|webp|svg|wasm|ttf|woff|woff2)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000, public"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
