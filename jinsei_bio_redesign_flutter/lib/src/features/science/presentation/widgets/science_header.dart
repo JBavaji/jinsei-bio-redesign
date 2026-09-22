@@ -49,51 +49,68 @@ class ScienceHeader extends StatelessWidget {
         const SizedBox(height: 28),
         LayoutBuilder(
           builder: (context, constraints) {
-            final isWide = constraints.maxWidth > 600;
-            return isWide
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: _buildMetricCards(),
+            final isLarge = constraints.maxWidth > 750;
+
+            final metrics = [
+              (
+                Icons.science_rounded,
+                '10',
+                'Pipeline Milestones',
+                AppColors.cyanInteractive
+              ),
+              (
+                Icons.biotech_rounded,
+                '100%',
+                'Sequence Coverage',
+                AppColors.emeraldAccent
+              ),
+              (
+                Icons.verified_rounded,
+                '3',
+                'Global Patents Filed',
+                AppColors.cyanInteractive
+              ),
+            ];
+
+            if (isLarge) {
+              return Row(
+                children: metrics
+                    .map(
+                      (m) => Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                          child: HoverableMetricCard(
+                            icon: m.$1,
+                            value: m.$2,
+                            label: m.$3,
+                            accentColor: m.$4,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: metrics
+                  .map(
+                    (m) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: HoverableMetricCard(
+                        icon: m.$1,
+                        value: m.$2,
+                        label: m.$3,
+                        accentColor: m.$4,
+                      ),
+                    ),
                   )
-                : Column(
-                    children: _buildMetricCards(),
-                  );
+                  .toList(),
+            );
           },
         ),
       ],
     );
-  }
-
-  List<Widget> _buildMetricCards() {
-    final metrics = [
-      (
-        Icons.science_rounded,
-        '10',
-        'Pipeline Milestones',
-        AppColors.cyanInteractive
-      ),
-      (
-        Icons.biotech_rounded,
-        '100%',
-        'Sequence Coverage',
-        AppColors.emeraldAccent
-      ),
-      (
-        Icons.verified_rounded,
-        '3',
-        'Global Patents Filed',
-        AppColors.cyanInteractive
-      ),
-    ];
-
-    return metrics.map((m) {
-      return HoverableMetricCard(
-        width: 220,
-        icon: m.$1,
-        value: m.$2,
-        label: m.$3,
-        accentColor: m.$4,
-      );
-    }).toList();
   }
 }
