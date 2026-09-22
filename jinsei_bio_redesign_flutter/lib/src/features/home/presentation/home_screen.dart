@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../core/widgets/app_footer_bar.dart';
 import 'bloc/b2b_form_bloc.dart';
+import 'bloc/home_bloc.dart';
+import 'bloc/home_event.dart';
+import 'bloc/home_state.dart';
 import 'widgets/b2b_contact_console.dart';
 import 'widgets/bioluminescent_particle_canvas.dart';
 import 'widgets/commercial_verticals_grid.dart';
@@ -38,8 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => B2bFormBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => B2bFormBloc()),
+        BlocProvider(
+          create: (context) => HomeBloc()..add(const LoadHomeContentEvent()),
+        ),
+      ],
       child: BioluminescentParticleCanvas(
         child: SingleChildScrollView(
           controller: _scrollController,
@@ -48,12 +57,44 @@ class _HomeScreenState extends State<HomeScreen> {
               // 1. Hero Header Section
               const HeroHeaderSection(),
 
-              // 2. 8-Pillar Innovation Philosophy Grid
-              const EightPillarsGrid(),
+              // 2. Home Content Loader from HomeBloc
+              BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return const Padding(
+                      padding: EdgeInsets.all(60.0),
+                      child: CircularProgressIndicator(
+                        color: AppColors.cyanInteractive,
+                      ),
+                    );
+                  }
 
-              // 3. Commercial Product Verticals Preview
-              CommercialVerticalsGrid(
-                onRequestDossier: _scrollToB2bConsole,
+                  if (state.isFailed) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Text(
+                          state.errorMessage ??
+                              'Failed to load home page content.',
+                          style: const TextStyle(color: Colors.redAccent),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Column(
+                    children: [
+                      // 2. 8-Pillar Innovation Philosophy Grid
+                      EightPillarsGrid(pillars: state.pillars),
+
+                      // 3. Commercial Product Verticals Preview
+                      CommercialVerticalsGrid(
+                        verticals: state.productVerticals,
+                        onRequestDossier: _scrollToB2bConsole,
+                      ),
+                    ],
+                  );
+                },
               ),
 
               // 4. Executive B2B Contact Console

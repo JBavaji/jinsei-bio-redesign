@@ -43,7 +43,7 @@ class _ScienceScreenView extends StatelessWidget {
                     const SizedBox(height: 48),
                     BlocBuilder<ScienceStepperBloc, ScienceStepperState>(
                       builder: (context, state) {
-                        if (state.status == ScienceStepperStatus.loading) {
+                        if (state.isLoading) {
                           return const Padding(
                             padding: EdgeInsets.all(60.0),
                             child: CircularProgressIndicator(
@@ -52,7 +52,7 @@ class _ScienceScreenView extends StatelessWidget {
                           );
                         }
 
-                        if (state.status == ScienceStepperStatus.error) {
+                        if (state.isFailed) {
                           return Center(
                             child: Text(
                               state.errorMessage ??

@@ -1,22 +1,31 @@
 import 'package:equatable/equatable.dart';
+import '../../domain/models/science_header_metric_model.dart';
 import '../../domain/models/science_step_model.dart';
 
-enum ScienceStepperStatus { initial, loading, loaded, error }
+enum ScienceStepperStatus { idle, loading, loaded, success, failed }
 
 class ScienceStepperState extends Equatable {
   final ScienceStepperStatus status;
+  final List<ScienceHeaderMetricModel> headerMetrics;
   final List<ScienceStepModel> steps;
   final int selectedStepIndex;
   final ScienceStepCategory? selectedCategory;
   final String? errorMessage;
 
   const ScienceStepperState({
-    this.status = ScienceStepperStatus.initial,
+    this.status = ScienceStepperStatus.idle,
+    this.headerMetrics = const [],
     this.steps = const [],
     this.selectedStepIndex = 0,
     this.selectedCategory,
     this.errorMessage,
   });
+
+  bool get isIdle => status == ScienceStepperStatus.idle;
+  bool get isLoading => status == ScienceStepperStatus.loading;
+  bool get isLoaded => status == ScienceStepperStatus.loaded;
+  bool get isSuccess => status == ScienceStepperStatus.success;
+  bool get isFailed => status == ScienceStepperStatus.failed;
 
   ScienceStepModel? get selectedStep =>
       steps.isNotEmpty && selectedStepIndex < steps.length
@@ -30,6 +39,7 @@ class ScienceStepperState extends Equatable {
 
   ScienceStepperState copyWith({
     ScienceStepperStatus? status,
+    List<ScienceHeaderMetricModel>? headerMetrics,
     List<ScienceStepModel>? steps,
     int? selectedStepIndex,
     ScienceStepCategory? selectedCategory,
@@ -37,6 +47,7 @@ class ScienceStepperState extends Equatable {
   }) {
     return ScienceStepperState(
       status: status ?? this.status,
+      headerMetrics: headerMetrics ?? this.headerMetrics,
       steps: steps ?? this.steps,
       selectedStepIndex: selectedStepIndex ?? this.selectedStepIndex,
       selectedCategory: selectedCategory ?? this.selectedCategory,
@@ -47,6 +58,7 @@ class ScienceStepperState extends Equatable {
   @override
   List<Object?> get props => [
         status,
+        headerMetrics,
         steps,
         selectedStepIndex,
         selectedCategory,

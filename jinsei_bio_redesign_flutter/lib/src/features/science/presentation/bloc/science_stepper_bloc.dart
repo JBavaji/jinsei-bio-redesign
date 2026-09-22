@@ -1,14 +1,21 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/models/science_step_model.dart';
+import '../../data/datasources/science_local_data_source.dart';
+import '../../data/repositories/science_repository_impl.dart';
+import '../../domain/repositories/i_science_repository.dart';
 import 'science_stepper_event.dart';
 import 'science_stepper_state.dart';
 
 class ScienceStepperBloc
     extends Bloc<ScienceStepperEvent, ScienceStepperState> {
-  final AssetBundle? assetBundle;
+  final IScienceRepository _repository;
 
-  ScienceStepperBloc({this.assetBundle}) : super(const ScienceStepperState()) {
+  ScienceStepperBloc({
+    IScienceRepository? repository,
+  })  : _repository = repository ??
+            ScienceRepositoryImpl(
+              localDataSource: ScienceLocalDataSource(),
+            ),
+        super(const ScienceStepperState()) {
     on<LoadScienceStepsEvent>(_onLoadScienceSteps);
     on<SelectScienceStepEvent>(_onSelectScienceStep);
     on<FilterScienceCategoryEvent>(_onFilterScienceCategory);
@@ -19,12 +26,20 @@ class ScienceStepperBloc
     Emitter<ScienceStepperState> emit,
   ) async {
     emit(state.copyWith(status: ScienceStepperStatus.loading));
-    final steps = await ScienceStepModel.loadFromAsset(bundle: assetBundle);
-    emit(state.copyWith(
-      status: ScienceStepperStatus.loaded,
-      steps: steps,
-      selectedStepIndex: 0,
-    ));
+    try {
+      final content = await _repository.getScienceContent();
+      emit(state.copyWith(
+        status: ScienceStepperStatus.success,
+        headerMetrics: content.headerMetrics,
+        steps: content.pipelineSteps,
+        selectedStepIndex: 0,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: ScienceStepperStatus.failed,
+        errorMessage: e.toString(),
+      ));
+    }
   }
 
   void _onSelectScienceStep(

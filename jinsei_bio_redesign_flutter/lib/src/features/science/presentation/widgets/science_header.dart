@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/hoverable_metric_card.dart';
+import '../../domain/models/science_header_metric_model.dart';
+import '../bloc/science_stepper_bloc.dart';
+import '../bloc/science_stepper_state.dart';
 
 class ScienceHeader extends StatelessWidget {
-  const ScienceHeader({super.key});
+  final List<ScienceHeaderMetricModel>? metrics;
+
+  const ScienceHeader({
+    super.key,
+    this.metrics,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,66 +56,56 @@ class ScienceHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 28),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            final isLarge = constraints.maxWidth > 750;
+        BlocBuilder<ScienceStepperBloc, ScienceStepperState>(
+          builder: (context, state) {
+            final activeMetrics = metrics ?? state.headerMetrics;
 
-            final metrics = [
-              (
-                Icons.science_rounded,
-                '10',
-                'Pipeline Milestones',
-                AppColors.cyanInteractive
-              ),
-              (
-                Icons.biotech_rounded,
-                '100%',
-                'Sequence Coverage',
-                AppColors.emeraldAccent
-              ),
-              (
-                Icons.verified_rounded,
-                '3',
-                'Global Patents Filed',
-                AppColors.cyanInteractive
-              ),
-            ];
-
-            if (isLarge) {
-              return Row(
-                children: metrics
-                    .map(
-                      (m) => Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                          child: HoverableMetricCard(
-                            icon: m.$1,
-                            value: m.$2,
-                            label: m.$3,
-                            accentColor: m.$4,
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              );
+            if (activeMetrics.isEmpty) {
+              return const SizedBox.shrink();
             }
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: metrics
-                  .map(
-                    (m) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: HoverableMetricCard(
-                        icon: m.$1,
-                        value: m.$2,
-                        label: m.$3,
-                        accentColor: m.$4,
-                      ),
-                    ),
-                  )
-                  .toList(),
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final isLarge = constraints.maxWidth > 750;
+
+                if (isLarge) {
+                  return Row(
+                    children: activeMetrics
+                        .map(
+                          (m) => Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0),
+                              child: HoverableMetricCard(
+                                icon: m.icon,
+                                value: m.value,
+                                label: m.label,
+                                accentColor: m.accentColor,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: activeMetrics
+                      .map(
+                        (m) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12.0),
+                          child: HoverableMetricCard(
+                            icon: m.icon,
+                            value: m.value,
+                            label: m.label,
+                            accentColor: m.accentColor,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              },
             );
           },
         ),
