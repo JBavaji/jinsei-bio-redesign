@@ -55,28 +55,19 @@ class ScienceStepCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: accentColor.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: accentColor.withOpacity(0.4),
-                    ),
-                  ),
+                Expanded(
                   child: Text(
-                    'STEP ${step.stepNumber.toString().padLeft(2, '0')}',
+                    step.subtitle,
                     style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                       color: accentColor,
-                      letterSpacing: 1.2,
+                      letterSpacing: 0.5,
                     ),
                   ),
                 ),
-                const Spacer(),
                 Icon(
                   step.icon,
                   color: accentColor,
@@ -84,21 +75,12 @@ class ScienceStepCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
             Text(
               step.title,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: isDark ? Colors.white : AppColors.lightTextPrimary,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              step.subtitle,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: accentColor,
               ),
             ),
             const SizedBox(height: 10),
