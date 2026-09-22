@@ -9,6 +9,22 @@ class ProductVerticalModel {
     required this.description,
   });
 
+  factory ProductVerticalModel.fromJson(Map<String, dynamic> json) {
+    return ProductVerticalModel(
+      title: json['title'] as String? ?? '',
+      strainId: json['strainId'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'strainId': strainId,
+      'description': description,
+    };
+  }
+
   static const List<ProductVerticalModel> defaultVerticals = [
     ProductVerticalModel(
       title: 'Jinsei-Gut Pro',

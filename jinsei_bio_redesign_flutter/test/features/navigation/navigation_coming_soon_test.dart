@@ -29,7 +29,7 @@ void main() {
   }
 
   testWidgets(
-      'Navigating to /science displays Science & Technology Coming Soon page',
+      'Navigating to /science displays 10-Step R&D Science Stepper page',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -39,9 +39,9 @@ void main() {
     appRouter.go('/science');
     await tester.pumpAndSettle();
 
-    expect(find.text('Science & Technology'), findsOneWidget);
-    expect(find.textContaining('COMING SOON'), findsOneWidget);
-    expect(find.byIcon(Icons.biotech_rounded), findsWidgets);
+    expect(find.text('PROPRIETARY 10-STEP R&D PIPELINE'), findsOneWidget);
+    expect(find.text('Target Consumer Product Identification'), findsWidgets);
+    expect(find.byIcon(Icons.science_rounded), findsWidgets);
   });
 
   testWidgets(

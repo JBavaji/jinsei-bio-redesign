@@ -12,11 +12,13 @@ class AppColors {
   static const Color secondaryContainerGreen =
       Color(0xFF25A55A); // Secondary Green Container
   static const Color emeraldGreen = Color(0xFF50C878); // Override Emerald Green
+  static const Color emeraldAccent = Color(0xFF50C878); // Emerald Accent Alias
   static const Color cyanInteractive =
       Color(0xFF06B6D4); // Interactive Cyan Accent
 
   // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
   static const Color darkObsidianBg = Color(0xFF121414);
+  static const Color darkSurface = Color(0xFF1E2020);
   static const Color darkSurfaceCard = Color(0xFF1E2020);
   static const Color darkSurfaceHigh = Color(0xFF282A2B);
   static const Color darkBorder = Color(0xFF3E494A);
@@ -25,6 +27,7 @@ class AppColors {
 
   // Light Mode Tokens (Clinical White #FFFFFF)
   static const Color lightBg = Color(0xFFFFFFFF);
+  static const Color lightSurface = Color(0xFFF8FAFC);
   static const Color lightSurfaceCard = Color(0xFFF8FAFC);
   static const Color lightBorder = Color(0xFFE2E8F0);
   static const Color lightTextPrimary = Color(0xFF121414);
