@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
+import '../../../navigation/presentation/widgets/sample_button.dart';
 
 class ClinicalQualityBanner extends StatelessWidget {
   const ClinicalQualityBanner({super.key});
@@ -71,22 +72,12 @@ class ClinicalQualityBanner extends StatelessWidget {
             ],
           );
 
-          final ctaButton = ElevatedButton.icon(
+          final ctaButton = SampleButton(
             onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.emeraldAccent,
-              foregroundColor: AppColors.darkObsidianBg,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              elevation: 4,
-            ),
-            icon: const Icon(Icons.send_rounded, size: 18),
-            label: const Text(
-              'Request B2B Sample',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-            ),
+            label: 'Request B2B Sample',
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            fontSize: 13,
+            borderRadius: 8,
           );
 
           if (isWide) {
