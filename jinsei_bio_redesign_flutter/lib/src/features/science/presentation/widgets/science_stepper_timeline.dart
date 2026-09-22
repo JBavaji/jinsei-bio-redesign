@@ -73,7 +73,7 @@ class ScienceStepperTimeline extends StatelessWidget {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.cyanInteractive.withOpacity(0.5),
+                      color: AppColors.cyanInteractive.withValues(alpha: 0.5),
                       blurRadius: 10,
                       spreadRadius: 1,
                     ),

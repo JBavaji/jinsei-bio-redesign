@@ -27,20 +27,20 @@ class StepImageCard extends StatelessWidget {
       height: 190,
       decoration: BoxDecoration(
         color: isDark
-            ? AppColors.darkSurface.withOpacity(0.85)
+            ? AppColors.darkSurface.withValues(alpha: 0.85)
             : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isSelected
               ? accentColor
               : (isDark
-                  ? AppColors.cyanInteractive.withOpacity(0.25)
+                  ? AppColors.cyanInteractive.withValues(alpha: 0.25)
                   : AppColors.lightBorder),
           width: isSelected ? 2 : 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: accentColor.withOpacity(isSelected ? 0.20 : 0.05),
+            color: accentColor.withValues(alpha: isSelected ? 0.20 : 0.05),
             blurRadius: 16,
             spreadRadius: isSelected ? 1 : 0,
           ),
@@ -63,7 +63,7 @@ class StepImageCard extends StatelessWidget {
                     Icon(
                       Icons.biotech_rounded,
                       size: 44,
-                      color: accentColor.withOpacity(0.7),
+                      color: accentColor.withValues(alpha: 0.7),
                     ),
                     const SizedBox(height: 8),
                     Text(

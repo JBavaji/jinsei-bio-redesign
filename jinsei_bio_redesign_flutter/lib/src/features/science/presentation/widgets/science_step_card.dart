@@ -31,8 +31,8 @@ class ScienceStepCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: isDark
               ? (isSelected
-                  ? AppColors.darkSurface.withOpacity(0.95)
-                  : AppColors.darkSurface.withOpacity(0.70))
+                  ? AppColors.darkSurface.withValues(alpha: 0.95)
+                  : AppColors.darkSurface.withValues(alpha: 0.70))
               : (isSelected ? Colors.white : AppColors.lightSurface),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
@@ -44,7 +44,7 @@ class ScienceStepCard extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: accentColor.withOpacity(0.20),
+                    color: accentColor.withValues(alpha: 0.20),
                     blurRadius: 20,
                     spreadRadius: 2,
                   ),

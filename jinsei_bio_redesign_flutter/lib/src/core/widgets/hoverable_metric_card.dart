@@ -38,14 +38,14 @@ class _HoverableMetricCardState extends State<HoverableMetricCard> {
     final isDark = theme.brightness == Brightness.dark;
 
     final borderColor = _isHovered
-        ? AppColors.emeraldAccent.withOpacity(0.60)
+        ? AppColors.emeraldAccent.withValues(alpha: 0.60)
         : (isDark
-            ? AppColors.cyanInteractive.withOpacity(0.25)
+            ? AppColors.cyanInteractive.withValues(alpha: 0.25)
             : AppColors.lightBorder);
 
     final shadowColor = _isHovered
-        ? widget.accentColor.withOpacity(0.20)
-        : widget.accentColor.withOpacity(0.06);
+        ? widget.accentColor.withValues(alpha: 0.20)
+        : widget.accentColor.withValues(alpha: 0.06);
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -62,11 +62,11 @@ class _HoverableMetricCardState extends State<HoverableMetricCard> {
           margin: widget.margin ?? const EdgeInsets.all(8),
           padding: widget.padding ?? const EdgeInsets.all(20),
           transform: _isHovered
-              ? (Matrix4.identity()..translate(0.0, -4.0, 0.0))
+              ? Matrix4.translationValues(0.0, -4.0, 0.0)
               : Matrix4.identity(),
           decoration: BoxDecoration(
             color: isDark
-                ? AppColors.darkSurface.withOpacity(0.90)
+                ? AppColors.darkSurface.withValues(alpha: 0.90)
                 : AppColors.lightSurface,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: borderColor, width: 1.5),

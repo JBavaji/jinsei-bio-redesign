@@ -32,7 +32,7 @@ class StepNumberBadge extends StatelessWidget {
             color: (isSelected
                     ? AppColors.emeraldAccent
                     : AppColors.cyanInteractive)
-                .withOpacity(0.4),
+                .withValues(alpha: 0.4),
             blurRadius: 12,
             spreadRadius: 2,
           ),

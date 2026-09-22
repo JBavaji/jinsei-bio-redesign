@@ -15,16 +15,16 @@ class ClinicalQualityBanner extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 22),
       decoration: BoxDecoration(
         color: isDark
-            ? AppColors.darkSurface.withOpacity(0.90)
+            ? AppColors.darkSurface.withValues(alpha: 0.90)
             : AppColors.lightSurface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.emeraldAccent.withOpacity(0.50),
+          color: AppColors.emeraldAccent.withValues(alpha: 0.50),
           width: 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.emeraldAccent.withOpacity(0.15),
+            color: AppColors.emeraldAccent.withValues(alpha: 0.15),
             blurRadius: 20,
             spreadRadius: 2,
           ),
