@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/models/science_step_model.dart';
 import 'science_stepper_event.dart';
@@ -5,7 +6,9 @@ import 'science_stepper_state.dart';
 
 class ScienceStepperBloc
     extends Bloc<ScienceStepperEvent, ScienceStepperState> {
-  ScienceStepperBloc() : super(const ScienceStepperState()) {
+  final AssetBundle? assetBundle;
+
+  ScienceStepperBloc({this.assetBundle}) : super(const ScienceStepperState()) {
     on<LoadScienceStepsEvent>(_onLoadScienceSteps);
     on<SelectScienceStepEvent>(_onSelectScienceStep);
     on<FilterScienceCategoryEvent>(_onFilterScienceCategory);
@@ -16,7 +19,7 @@ class ScienceStepperBloc
     Emitter<ScienceStepperState> emit,
   ) async {
     emit(state.copyWith(status: ScienceStepperStatus.loading));
-    final steps = await ScienceStepModel.loadFromAsset();
+    final steps = await ScienceStepModel.loadFromAsset(bundle: assetBundle);
     emit(state.copyWith(
       status: ScienceStepperStatus.loaded,
       steps: steps,

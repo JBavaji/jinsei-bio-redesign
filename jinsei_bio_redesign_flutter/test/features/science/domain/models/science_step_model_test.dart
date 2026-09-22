@@ -5,7 +5,18 @@ import 'package:jinsei_bio_redesign/src/features/science/domain/models/science_s
 void main() {
   group('ScienceStepModel JSON Tests', () {
     test('fromJson & toJson serialization cycle', () {
-      final step = ScienceStepModel.defaultSteps.first;
+      const step = ScienceStepModel(
+        stepNumber: 1,
+        title: 'Target Consumer Product Identification',
+        subtitle: 'Metagenomic Biomarker Mapping',
+        description: 'Test description',
+        category: ScienceStepCategory.discovery,
+        icon: Icons.search_rounded,
+        iconKey: 'search_rounded',
+        metricValue: '99.4%',
+        metricLabel: 'Target Precision',
+        imageUrl: 'assets/images/science/step_01.jpg',
+      );
       final json = step.toJson();
 
       expect(json['stepNumber'], equals(1));
@@ -32,9 +43,10 @@ void main() {
       expect(step.title, isEmpty);
     });
 
-    test('loadFromAsset falls back to defaultSteps when bundle is empty or invalid', () async {
-      final steps = await ScienceStepModel.loadFromAsset();
-      expect(steps.length, equals(10));
+    test('loadFromAsset returns empty list on invalid asset path', () async {
+      final steps =
+          await ScienceStepModel.loadFromAsset(path: 'invalid/path.json');
+      expect(steps, isEmpty);
     });
   });
 }

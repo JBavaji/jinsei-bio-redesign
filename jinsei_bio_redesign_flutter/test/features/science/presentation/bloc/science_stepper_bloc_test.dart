@@ -1,15 +1,35 @@
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:jinsei_bio_redesign/src/features/science/domain/models/science_step_model.dart';
 import 'package:jinsei_bio_redesign/src/features/science/presentation/bloc/science_stepper_bloc.dart';
 import 'package:jinsei_bio_redesign/src/features/science/presentation/bloc/science_stepper_event.dart';
 import 'package:jinsei_bio_redesign/src/features/science/presentation/bloc/science_stepper_state.dart';
 
+class TestAssetBundle extends CachingAssetBundle {
+  @override
+  Future<String> loadString(String key, {bool cache = true}) async {
+    if (key == 'assets/config/science_steps.json') {
+      return File('assets/config/science_steps.json').readAsString();
+    }
+    return super.loadString(key, cache: cache);
+  }
+
+  @override
+  Future<ByteData> load(String key) async {
+    final bytes = await File(key).readAsBytes();
+    return ByteData.sublistView(Uint8List.fromList(bytes));
+  }
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   group('ScienceStepperBloc Tests', () {
     late ScienceStepperBloc bloc;
 
     setUp(() {
-      bloc = ScienceStepperBloc();
+      bloc = ScienceStepperBloc(assetBundle: TestAssetBundle());
     });
 
     tearDown(() {
@@ -22,7 +42,7 @@ void main() {
       expect(bloc.state.selectedStepIndex, equals(0));
     });
 
-    test('LoadScienceStepsEvent populates 10 default steps', () async {
+    test('LoadScienceStepsEvent populates 10 steps from JSON', () async {
       bloc.add(const LoadScienceStepsEvent());
       await expectLater(
         bloc.stream,
