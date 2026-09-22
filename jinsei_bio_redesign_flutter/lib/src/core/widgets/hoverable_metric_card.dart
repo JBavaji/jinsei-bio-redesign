@@ -91,21 +91,30 @@ class _HoverableMetricCardState extends State<HoverableMetricCard> {
               Text(
                 widget.value,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium?.copyWith(
+                style: (widget.value.length <= 5
+                        ? theme.textTheme.headlineMedium
+                        : theme.textTheme.titleMedium)
+                    ?.copyWith(
+                  fontFamily: 'Montserrat',
+                  fontSize: widget.value.length <= 5 ? 28 : 18,
                   fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                  letterSpacing: widget.value.length <= 5 ? -0.5 : 0.0,
+                  height: widget.value.length <= 5 ? 1.1 : 1.25,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
               Text(
                 widget.label,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+                  fontFamily: 'Inter',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                   color: isDark
                       ? AppColors.darkTextSecondary
                       : AppColors.lightTextSecondary,
-                  letterSpacing: 0.8,
+                  letterSpacing: 0.5,
                 ),
               ),
             ],
