@@ -3,10 +3,17 @@ import '../theme/app_theme.dart';
 import '../theme/app_typography.dart';
 import 'link_button.dart';
 
-/// Reusable Global App Footer Bar Component
-/// Renders brand logo copyright and official Google policy link buttons.
+/// Reusable Global App Footer Bar Component.
+/// Encapsulates brand emblem copyright block and official Google policy links.
 class AppFooterBar extends StatelessWidget {
-  const AppFooterBar({super.key});
+  final int? copyrightYear;
+  final EdgeInsetsGeometry? padding;
+
+  const AppFooterBar({
+    super.key,
+    this.copyrightYear,
+    this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +34,22 @@ class AppFooterBar extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding: padding ??
+            const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: LayoutBuilder(
           builder: (context, constraints) {
+            final brandBlock = _AppFooterBrandBlock(
+              isDark: isDark,
+              copyrightYear: copyrightYear,
+            );
+            final linksBlock = _AppFooterLinksBlock(isDark: isDark);
+
             if (constraints.maxWidth > 900) {
               return Row(
                 children: [
-                  AppFooterBrandBlock(isDark: isDark),
+                  brandBlock,
                   const Spacer(),
-                  AppFooterLinksBlock(isDark: isDark),
+                  linksBlock,
                 ],
               );
             }
@@ -44,9 +58,9 @@ class AppFooterBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppFooterBrandBlock(isDark: isDark),
+                brandBlock,
                 const SizedBox(height: 8),
-                AppFooterLinksBlock(isDark: isDark),
+                linksBlock,
               ],
             );
           },
@@ -56,13 +70,14 @@ class AppFooterBar extends StatelessWidget {
   }
 }
 
-/// Modular App Footer Brand Block Component
-class AppFooterBrandBlock extends StatelessWidget {
+/// Encapsulated Brand Emblem & Copyright Block Sub-Widget
+class _AppFooterBrandBlock extends StatelessWidget {
   final bool isDark;
+  final int? copyrightYear;
 
-  const AppFooterBrandBlock({
-    super.key,
+  const _AppFooterBrandBlock({
     required this.isDark,
+    this.copyrightYear,
   });
 
   @override
@@ -71,6 +86,7 @@ class AppFooterBrandBlock extends StatelessWidget {
         isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
     final copyrightColor =
         isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+    final year = copyrightYear ?? DateTime.now().year;
 
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -92,7 +108,7 @@ class AppFooterBrandBlock extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Text(
-          '|   © ${DateTime.now().year} All Rights Reserved.',
+          '|   © $year All Rights Reserved.',
           style: AppTypography.bodySmall(
             color: copyrightColor,
             fontSize: 11,
@@ -103,12 +119,11 @@ class AppFooterBrandBlock extends StatelessWidget {
   }
 }
 
-/// Modular App Footer Links Block Component
-class AppFooterLinksBlock extends StatelessWidget {
+/// Encapsulated Policy Links Block Sub-Widget
+class _AppFooterLinksBlock extends StatelessWidget {
   final bool isDark;
 
-  const AppFooterLinksBlock({
-    super.key,
+  const _AppFooterLinksBlock({
     required this.isDark,
   });
 
