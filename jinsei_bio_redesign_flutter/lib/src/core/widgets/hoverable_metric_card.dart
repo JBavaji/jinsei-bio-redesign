@@ -90,11 +90,10 @@ class _HoverableMetricCardState extends State<HoverableMetricCard> {
               const SizedBox(height: 10),
               Text(
                 widget.value,
-                style: theme.textTheme.headlineMedium?.copyWith(
-                  fontSize: 28,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : AppColors.lightTextPrimary,
-                  letterSpacing: -0.5,
                 ),
               ),
               const SizedBox(height: 4),
@@ -102,7 +101,6 @@ class _HoverableMetricCardState extends State<HoverableMetricCard> {
                 widget.label,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: 11,
                   fontWeight: FontWeight.w600,
                   color: isDark
                       ? AppColors.darkTextSecondary
