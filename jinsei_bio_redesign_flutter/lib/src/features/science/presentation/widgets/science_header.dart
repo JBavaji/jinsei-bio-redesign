@@ -74,8 +74,8 @@ class ScienceHeader extends StatelessWidget {
                         .map(
                           (m) => Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 6.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 6.0),
                               child: HoverableMetricCard(
                                 icon: m.icon,
                                 value: m.value,

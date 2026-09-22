@@ -15,7 +15,8 @@ class ScienceContentModel {
     final stepsRaw = json['pipeline_steps'] as List<dynamic>? ?? [];
 
     final metrics = metricsRaw
-        .map((e) => ScienceHeaderMetricModel.fromJson(e as Map<String, dynamic>))
+        .map(
+            (e) => ScienceHeaderMetricModel.fromJson(e as Map<String, dynamic>))
         .toList();
 
     final steps = stepsRaw

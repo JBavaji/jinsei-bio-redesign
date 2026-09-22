@@ -27,8 +27,7 @@ class HomeLocalDataSource implements IHomeLocalDataSource {
       if (e is FormatException) {
         throw HomeParseFailure('Failed to parse home content JSON', e);
       }
-      throw HomeAssetLoadFailure(
-          'Failed to load asset at $_assetPath', stack);
+      throw HomeAssetLoadFailure('Failed to load asset at $_assetPath', stack);
     }
   }
 }

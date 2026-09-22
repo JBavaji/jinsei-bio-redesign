@@ -23,7 +23,8 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('HomeLocalDataSource Tests', () {
-    test('fetchHomeContent decodes pillars, stats, and verticals from JSON asset',
+    test(
+        'fetchHomeContent decodes pillars, stats, and verticals from JSON asset',
         () async {
       final dataSource = HomeLocalDataSource(bundle: TestAssetBundle());
       final content = await dataSource.fetchHomeContent();

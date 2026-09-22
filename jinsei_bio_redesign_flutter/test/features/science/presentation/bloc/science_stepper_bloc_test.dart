@@ -31,8 +31,7 @@ void main() {
     late ScienceStepperBloc bloc;
 
     setUp(() {
-      final localDataSource =
-          ScienceLocalDataSource(bundle: TestAssetBundle());
+      final localDataSource = ScienceLocalDataSource(bundle: TestAssetBundle());
       final repository =
           ScienceRepositoryImpl(localDataSource: localDataSource);
       bloc = ScienceStepperBloc(repository: repository);
@@ -49,7 +48,8 @@ void main() {
       expect(bloc.state.selectedStepIndex, equals(0));
     });
 
-    test('LoadScienceStepsEvent populates header metrics and 10 steps from JSON',
+    test(
+        'LoadScienceStepsEvent populates header metrics and 10 steps from JSON',
         () async {
       bloc.add(const LoadScienceStepsEvent());
       await expectLater(
@@ -82,8 +82,7 @@ void main() {
       bloc.add(const LoadScienceStepsEvent());
       await bloc.stream.firstWhere((s) => s.isSuccess);
 
-      bloc.add(
-          const FilterScienceCategoryEvent(ScienceStepCategory.discovery));
+      bloc.add(const FilterScienceCategoryEvent(ScienceStepCategory.discovery));
       await expectLater(
         bloc.stream,
         emits(
