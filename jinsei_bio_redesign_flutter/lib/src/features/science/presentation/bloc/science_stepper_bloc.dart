@@ -11,12 +11,12 @@ class ScienceStepperBloc
     on<FilterScienceCategoryEvent>(_onFilterScienceCategory);
   }
 
-  void _onLoadScienceSteps(
+  Future<void> _onLoadScienceSteps(
     LoadScienceStepsEvent event,
     Emitter<ScienceStepperState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(status: ScienceStepperStatus.loading));
-    final steps = ScienceStepModel.defaultSteps;
+    final steps = await ScienceStepModel.loadFromAsset();
     emit(state.copyWith(
       status: ScienceStepperStatus.loaded,
       steps: steps,
