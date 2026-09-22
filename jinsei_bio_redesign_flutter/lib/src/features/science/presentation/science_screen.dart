@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
+import '../../../core/widgets/app_error_state_view.dart';
 import '../../../core/widgets/app_footer_bar.dart';
+import '../../../core/widgets/app_loading_indicator.dart';
 import 'bloc/science_stepper_bloc.dart';
 import 'bloc/science_stepper_event.dart';
 import 'bloc/science_stepper_state.dart';
@@ -43,22 +44,19 @@ class _ScienceScreenView extends StatelessWidget {
                     const SizedBox(height: 48),
                     BlocBuilder<ScienceStepperBloc, ScienceStepperState>(
                       builder: (context, state) {
-                        if (state.status == ScienceStepperStatus.loading) {
-                          return const Padding(
-                            padding: EdgeInsets.all(60.0),
-                            child: CircularProgressIndicator(
-                              color: AppColors.cyanInteractive,
-                            ),
-                          );
+                        if (state.isLoading) {
+                          return const AppLoadingIndicator();
                         }
 
-                        if (state.status == ScienceStepperStatus.error) {
-                          return Center(
-                            child: Text(
-                              state.errorMessage ??
-                                  'Failed to load science steps.',
-                              style: const TextStyle(color: Colors.redAccent),
-                            ),
+                        if (state.isFailed) {
+                          return AppErrorStateView(
+                            errorMessage: state.errorMessage ??
+                                'Failed to load science steps.',
+                            onRetry: () {
+                              context
+                                  .read<ScienceStepperBloc>()
+                                  .add(const LoadScienceStepsEvent());
+                            },
                           );
                         }
 
