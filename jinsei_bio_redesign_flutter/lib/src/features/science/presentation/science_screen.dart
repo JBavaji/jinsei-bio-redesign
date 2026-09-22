@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
+import '../../../core/widgets/app_error_state_view.dart';
 import '../../../core/widgets/app_footer_bar.dart';
+import '../../../core/widgets/app_loading_indicator.dart';
 import 'bloc/science_stepper_bloc.dart';
 import 'bloc/science_stepper_event.dart';
 import 'bloc/science_stepper_state.dart';
@@ -44,21 +45,18 @@ class _ScienceScreenView extends StatelessWidget {
                     BlocBuilder<ScienceStepperBloc, ScienceStepperState>(
                       builder: (context, state) {
                         if (state.isLoading) {
-                          return const Padding(
-                            padding: EdgeInsets.all(60.0),
-                            child: CircularProgressIndicator(
-                              color: AppColors.cyanInteractive,
-                            ),
-                          );
+                          return const AppLoadingIndicator();
                         }
 
                         if (state.isFailed) {
-                          return Center(
-                            child: Text(
-                              state.errorMessage ??
-                                  'Failed to load science steps.',
-                              style: const TextStyle(color: Colors.redAccent),
-                            ),
+                          return AppErrorStateView(
+                            errorMessage: state.errorMessage ??
+                                'Failed to load science steps.',
+                            onRetry: () {
+                              context
+                                  .read<ScienceStepperBloc>()
+                                  .add(const LoadScienceStepsEvent());
+                            },
                           );
                         }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../core/widgets/app_error_state_view.dart';
 import '../../../core/widgets/app_footer_bar.dart';
+import '../../../core/widgets/app_loading_indicator.dart';
 import 'bloc/b2b_form_bloc.dart';
 import 'bloc/home_bloc.dart';
 import 'bloc/home_event.dart';
@@ -61,24 +62,18 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<HomeBloc, HomeState>(
                 builder: (context, state) {
                   if (state.isLoading) {
-                    return const Padding(
-                      padding: EdgeInsets.all(60.0),
-                      child: CircularProgressIndicator(
-                        color: AppColors.cyanInteractive,
-                      ),
-                    );
+                    return const AppLoadingIndicator();
                   }
 
                   if (state.isFailed) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Text(
-                          state.errorMessage ??
-                              'Failed to load home page content.',
-                          style: const TextStyle(color: Colors.redAccent),
-                        ),
-                      ),
+                    return AppErrorStateView(
+                      errorMessage: state.errorMessage ??
+                          'Failed to load home page content.',
+                      onRetry: () {
+                        context
+                            .read<HomeBloc>()
+                            .add(const LoadHomeContentEvent());
+                      },
                     );
                   }
 
