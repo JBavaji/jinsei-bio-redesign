@@ -16,7 +16,8 @@ void main() {
   }
 
   group('StepNumberBadge Widget Tests', () {
-    testWidgets('StepNumberBadge formats 1-digit number as 2 digits with zero padding',
+    testWidgets(
+        'StepNumberBadge formats 1-digit number as 2 digits with zero padding',
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget(
         child: const StepNumberBadge(

@@ -38,7 +38,8 @@ class ComingSoonView extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 640),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.darkSurfaceCard.withValues(alpha: 0.85)
@@ -46,7 +47,8 @@ class ComingSoonView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
                       color: isDark
-                          ? AppColors.primaryContainerTeal.withValues(alpha: 0.3)
+                          ? AppColors.primaryContainerTeal
+                              .withValues(alpha: 0.3)
                           : AppColors.lightBorder,
                     ),
                     boxShadow: [
@@ -73,11 +75,13 @@ class ComingSoonView extends StatelessWidget {
                             colors: [
                               AppColors.primaryContainerTeal
                                   .withValues(alpha: 0.25),
-                              AppColors.bioluminescentGreen.withValues(alpha: 0.05),
+                              AppColors.bioluminescentGreen
+                                  .withValues(alpha: 0.05),
                             ],
                           ),
                           border: Border.all(
-                            color: AppColors.cyanInteractive.withValues(alpha: 0.5),
+                            color: AppColors.cyanInteractive
+                                .withValues(alpha: 0.5),
                             width: 1.5,
                           ),
                         ),

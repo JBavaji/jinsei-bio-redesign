@@ -21,12 +21,10 @@ class StepNumberBadge extends StatelessWidget {
       height: 44,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color:
-            isSelected ? AppColors.emeraldAccent : AppColors.darkObsidianBg,
+        color: isSelected ? AppColors.emeraldAccent : AppColors.darkObsidianBg,
         border: Border.all(
-          color: isSelected
-              ? AppColors.emeraldAccent
-              : AppColors.cyanInteractive,
+          color:
+              isSelected ? AppColors.emeraldAccent : AppColors.cyanInteractive,
           width: 2,
         ),
         boxShadow: [

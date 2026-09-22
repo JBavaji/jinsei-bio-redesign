@@ -34,8 +34,8 @@ class AppFooterBar extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        padding:
+            padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final brandBlock = _AppFooterBrandBlock(
