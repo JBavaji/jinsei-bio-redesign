@@ -60,6 +60,7 @@ Before executing code, AI agents MUST reference:
 5. **Launch Priority:** **Splash / Launch Screen** (Priority 0) with centered logo redesign animation MUST be implemented and verified across Web, Android, and iOS before any feature screens are built (ADR-010).
 6. **Component Modularity:** Keep UI components simple, focused, and modular. Maximum lines of code per component file MUST NOT exceed 100-150 lines. Decompose lengthy widgets into dedicated sub-component files.
 7. **Mandatory Screen Implementation Plan & Design Alignment:** During screen implementation planning and coding, AI agents MUST inspect and validate both the respective `.html` design reference (`data/modern/design/screens/*.html`) and its corresponding `.png` screenshot image (`data/modern/design/screenshots/*.png`) to ensure zero missing UI elements, layout discrepancies, or unhandled states.
+8. **Clean Architecture & Repository Standard:** Every new feature screen or data management task MUST implement the Repository Pattern with an abstract interface (e.g. `IScienceRepository`), a dedicated Data Source layer (`local` asset JSON / `remote` API), structured Failure handling (`ScienceFailure`), and a 5-stage BLoC status lifecycle (`idle`, `loading`, `loaded`, `success`, `failed`) with boolean state getters (`isIdle`, `isLoading`, `isLoaded`, `isSuccess`, `isFailed`).
 
 ---
 
