@@ -1,0 +1,237 @@
+# 📘 Flutter Web & Firebase Multi-Site Staging Deployment Guide
+
+> **Target Application:** Jinsei Bio Redesign — Flutter Web App  
+> **Target Staging URL:** [https://jinsei-bio-staging.web.app](https://jinsei-bio-staging.web.app)  
+> **Target Production URL:** [https://jinseibio.web.app](https://jinseibio.web.app)  
+> **Document Location:** `development/jinsei-bio-redesign/docs/FLUTTER_WEB_FIREBASE_STAGING_GUIDE.md`  
+> **Target Audience:** Engineering Leads, Frontend Engineers, DevOps Engineers, AI Agents (Antigravity / GitHub Copilot)
+
+---
+
+## 📌 Executive Summary
+
+This guide explains **how the Flutter Web application is built, compiled, and automatically deployed to Firebase Hosting** across staging and production environments.
+
+By combining **GitHub Actions CI/CD workflows**, **Firebase Multi-Site Hosting**, and **automated Quality Gates**, every code merge to the `staging` branch automatically publishes a live web preview without manual build steps or local deployments.
+
+---
+
+## 🏗️ End-to-End Architecture Overview
+
+```
+ ┌───────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 1. DEVELOPER / AI AGENT                                                                          │
+ │    • Writes code on feature/bugfix branch                                                        │
+ │    • Opens PR to `develop` ➔ Merged to `develop`                                                 │
+ └─────────────────────────────────────────────────┬─────────────────────────────────────────────────┘
+                                                   │
+                                                   ▼ (PR merge to `staging` branch)
+ ┌───────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 2. GITHUB ACTIONS RUNNER (`.github/workflows/deploy-web-firebase.yml`)                            │
+ │    ├─ 📥 Checkout Repository & Setup Flutter SDK (stable channel)                                 │
+ │    ├─ 🔍 Quality Gate 1: Dependencies & Static Analysis (`flutter analyze --no-fatal-infos`)       │
+ │    ├─ 🧪 Quality Gate 2: Unit & Widget Test Suite (`flutter test`)                                │
+ │    └─ 🏗️ Web Compilation: `flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO`     │
+ └─────────────────────────────────────────────────┬─────────────────────────────────────────────────┘
+                                                   │
+                                                   ▼ (Service Account Authentication)
+ ┌───────────────────────────────────────────────────────────────────────────────────────────────────┐
+ │ 3. FIREBASE HOSTING GLOBAL CDN                                                                    │
+ │    ├─ Target: `jinsei-bio-staging`  ➔ Deploys to https://jinsei-bio-staging.web.app (Staging)    │
+ │    └─ Target: `jinsei-bio-redesign` ➔ Deploys to https://jinseibio.web.app (Production - `main`) │
+ └───────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## ⚙️ Step-by-Step Breakdown: How It Works
+
+### 1️⃣ Firebase Multi-Site Console Setup (One-Time Setup)
+
+By default, a Firebase project includes a single primary hosting site (e.g., `jinsei-bio-redesign.web.app`). To create a clean, dedicated staging URL:
+
+1. Open **Firebase Console** ➔ Select Project (`jinsei-bio-redesign`).
+2. Navigate to **Build ➔ Hosting**.
+3. Under *Advanced*, click **Add another site**.
+4. Name the new site: `jinsei-bio-staging`.
+5. Firebase provisions the dedicated URL: **`https://jinsei-bio-staging.web.app`**.
+
+---
+
+### 2️⃣ Repository Hosting Configuration (`firebase.json`)
+
+To map multiple deployment sites within a single repository, `firebase.json` uses an array of hosting target configurations:
+
+```json
+{
+  "hosting": [
+    {
+      "site": "jinsei-bio-redesign",
+      "public": "jinsei_bio_redesign_flutter/build/web",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }],
+      "headers": [
+        {
+          "source": "**/*.@(js|css|png|jpg|jpeg|gif|webp|svg|wasm|ttf|woff|woff2)",
+          "headers": [{ "key": "Cache-Control", "value": "max-age=31536000, public" }]
+        }
+      ]
+    },
+    {
+      "site": "jinsei-bio-staging",
+      "public": "jinsei_bio_redesign_flutter/build/web",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }],
+      "headers": [
+        {
+          "source": "**/*.@(js|css|png|jpg|jpeg|gif|webp|svg|wasm|ttf|woff|woff2)",
+          "headers": [{ "key": "Cache-Control", "value": "max-age=31536000, public" }]
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Key Settings Explained:
+* `"site"`: Matches the target site created in Firebase Console (`jinsei-bio-staging`).
+* `"public"`: Path to compiled web assets generated by Flutter (`jinsei_bio_redesign_flutter/build/web`).
+* `"rewrites"`: Routes all deep URLs (`**`) to `index.html` to support Flutter `go_router` Single Page App (SPA) navigation.
+* `"headers"`: Enables 1-year browser caching (`max-age=31536000`) for static assets (JavaScript, CSS, webp images, fonts).
+
+---
+
+### 3️⃣ Automated GitHub Actions Pipeline (`deploy-web-firebase.yml`)
+
+The automated workflow file is located at `.github/workflows/deploy-web-firebase.yml`.
+
+#### Workflow Execution Trigger:
+```yaml
+on:
+  push:
+    branches:
+      - main
+      - staging
+      - develop
+```
+
+#### Detailed Workflow Steps:
+
+1. **Environment Setup**:
+   * Checks out code (`actions/checkout@v4`).
+   * Configures Java 17 (`actions/setup-java@v4`).
+   * Installs Flutter SDK stable channel (`subosito/flutter-action@v2`).
+
+2. **Automated Quality Gates**:
+   ```bash
+   cd jinsei_bio_redesign_flutter
+   flutter pub get
+   flutter analyze --no-fatal-infos  # Enforces static code quality
+   flutter test                      # Runs full unit/widget test suite
+   ```
+
+3. **Flutter Web Release Bundle Generation**:
+   ```bash
+   cd jinsei_bio_redesign_flutter
+   flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO
+   ```
+   * **`flutter build web --release`**: Compiles Dart code to optimized, tree-shaken web JavaScript bundle inside `build/web`.
+   * **`--dart-define=APP_MODE=UNOFFICIAL_DEMO`**: Injects mandatory legal disclaimer flag into runtime configuration.
+
+4. **Staging Deployment Execution**:
+   ```yaml
+   - name: 🧪 Deploy to Firebase Hosting (Beta Testing Release — staging branch)
+     if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+     uses: FirebaseExtended/action-hosting-deploy@v0
+     with:
+       repoToken: '${{ secrets.GITHUB_TOKEN }}'
+       firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_JINSEI_BIO_REDESIGN }}'
+       target: jinsei-bio-staging
+       channelId: live
+       projectId: jinsei-bio-redesign
+   ```
+   * **`target: jinsei-bio-staging`**: Directs deployment to the `jinsei-bio-staging` site.
+   * **`channelId: live`**: Deploys directly to the live production channel of that site (`https://jinsei-bio-staging.web.app`).
+
+---
+
+## 🌿 Git Branching Lifecycle (How Team Members & AI Collaborate)
+
+```
+  [ Feature / Fix Branch ]
+          │
+          ▼ (Create PR & Merge)
+     [ develop ]  ─── (Runs CI Quality Gates & Build Validation)
+          │
+          ▼ (Create PR & Merge)
+     [ staging ]  ─── 🚀 Auto-deploys to https://jinsei-bio-staging.web.app
+          │
+          ▼ (Create PR & Merge - Final Sign-off)
+     [ main ]     ─── 🚀 Auto-deploys to https://jinseibio.web.app
+```
+
+### Team Member Workflow:
+1. Work on a feature branch (`feat/JIN-XX-feature-description`).
+2. Open Pull Request to `develop`.
+3. After `develop` integration testing, open Pull Request to `staging`.
+4. Merging into `staging` **automatically triggers deployment** to [https://jinsei-bio-staging.web.app](https://jinsei-bio-staging.web.app) (~2-3 minutes).
+
+---
+
+## 🚀 Blueprint: How to Set Up Staging for Any New Flutter Project
+
+If you are starting a new project, follow these 5 steps to configure multi-site Firebase staging:
+
+### Step 1: Create Secondary Site in Firebase Console
+* Go to Firebase Console ➔ Hosting ➔ **Add another site** ➔ Enter `<project-id>-staging`.
+
+### Step 2: Configure Service Account Key in GitHub Secrets
+1. Go to Google Cloud Console ➔ IAM & Admin ➔ Service Accounts.
+2. Generate a JSON Key for `firebase-adminsdk` with **Firebase Hosting Admin** role.
+3. Save JSON secret in GitHub: `Settings ➔ Secrets and variables ➔ Actions ➔ New repository secret` named `FIREBASE_SERVICE_ACCOUNT_<PROJECT_NAME>`.
+
+### Step 3: Add `firebase.json` Multi-Site Targets
+Add both sites under `"hosting"` array in `firebase.json` (as shown in Phase 2 above).
+
+### Step 4: Create `.github/workflows/deploy-web-firebase.yml`
+Copy the workflow configuration with steps for `flutter analyze`, `flutter test`, `flutter build web --release`, and `action-hosting-deploy`.
+
+### Step 5: Test Branch Deployment
+Push code to `staging` branch and verify deployment at `https://<project-id>-staging.web.app`.
+
+---
+
+## ⚡ Local Developer Command Reference
+
+### Local Web Build Command:
+```bash
+cd jinsei_bio_redesign_flutter
+flutter pub get
+flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO
+```
+
+### Manual Firebase Staging Deploy (Terminal):
+```bash
+# 1. Login to Firebase CLI
+npx firebase-tools login
+
+# 2. Deploy to staging site
+cd development/jinsei-bio-redesign
+npx firebase-tools deploy --only hosting:jinsei-bio-staging
+```
+
+---
+
+## ❓ Frequently Asked Questions (FAQ)
+
+#### Q1: Why use `target: jinsei-bio-staging` instead of preview channel hashes?
+Preview channels generate temporary URLs (e.g. `jinsei-bio-redesign--staging-fmh0hqyp.web.app`) that expire in 7 days. Setting up a multi-site target provides a permanent, clean URL (`https://jinsei-bio-staging.web.app`) for ongoing QA testing and LinkedIn / stakeholder showcases.
+
+#### Q2: How long does automated deployment take?
+Typically 2 to 3 minutes from the time a PR is merged into `staging`. You can track live build logs in the GitHub repository **Actions** tab.
+
+#### Q3: Does staging share the production database?
+In a full-stack environment with Dart Serverpod, staging web endpoints should connect to the staging database instance via environment configuration flags.
+
+---
+*Created by Product Architecture & DevOps Team (Jayeshgiri Bavaji & Antigravity AI)*
