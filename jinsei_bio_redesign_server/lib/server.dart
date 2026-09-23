@@ -14,19 +14,34 @@ void run(List<String> args) async {
     Endpoints(),
   );
 
-  // Register direct REST HTTP Health route for /health endpoints
-  final healthRoute = HealthRoute();
+  // Determine active runtime environment mode
+  final runMode = pod.runMode;
+  final isProduction = runMode == 'production' || runMode == 'staging';
+
+  // Register production REST HTTP Health routes
+  final healthRoute = HealthRoute(isProduction: isProduction);
   pod.webServer.addRoute(healthRoute, '/health');
   pod.webServer.addRoute(healthRoute, '/health/*');
 
   try {
-    // Attempt full Serverpod startup with a 3-second database timeout gate
-    await pod.start().timeout(const Duration(seconds: 3));
+    // In Production: Attempt full Serverpod startup; fail-fast if Database is unavailable
+    if (isProduction) {
+      await pod.start();
+    } else {
+      // In Local Dev: 3-second database connection gate; fallback to sandbox server if offline
+      await pod.start().timeout(const Duration(seconds: 3));
+    }
   } catch (e) {
-    print(
-        'ℹ️ Serverpod running in Standalone Local Mode (PostgreSQL offline/unreachable).');
-    await _startStandaloneLocalServer(8080);
-    await _startStandaloneLocalServer(8081);
+    if (isProduction) {
+      // Fail Fast for Production Resilience (Cloud Run / K8s readiness probe gate)
+      stderr.writeln('FATAL: Database connection failed in $runMode mode: $e');
+      exit(1);
+    } else {
+      print(
+          'ℹ️ Serverpod running in Standalone Local Sandbox Mode (PostgreSQL offline).');
+      await _startStandaloneLocalServer(8080);
+      await _startStandaloneLocalServer(8081);
+    }
   }
 }
 
@@ -39,12 +54,7 @@ Future<void> _startStandaloneLocalServer(int port) async {
 
     server.listen((HttpRequest request) async {
       final response = request.response;
-      response.headers.contentType = ContentType.json;
-      response.headers.add('Access-Control-Allow-Origin', '*');
-      response.headers
-          .add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      response.headers.add(
-          'Access-Control-Allow-Headers', 'Content-Type, X-Serverpod-Method');
+      _applyProductionSecurityHeaders(response);
 
       if (request.method == 'OPTIONS') {
         response.statusCode = HttpStatus.ok;
@@ -64,7 +74,9 @@ Future<void> _startStandaloneLocalServer(int port) async {
           'service': 'jinsei_bio_redesign_server',
           'version': '1.0.0',
           'appMode': 'UNOFFICIAL_DEMO',
+          'environment': 'development-sandbox',
           'database': 'PostgreSQL (Local Standalone Sandbox)',
+          'timestamp': DateTime.now().toUtc().toIso8601String(),
         }));
       } else {
         response.statusCode = HttpStatus.ok;
@@ -72,6 +84,7 @@ Future<void> _startStandaloneLocalServer(int port) async {
           'status': 'OK',
           'path': path,
           'message': 'Jinsei Bio Redesign Serverpod Sandbox Live',
+          'timestamp': DateTime.now().toUtc().toIso8601String(),
         }));
       }
       await response.close();
@@ -81,31 +94,50 @@ Future<void> _startStandaloneLocalServer(int port) async {
   }
 }
 
-/// Direct REST HTTP Route handler for health checks (handles GET & POST http://localhost:8081/health)
+/// Direct REST HTTP Route handler for health checks (handles GET & POST)
 class HealthRoute extends Route {
+  final bool isProduction;
+
+  HealthRoute({this.isProduction = false});
+
   @override
   Future<bool> handleCall(Session session, HttpRequest request) async {
-    request.response.headers.contentType = ContentType.json;
-    request.response.headers.add('Access-Control-Allow-Origin', '*');
-    request.response.headers
-        .add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    request.response.headers
-        .add('Access-Control-Allow-Headers', 'Content-Type');
+    final response = request.response;
+    _applyProductionSecurityHeaders(response, isProduction: isProduction);
 
     if (request.method == 'OPTIONS') {
-      request.response.statusCode = HttpStatus.ok;
-      await request.response.close();
+      response.statusCode = HttpStatus.ok;
+      await response.close();
       return true;
     }
 
-    request.response.statusCode = HttpStatus.ok;
-    request.response.write(jsonEncode({
+    response.statusCode = HttpStatus.ok;
+    response.write(jsonEncode({
       'status': 'HEALTHY',
       'service': 'jinsei_bio_redesign_server',
       'version': '1.0.0',
       'appMode': 'UNOFFICIAL_DEMO',
+      'environment': session.serverpod.runMode,
+      'timestamp': DateTime.now().toUtc().toIso8601String(),
     }));
-    await request.response.close();
+    await response.close();
     return true;
+  }
+}
+
+/// Helper method to inject OWASP Backend Security Headers
+void _applyProductionSecurityHeaders(HttpResponse response,
+    {bool isProduction = false}) {
+  response.headers.contentType = ContentType.json;
+  response.headers.add('Access-Control-Allow-Origin', '*');
+  response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  response.headers.add('Access-Control-Allow-Headers',
+      'Content-Type, Authorization, X-Serverpod-Method');
+  response.headers.add('X-Content-Type-Options', 'nosniff');
+  response.headers.add('X-Frame-Options', 'DENY');
+  response.headers.add('X-XSS-Protection', '1; mode=block');
+  if (isProduction) {
+    response.headers.add(
+        'Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
   }
 }
