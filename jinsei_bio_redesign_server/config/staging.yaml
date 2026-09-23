@@ -1,25 +1,27 @@
+clusterId: default
+
 apiServer:
   port: 8080
-  publicHost: jinsei-bio-api-staging.a.run.app
-  publicPort: 443
+  publicHost: staging.jinseibio.internal
+  publicPort: 8080
   publicScheme: https
 
 webServer:
   port: 8081
-  publicHost: jinsei-bio-staging.web.app
-  publicPort: 443
+  publicHost: staging.jinseibio.internal
+  publicPort: 8081
   publicScheme: https
 
 insightsServer:
   port: 8082
-  publicHost: localhost
+  publicHost: staging.jinseibio.internal
   publicPort: 8082
-  publicScheme: http
+  publicScheme: https
 
 database:
-  host: db.staging.supabase.co
+  host: localhost
   port: 5432
-  name: postgres
+  name: jinsei_bio_redesign_staging
   user: postgres
 
 maxRequestSize: 5242880

@@ -1,3 +1,8 @@
+# Configuration file for running the server in development mode.
+
+clusterId: default
+serverId: default
+
 apiServer:
   port: 8080
   publicHost: localhost
@@ -17,9 +22,15 @@ insightsServer:
   publicScheme: http
 
 database:
+  enabled: false
   host: localhost
   port: 5432
   name: jinsei_bio_redesign_dev
   user: postgres
+
+redis:
+  enabled: false
+  host: localhost
+  port: 6379
 
 maxRequestSize: 5242880
