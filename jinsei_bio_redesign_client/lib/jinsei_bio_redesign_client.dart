@@ -5,13 +5,11 @@ class Client extends ServerpodClient {
   Client(
     String host, {
     dynamic securityContext,
-    ServerpodClientErrorCallback? errorHandler,
     AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
           Protocol(),
           securityContext: securityContext,
-          errorHandler: errorHandler,
           authenticationKeyManager: authenticationKeyManager,
         ) {
     health = EndpointHealth(this);
@@ -23,6 +21,9 @@ class Client extends ServerpodClient {
   Map<String, EndpointRef> get endpointRefLookup => {
         'health': health,
       };
+
+  @override
+  Map<String, ModuleEndpointCaller> get moduleLookup => {};
 }
 
 class Protocol extends SerializationManager {

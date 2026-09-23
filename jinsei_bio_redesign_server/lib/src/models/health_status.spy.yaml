@@ -1,0 +1,8 @@
+class: HealthStatusResponse
+fields:
+  status: String
+  service: String
+  version: String
+  database: String
+  appMode: String
+  timestamp: DateTime

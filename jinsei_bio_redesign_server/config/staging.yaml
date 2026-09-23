@@ -1,0 +1,25 @@
+apiServer:
+  port: 8080
+  publicHost: jinsei-bio-api-staging.a.run.app
+  publicPort: 443
+  publicScheme: https
+
+webServer:
+  port: 8081
+  publicHost: jinsei-bio-staging.web.app
+  publicPort: 443
+  publicScheme: https
+
+insightsServer:
+  port: 8082
+  publicHost: localhost
+  publicPort: 8082
+  publicScheme: http
+
+database:
+  host: db.staging.supabase.co
+  port: 5432
+  name: postgres
+  user: postgres
+
+maxRequestSize: 5242880
