@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import '../../data/datasources/health_remote_data_source.dart';
 import 'splash_event.dart';
 import 'splash_state.dart';
 
@@ -8,7 +9,14 @@ export 'splash_event.dart';
 export 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  SplashBloc() : super(const SplashState()) {
+  final IHealthRemoteDataSource _healthDataSource;
+
+  SplashBloc({IHealthRemoteDataSource? healthDataSource})
+      : _healthDataSource = healthDataSource ?? HealthRemoteDataSource(),
+        super(const SplashState(
+          progress: 0.15,
+          statusText: 'Connecting to Serverpod RPC gateway...',
+        )) {
     on<StartSplashCalibrationEvent>(_onStartCalibration);
   }
 
@@ -21,35 +29,50 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       FlutterNativeSplash.remove();
     } catch (_) {}
 
-    // 2. Step 1 Calibration: RPC & Serverpod (30%)
+    // 2. Step 1: Initializing Serverpod RPC Health Probe (15%)
     emit(state.copyWith(
-      progress: 0.30,
+      progress: 0.15,
       statusText: 'Connecting to Serverpod RPC gateway...',
     ));
-    await Future.delayed(const Duration(milliseconds: 700));
 
-    // 3. Step 2 Calibration: Metagenomic Consortia (65%)
+    // Execute live API health check
+    final isServerHealthy = await _healthDataSource.checkServerHealth(
+      timeout: const Duration(milliseconds: 5000),
+    );
+
+    final statusMessage = isServerHealthy
+        ? 'Serverpod RPC Gateway Online [HEALTHY]'
+        : 'Serverpod Gateway Offline — Demo Mode Active';
+
+    // 3. Step 2: Health Check Result Aligned (40%)
     emit(state.copyWith(
-      progress: 0.65,
-      statusText: 'Calibrating metagenomic consortia...',
+      progress: 0.40,
+      statusText: statusMessage,
     ));
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 500));
 
-    // 4. Step 3 Calibration: Diagnostic Handshake (88%)
+    // 4. Step 3: Metagenomic Consortia Calibration (70%)
     emit(state.copyWith(
-      progress: 0.88,
-      statusText: 'Initializing diagnostic handshake...',
+      progress: 0.70,
+      statusText: 'Calibrating metagenomic consortia & protocol metrics...',
     ));
-    await Future.delayed(const Duration(milliseconds: 700));
+    await Future.delayed(const Duration(milliseconds: 600));
 
-    // 5. Step 4 Calibration: System Ready (100%)
+    // 5. Step 4: Diagnostic Handshake (90%)
+    emit(state.copyWith(
+      progress: 0.90,
+      statusText: 'Initializing diagnostic handshake & security validation...',
+    ));
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    // 6. Step 5: System Ready (100%)
     emit(state.copyWith(
       progress: 1.00,
       statusText: 'System ready. Calibration complete.',
     ));
     await Future.delayed(const Duration(milliseconds: 400));
 
-    // 6. Calibration Complete: Transition to HomeScreen
+    // 7. Calibration Complete: Transition to HomeScreen
     emit(state.copyWith(isCompleted: true));
   }
 }

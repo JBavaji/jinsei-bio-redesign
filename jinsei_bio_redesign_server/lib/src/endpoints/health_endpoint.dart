@@ -1,5 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 
+import '../utils/version_service.dart';
+
 /// Serverpod endpoint for health check & system status
 class HealthEndpoint extends Endpoint {
   Future<String> ping(Session session) async {
@@ -10,7 +12,7 @@ class HealthEndpoint extends Endpoint {
     return {
       'status': 'HEALTHY',
       'service': 'jinsei_bio_redesign_server',
-      'version': '1.0.0',
+      'version': VersionService.version,
       'database': 'PostgreSQL',
       'appMode': 'UNOFFICIAL_DEMO',
     };

@@ -1,0 +1,27 @@
+clusterId: default
+
+apiServer:
+  port: 8080
+  publicHost: api.jinseibio.internal
+  publicPort: 443
+  publicScheme: https
+
+webServer:
+  port: 8081
+  publicHost: app.jinseibio.internal
+  publicPort: 443
+  publicScheme: https
+
+insightsServer:
+  port: 8082
+  publicHost: insights.jinseibio.internal
+  publicPort: 443
+  publicScheme: https
+
+database:
+  host: localhost
+  port: 5432
+  name: jinsei_bio_redesign_prod
+  user: postgres
+
+maxRequestSize: 5242880

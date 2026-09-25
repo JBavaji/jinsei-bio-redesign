@@ -1,0 +1,27 @@
+clusterId: default
+
+apiServer:
+  port: 8080
+  publicHost: staging.jinseibio.internal
+  publicPort: 8080
+  publicScheme: https
+
+webServer:
+  port: 8081
+  publicHost: staging.jinseibio.internal
+  publicPort: 8081
+  publicScheme: https
+
+insightsServer:
+  port: 8082
+  publicHost: staging.jinseibio.internal
+  publicPort: 8082
+  publicScheme: https
+
+database:
+  host: localhost
+  port: 5432
+  name: jinsei_bio_redesign_staging
+  user: postgres
+
+maxRequestSize: 5242880
