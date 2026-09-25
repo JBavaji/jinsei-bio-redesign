@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import '../utils/version_service.dart';
 import 'security_headers.dart';
 
 /// Fallback Standalone HTTP Server for local development without active PostgreSQL instance
@@ -30,7 +31,7 @@ Future<void> startStandaloneLocalServer(int port) async {
         response.write(jsonEncode({
           'status': 'HEALTHY',
           'service': 'jinsei_bio_redesign_server',
-          'version': '1.2.2+14',
+          'version': VersionService.version,
           'appMode': 'UNOFFICIAL_DEMO',
           'environment': 'development-sandbox',
           'database': 'PostgreSQL (Local Standalone Sandbox)',
