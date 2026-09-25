@@ -24,6 +24,10 @@ class PillarItemModel {
     'eco_rounded': Icons.eco_rounded,
   };
 
+  static IconData iconFromKey(String key) {
+    return _iconMap[key] ?? Icons.public_rounded;
+  }
+
   factory PillarItemModel.fromJson(Map<String, dynamic> json) {
     final key = json['iconKey'] as String? ?? 'public_rounded';
     final iconData = _iconMap[key] ?? Icons.public_rounded;

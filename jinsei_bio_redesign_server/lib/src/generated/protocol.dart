@@ -13,8 +13,17 @@ library protocol;
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'health_status.dart' as _i3;
+import 'executive_stat.dart' as _i3;
+import 'health_status.dart' as _i4;
+import 'home_content.dart' as _i5;
+import 'pillar_item.dart' as _i6;
+import 'product_vertical.dart' as _i7;
+import 'protocol.dart' as _i8;
+export 'executive_stat.dart';
 export 'health_status.dart';
+export 'home_content.dart';
+export 'pillar_item.dart';
+export 'product_vertical.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -38,13 +47,53 @@ class Protocol extends _i1.SerializationManagerServer {
     if (customConstructors.containsKey(t)) {
       return customConstructors[t]!(data, this) as T;
     }
-    if (t == _i3.HealthStatusResponse) {
-      return _i3.HealthStatusResponse.fromJson(data, this) as T;
+    if (t == _i3.ExecutiveStat) {
+      return _i3.ExecutiveStat.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i3.HealthStatusResponse?>()) {
+    if (t == _i4.HealthStatusResponse) {
+      return _i4.HealthStatusResponse.fromJson(data, this) as T;
+    }
+    if (t == _i5.HomeContent) {
+      return _i5.HomeContent.fromJson(data, this) as T;
+    }
+    if (t == _i6.PillarItem) {
+      return _i6.PillarItem.fromJson(data, this) as T;
+    }
+    if (t == _i7.ProductVertical) {
+      return _i7.ProductVertical.fromJson(data, this) as T;
+    }
+    if (t == _i1.getType<_i3.ExecutiveStat?>()) {
+      return (data != null ? _i3.ExecutiveStat.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i4.HealthStatusResponse?>()) {
       return (data != null
-          ? _i3.HealthStatusResponse.fromJson(data, this)
+          ? _i4.HealthStatusResponse.fromJson(data, this)
           : null) as T;
+    }
+    if (t == _i1.getType<_i5.HomeContent?>()) {
+      return (data != null ? _i5.HomeContent.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i6.PillarItem?>()) {
+      return (data != null ? _i6.PillarItem.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i7.ProductVertical?>()) {
+      return (data != null ? _i7.ProductVertical.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == List<_i8.PillarItem>) {
+      return (data as List).map((e) => deserialize<_i8.PillarItem>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i8.ExecutiveStat>) {
+      return (data as List)
+          .map((e) => deserialize<_i8.ExecutiveStat>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i8.ProductVertical>) {
+      return (data as List)
+          .map((e) => deserialize<_i8.ProductVertical>(e))
+          .toList() as dynamic;
     }
     if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
@@ -58,16 +107,40 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i3.HealthStatusResponse) {
+    if (data is _i3.ExecutiveStat) {
+      return 'ExecutiveStat';
+    }
+    if (data is _i4.HealthStatusResponse) {
       return 'HealthStatusResponse';
+    }
+    if (data is _i5.HomeContent) {
+      return 'HomeContent';
+    }
+    if (data is _i6.PillarItem) {
+      return 'PillarItem';
+    }
+    if (data is _i7.ProductVertical) {
+      return 'ProductVertical';
     }
     return super.getClassNameForObject(data);
   }
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'] == 'ExecutiveStat') {
+      return deserialize<_i3.ExecutiveStat>(data['data']);
+    }
     if (data['className'] == 'HealthStatusResponse') {
-      return deserialize<_i3.HealthStatusResponse>(data['data']);
+      return deserialize<_i4.HealthStatusResponse>(data['data']);
+    }
+    if (data['className'] == 'HomeContent') {
+      return deserialize<_i5.HomeContent>(data['data']);
+    }
+    if (data['className'] == 'PillarItem') {
+      return deserialize<_i6.PillarItem>(data['data']);
+    }
+    if (data['className'] == 'ProductVertical') {
+      return deserialize<_i7.ProductVertical>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

@@ -11,6 +11,7 @@
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/health_endpoint.dart' as _i2;
+import '../endpoints/home_endpoint.dart' as _i3;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -21,7 +22,13 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'health',
           null,
-        )
+        ),
+      'home': _i3.HomeEndpoint()
+        ..initialize(
+          server,
+          'home',
+          null,
+        ),
     };
     connectors['health'] = _i1.EndpointConnector(
       name: 'health',
@@ -45,6 +52,21 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['health'] as _i2.HealthEndpoint).status(session),
         ),
+      },
+    );
+    connectors['home'] = _i1.EndpointConnector(
+      name: 'home',
+      endpoint: endpoints['home']!,
+      methodConnectors: {
+        'getHomeContent': _i1.MethodConnector(
+          name: 'getHomeContent',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).getHomeContent(session),
+        )
       },
     );
   }

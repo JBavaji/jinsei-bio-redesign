@@ -1,0 +1,5 @@
+class: ProductVertical
+fields:
+  title: String
+  strainId: String
+  description: String

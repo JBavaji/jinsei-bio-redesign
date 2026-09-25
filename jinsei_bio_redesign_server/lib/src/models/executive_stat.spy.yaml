@@ -1,0 +1,5 @@
+class: ExecutiveStat
+fields:
+  iconKey: String
+  title: String
+  subtitle: String

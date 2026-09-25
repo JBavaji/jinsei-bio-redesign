@@ -1,0 +1,5 @@
+class: HomeContent
+fields:
+  pillars: List<PillarItem>
+  executiveStats: List<ExecutiveStat>
+  productVerticals: List<ProductVertical>
