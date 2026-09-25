@@ -1,5 +1,7 @@
 class: PillarItem
+table: pillar_item
 fields:
   iconKey: String
   title: String
   description: String
+  displayOrder: int

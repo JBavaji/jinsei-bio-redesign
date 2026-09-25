@@ -12,6 +12,12 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/health_endpoint.dart' as _i2;
 import '../endpoints/home_endpoint.dart' as _i3;
+import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
+    as _i4;
+import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
+    as _i5;
+import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+    as _i6;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -66,7 +72,169 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, dynamic> params,
           ) async =>
               (endpoints['home'] as _i3.HomeEndpoint).getHomeContent(session),
-        )
+        ),
+        'createPillar': _i1.MethodConnector(
+          name: 'createPillar',
+          params: {
+            'item': _i1.ParameterDescription(
+              name: 'item',
+              type: _i1.getType<_i4.PillarItem>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).createPillar(
+            session,
+            params['item'],
+          ),
+        ),
+        'updatePillar': _i1.MethodConnector(
+          name: 'updatePillar',
+          params: {
+            'item': _i1.ParameterDescription(
+              name: 'item',
+              type: _i1.getType<_i4.PillarItem>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).updatePillar(
+            session,
+            params['item'],
+          ),
+        ),
+        'deletePillar': _i1.MethodConnector(
+          name: 'deletePillar',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).deletePillar(
+            session,
+            params['id'],
+          ),
+        ),
+        'createExecutiveStat': _i1.MethodConnector(
+          name: 'createExecutiveStat',
+          params: {
+            'stat': _i1.ParameterDescription(
+              name: 'stat',
+              type: _i1.getType<_i5.ExecutiveStat>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).createExecutiveStat(
+            session,
+            params['stat'],
+          ),
+        ),
+        'updateExecutiveStat': _i1.MethodConnector(
+          name: 'updateExecutiveStat',
+          params: {
+            'stat': _i1.ParameterDescription(
+              name: 'stat',
+              type: _i1.getType<_i5.ExecutiveStat>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).updateExecutiveStat(
+            session,
+            params['stat'],
+          ),
+        ),
+        'deleteExecutiveStat': _i1.MethodConnector(
+          name: 'deleteExecutiveStat',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).deleteExecutiveStat(
+            session,
+            params['id'],
+          ),
+        ),
+        'createProductVertical': _i1.MethodConnector(
+          name: 'createProductVertical',
+          params: {
+            'vertical': _i1.ParameterDescription(
+              name: 'vertical',
+              type: _i1.getType<_i6.ProductVertical>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).createProductVertical(
+            session,
+            params['vertical'],
+          ),
+        ),
+        'updateProductVertical': _i1.MethodConnector(
+          name: 'updateProductVertical',
+          params: {
+            'vertical': _i1.ParameterDescription(
+              name: 'vertical',
+              type: _i1.getType<_i6.ProductVertical>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).updateProductVertical(
+            session,
+            params['vertical'],
+          ),
+        ),
+        'deleteProductVertical': _i1.MethodConnector(
+          name: 'deleteProductVertical',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['home'] as _i3.HomeEndpoint).deleteProductVertical(
+            session,
+            params['id'],
+          ),
+        ),
       },
     );
   }

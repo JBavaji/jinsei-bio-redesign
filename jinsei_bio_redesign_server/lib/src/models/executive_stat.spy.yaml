@@ -1,5 +1,7 @@
 class: ExecutiveStat
+table: executive_stat
 fields:
   iconKey: String
   title: String
   subtitle: String
+  displayOrder: int
