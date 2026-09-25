@@ -42,7 +42,9 @@ class EightPillarsGrid extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Our 8-Pillar Approach',
+                pillars.isNotEmpty
+                    ? 'Our ${pillars.length}-Pillar Approach'
+                    : 'Our Core Pillars',
                 textAlign: TextAlign.center,
                 style: AppTypography.displayMedium(
                   color: isDark
