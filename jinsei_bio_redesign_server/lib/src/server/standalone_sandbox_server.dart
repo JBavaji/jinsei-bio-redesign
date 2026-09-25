@@ -30,7 +30,7 @@ Future<void> startStandaloneLocalServer(int port) async {
         response.write(jsonEncode({
           'status': 'HEALTHY',
           'service': 'jinsei_bio_redesign_server',
-          'version': '1.0.0',
+          'version': '1.2.2+14',
           'appMode': 'UNOFFICIAL_DEMO',
           'environment': 'development-sandbox',
           'database': 'PostgreSQL (Local Standalone Sandbox)',

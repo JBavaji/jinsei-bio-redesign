@@ -25,7 +25,7 @@ class HealthRoute extends Route {
     response.write(jsonEncode({
       'status': 'HEALTHY',
       'service': 'jinsei_bio_redesign_server',
-      'version': '1.0.0',
+      'version': '1.2.2+14',
       'appMode': 'UNOFFICIAL_DEMO',
       'environment': session.serverpod.runMode,
       'timestamp': DateTime.now().toUtc().toIso8601String(),

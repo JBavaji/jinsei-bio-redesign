@@ -10,7 +10,7 @@ class HealthEndpoint extends Endpoint {
     return {
       'status': 'HEALTHY',
       'service': 'jinsei_bio_redesign_server',
-      'version': '1.0.0',
+      'version': '1.2.2+14',
       'database': 'PostgreSQL',
       'appMode': 'UNOFFICIAL_DEMO',
     };
