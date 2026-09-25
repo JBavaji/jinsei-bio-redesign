@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jinsei_bio_redesign_client/jinsei_bio_redesign_client.dart';
 import 'package:jinsei_bio_redesign/src/features/home/data/datasources/home_remote_data_source.dart';
 
 void main() {
@@ -6,7 +7,9 @@ void main() {
     late HomeRemoteDataSource dataSource;
 
     setUp(() {
-      dataSource = HomeRemoteDataSource();
+      dataSource = HomeRemoteDataSource(
+        client: Client('http://localhost:9999/'),
+      );
     });
 
     test(
