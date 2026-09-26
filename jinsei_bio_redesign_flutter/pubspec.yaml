@@ -29,6 +29,8 @@ dependencies:
 
   # Storage & Persistence
   shared_preferences: ^2.2.2
+  hive_ce: ^2.6.0
+  hive_ce_flutter: ^2.2.0
 
   # UI & Design Tokens (DESIGN.md)
   google_fonts: ^6.1.0
