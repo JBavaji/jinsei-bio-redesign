@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:jinsei_bio_redesign_client/jinsei_bio_redesign_client.dart';
+import '../../../../core/config/app_config.dart';
 
 abstract class IHealthRemoteDataSource {
   Future<bool> checkServerHealth(
@@ -10,7 +11,7 @@ class HealthRemoteDataSource implements IHealthRemoteDataSource {
   final Client _client;
 
   HealthRemoteDataSource({Client? client})
-      : _client = client ?? Client('http://localhost:8080/');
+      : _client = client ?? Client(AppConfig.serverpodUrl);
 
   @override
   Future<bool> checkServerHealth({

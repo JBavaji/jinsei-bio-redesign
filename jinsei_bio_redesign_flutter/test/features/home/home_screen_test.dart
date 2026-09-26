@@ -53,8 +53,8 @@ void main() {
     expect(find.text('10-Step Proprietary Platform'), findsOneWidget);
     expect(find.text('8+ PhD Academic Advisors'), findsOneWidget);
 
-    // Verify 8-Pillar Section
-    expect(find.text('Our 8-Pillar Approach'), findsOneWidget);
+    // Verify Pillar Section
+    expect(find.textContaining('Pillar Approach'), findsOneWidget);
     expect(find.text('Indigenous Focus'), findsOneWidget);
 
     // Verify Commercial Verticals Section

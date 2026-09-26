@@ -1,3 +1,14 @@
 health:
   - ping:
   - status:
+home:
+  - getHomeContent:
+  - createPillar:
+  - updatePillar:
+  - deletePillar:
+  - createExecutiveStat:
+  - updateExecutiveStat:
+  - deleteExecutiveStat:
+  - createProductVertical:
+  - updateProductVertical:
+  - deleteProductVertical:

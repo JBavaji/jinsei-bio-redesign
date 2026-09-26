@@ -19,6 +19,10 @@ class ExecutiveStatModel {
     'school_rounded': Icons.school_rounded,
   };
 
+  static IconData iconFromKey(String key) {
+    return _iconMap[key] ?? Icons.military_tech_rounded;
+  }
+
   factory ExecutiveStatModel.fromJson(Map<String, dynamic> json) {
     final key = json['iconKey'] as String? ?? 'military_tech_rounded';
     final iconData = _iconMap[key] ?? Icons.military_tech_rounded;

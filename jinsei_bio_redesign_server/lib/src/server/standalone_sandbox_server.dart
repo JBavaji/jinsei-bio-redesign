@@ -37,6 +37,97 @@ Future<void> startStandaloneLocalServer(int port) async {
           'database': 'PostgreSQL (Local Standalone Sandbox)',
           'timestamp': DateTime.now().toUtc().toIso8601String(),
         }));
+      } else if (path.contains('home')) {
+        response.statusCode = HttpStatus.ok;
+        response.write(jsonEncode({
+          'pillars': [
+            {
+              'iconKey': 'public_rounded',
+              'title': 'Indigenous Focus',
+              'description':
+                  'Sourcing and preserving native microbiomes adapted to specific regional ecosystems.'
+            },
+            {
+              'iconKey': 'dataset_rounded',
+              'title': 'Data-Centred',
+              'description':
+                  'Advanced bioinformatics pipeline for high-resolution strain characterization and predictive modeling.'
+            },
+            {
+              'iconKey': 'biotech_rounded',
+              'title': 'Evidence-Based',
+              'description':
+                  'Rigorous double-blind clinical and laboratory validation for every developed bioactive compound.'
+            },
+            {
+              'iconKey': 'health_and_safety_rounded',
+              'title': 'Gut Health Emphasis',
+              'description':
+                  'Targeting the microbiome-gut-brain axis for holistic systemic wellness and metabolic regulation.'
+            },
+            {
+              'iconKey': 'layers_rounded',
+              'title': 'Scalable Platform',
+              'description':
+                  'Modular solid-state & liquid fermentation processes designed for rapid industrial-scale manufacturing.'
+            },
+            {
+              'iconKey': 'diversity_3_rounded',
+              'title': 'Community Integration',
+              'description':
+                  'Partnering with local agricultural & forest populations for ethical, benefit-sharing bio-prospecting.'
+            },
+            {
+              'iconKey': 'tune_rounded',
+              'title': 'Customized Solutions',
+              'description':
+                  'Tailored consortia formulation engineered for specific food science and therapeutic partner requirements.'
+            },
+            {
+              'iconKey': 'eco_rounded',
+              'title': 'Ecologically Informed',
+              'description':
+                  'Ensuring all bio-interventions preserve microbiome equilibrium and natural environmental biodiversity.'
+            }
+          ],
+          'executiveStats': [
+            {
+              'iconKey': 'military_tech_rounded',
+              'title': '3+ Global Patents Filed',
+              'subtitle': 'International IP Protection'
+            },
+            {
+              'iconKey': 'account_tree_rounded',
+              'title': '10-Step Proprietary Platform',
+              'subtitle': 'End-to-end Strain Isolation'
+            },
+            {
+              'iconKey': 'school_rounded',
+              'title': '8+ PhD Academic Advisors',
+              'subtitle': 'UC Irvine, Cambridge, Cornell'
+            }
+          ],
+          'productVerticals': [
+            {
+              'title': 'Jinsei-Gut Pro',
+              'strainId': 'Strain ID: L. rhamnosus JN-01',
+              'description':
+                  'Advanced digestive support matrix utilizing native flora extraction and gastro-resistant spore technology.'
+            },
+            {
+              'title': 'FemmeFlora Bio-Shield',
+              'strainId': 'Strain ID: L. crispatus JN-02',
+              'description':
+                  'Targeted microbiome balancing for specialized female wellness, vaginal tract stability, and immune homeostasis.'
+            },
+            {
+              'title': 'MetaboliMet Probiotic',
+              'strainId': 'Strain ID: L. plantarum JN-04',
+              'description':
+                  'Metabolic optimization complex developed from isolated indigenous cultures targeting lipid signaling pathways.'
+            }
+          ]
+        }));
       } else {
         response.statusCode = HttpStatus.ok;
         response.write(jsonEncode({

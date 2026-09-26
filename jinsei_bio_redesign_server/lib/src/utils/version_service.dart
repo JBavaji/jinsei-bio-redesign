@@ -30,7 +30,8 @@ class VersionService {
             if (trimmed.startsWith('version:')) {
               final parts = trimmed.split(':');
               if (parts.length > 1) {
-                final value = parts[1].trim().replaceAll("'", '').replaceAll('"', '');
+                final value =
+                    parts[1].trim().replaceAll("'", '').replaceAll('"', '');
                 if (value.isNotEmpty) {
                   return value;
                 }
