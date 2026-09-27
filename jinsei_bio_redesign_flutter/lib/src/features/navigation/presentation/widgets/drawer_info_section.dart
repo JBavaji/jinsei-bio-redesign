@@ -56,12 +56,15 @@ class DrawerInfoSection extends StatelessWidget {
                 color: AppColors.emeraldGreen,
               ),
               SizedBox(width: 6),
-              Text(
-                'ISO 9001 & GMP Certified',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.emeraldGreen,
+              Flexible(
+                child: Text(
+                  'ISO 9001 & GMP Certified',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.emeraldGreen,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
