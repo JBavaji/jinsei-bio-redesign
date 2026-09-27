@@ -74,7 +74,7 @@ jobs:
 
       - name: Verify Flutter Web Build
         run: |
-          cd jinsei_bio_redesign_flutter && flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO
+          cd jinsei_bio_redesign_flutter && flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO --dart-define=SERVERPOD_URL=https://staging-api.jinseibioscience.com/
 
       - name: Verify Flutter Android APK Build
         run: |
