@@ -1,0 +1,7 @@
+class: ProductVertical
+table: product_vertical
+fields:
+  title: String
+  strainId: String
+  description: String
+  displayOrder: int

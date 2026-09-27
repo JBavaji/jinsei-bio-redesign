@@ -3,8 +3,23 @@ name: Jinsei Bio Multi-Platform Monorepo CI
 on:
   push:
     branches: [ main, staging, develop, 'feat/**', 'develop/**' ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'assets/images/**'
+      - '.gitignore'
   pull_request:
     branches: [ main, staging, develop, 'feat/**', 'develop/**' ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'assets/images/**'
+      - '.gitignore'
+
+# Cancel outdated in-progress runs when a new push occurs on the same ref
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   # ---------------------------------------------------------------------------
@@ -17,9 +32,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Java JDK (for Android build)
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -64,16 +81,22 @@ jobs:
           cd jinsei_bio_redesign_flutter && flutter build apk --debug --dart-define=APP_MODE=UNOFFICIAL_DEMO
 
   # ---------------------------------------------------------------------------
-  # 2. macOS Job: Flutter iOS Build Verification
+  # 2. macOS Job: Flutter iOS Build Verification (Restricted to Staging/Main & Manual PR Label)
   # ---------------------------------------------------------------------------
   build_ios_macos:
-    name: "macOS: iOS Build Verification"
+    name: "macOS: iOS Build Verification (10x Multiplier Gate)"
     runs-on: macos-latest
     needs: analyze_test_and_build_ubuntu
+    if: |
+      (github.event_name == 'pull_request' && (github.base_ref == 'main' || github.base_ref == 'staging')) ||
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')) ||
+      contains(github.event.pull_request.labels.*.name, 'run-ios-ci')
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v2

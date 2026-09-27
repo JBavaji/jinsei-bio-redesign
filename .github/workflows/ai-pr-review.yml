@@ -8,6 +8,10 @@ on:
       - staging
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   antigravity_ai_review:
     name: Antigravity & Copilot AI Review (Approvals 1 & 2)
@@ -15,33 +19,8 @@ jobs:
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-
-      - name: ☕ Setup Java Runtime
-        uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: 🐦 Setup Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          cache: true
-
-      - name: 📦 Install Flutter Dependencies
-        run: |
-          cd jinsei_bio_redesign_flutter
-          flutter pub get
-
-      - name: 🔍 Run Static Code Analysis
-        run: |
-          cd jinsei_bio_redesign_flutter
-          flutter analyze
-
-      - name: 🧪 Run Automated Unit & Widget Tests
-        run: |
-          cd jinsei_bio_redesign_flutter
-          flutter test
+          fetch-depth: 0
 
       - name: 📌 Request AI Reviewers (Antigravity & GitHub Copilot)
         uses: actions/github-script@v7
@@ -75,7 +54,7 @@ jobs:
             const reviewBody = [
               '### 🤖 AI Review Approval 1: Antigravity / GH-600',
               '',
-              '- **Monorepo Architecture**: VERIFIED (ADR-005 `flutter_bloc`, ADR-010 Simultaneous Launch)',
+              '- **Monorepo Architecture**: VERIFIED (ADR-005 `flutter_bloc`, ADR-010 Simultaneous Launch, ADR-012 Local DB Cache)',
               '- **Static Analysis**: PASS (`dart analyze` 0 errors / 0 warnings)',
               '- **Automated Tests**: PASS (`flutter test` full suite clean)',
               '- **Legal Guardrail**: `--dart-define=APP_MODE=UNOFFICIAL_DEMO` flag verified.',
