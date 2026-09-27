@@ -48,7 +48,7 @@ jobs:
       - name: 🏗️ Build Web Release Bundle
         run: |
           cd jinsei_bio_redesign_flutter
-          flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO
+          flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO --dart-define=SERVERPOD_URL=https://staging-api.jinseibioscience.com/
 
       - name: 🧪 Deploy to Firebase Hosting (Beta Testing Release — staging branch)
         if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
