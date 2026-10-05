@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 PROJECT_ID=${GCP_PROJECT_ID:-"jinsei-bio-redesign"}
 REGION="us-central1"
 SERVICE_NAME="jinsei-bio-server"
 IMAGE_TAG="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 
 echo "🚀 Step 1: Building & pushing Docker image to Artifact Registry..."
-gcloud builds submit --tag "${IMAGE_TAG}" ./development/jinsei-bio-redesign/jinsei_bio_redesign_server
+gcloud builds submit --tag "${IMAGE_TAG}" "${SCRIPT_DIR}"
 
 echo "☁️ Step 2: Deploying container to Google Cloud Run..."
 gcloud run deploy "${SERVICE_NAME}" \
