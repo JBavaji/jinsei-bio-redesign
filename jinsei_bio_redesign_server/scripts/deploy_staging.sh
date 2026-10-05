@@ -7,8 +7,11 @@ REGION="us-central1"
 SERVICE_NAME="jinsei-bio-server"
 IMAGE_TAG="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 
-echo "🚀 Step 1: Building & pushing Docker image to Artifact Registry..."
-gcloud builds submit --quiet --tag "${IMAGE_TAG}" "${SCRIPT_DIR}"
+echo "🚀 Step 1: Submitting Docker build to Cloud Build..."
+BUILD_ID=$(gcloud builds submit --async --quiet --tag "${IMAGE_TAG}" "${SCRIPT_DIR}" --format='value(id)')
+
+echo "⏳ Waiting for Cloud Build (${BUILD_ID}) to complete..."
+gcloud builds wait "${BUILD_ID}" --quiet
 
 echo "☁️ Step 2: Deploying container to Google Cloud Run..."
 gcloud run deploy "${SERVICE_NAME}" \
