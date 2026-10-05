@@ -11,7 +11,18 @@ echo "🚀 Step 1: Submitting Docker build to Cloud Build..."
 BUILD_ID=$(gcloud builds submit --async --quiet --tag "${IMAGE_TAG}" "${SCRIPT_DIR}" --format='value(id)')
 
 echo "⏳ Waiting for Cloud Build (${BUILD_ID}) to complete..."
-gcloud builds wait "${BUILD_ID}" --quiet
+while true; do
+  STATUS=$(gcloud builds describe "${BUILD_ID}" --format='value(status)' 2>/dev/null || echo "WORKING")
+  echo "Build status: ${STATUS}"
+  if [ "${STATUS}" = "SUCCESS" ]; then
+    echo "🎉 Cloud Build finished successfully!"
+    break
+  elif [ "${STATUS}" = "FAILURE" ] || [ "${STATUS}" = "CANCELLED" ] || [ "${STATUS}" = "TIMEOUT" ]; then
+    echo "❌ Cloud Build failed with status: ${STATUS}"
+    exit 1
+  fi
+  sleep 5
+done
 
 echo "☁️ Step 2: Deploying container to Google Cloud Run..."
 gcloud run deploy "${SERVICE_NAME}" \
