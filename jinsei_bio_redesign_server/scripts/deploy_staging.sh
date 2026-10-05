@@ -8,10 +8,11 @@ SERVICE_NAME="jinsei-bio-server"
 IMAGE_TAG="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 
 echo "🚀 Step 1: Building & pushing Docker image to Artifact Registry..."
-gcloud builds submit --tag "${IMAGE_TAG}" "${SCRIPT_DIR}"
+gcloud builds submit --quiet --tag "${IMAGE_TAG}" "${SCRIPT_DIR}"
 
 echo "☁️ Step 2: Deploying container to Google Cloud Run..."
 gcloud run deploy "${SERVICE_NAME}" \
+  --quiet \
   --image "${IMAGE_TAG}" \
   --platform managed \
   --region "${REGION}" \
