@@ -1,7 +1,7 @@
 # Stage 1: Build Serverpod Binary
 FROM dart:stable AS build
 WORKDIR /app
-COPY pubspec.yaml pubspec.lock ./
+COPY pubspec.* ./
 RUN dart pub get
 COPY . .
 RUN dart compile exe bin/main.dart -o bin/main
