@@ -5,9 +5,6 @@ on:
     branches:
       - staging
       - main
-    paths:
-      - 'jinsei_bio_redesign_server/**'
-      - '.github/workflows/deploy-serverpod-cloudrun.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
