@@ -10,7 +10,8 @@ class AppConfig {
     if (_envServerpodUrl.isNotEmpty) {
       return _envServerpodUrl;
     }
-    // Prevent web release/staging builds from calling http://localhost:8080/
+    // Release builds on Web default to remote Staging API.
+    // Debug mode defaults to local backend at http://localhost:8080/
     if (kIsWeb && !kDebugMode) {
       return 'https://staging-api.jinseibioscience.com/';
     }

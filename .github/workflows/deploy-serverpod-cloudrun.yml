@@ -1,0 +1,36 @@
+name: Deploy Serverpod Backend to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - staging
+      - main
+    paths:
+      - 'jinsei_bio_redesign_server/**'
+      - '.github/workflows/deploy-serverpod-cloudrun.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy_cloud_run:
+    name: Build & Deploy Serverpod Container to Cloud Run
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: ☁️ Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 🚀 Build Docker Container & Deploy to Cloud Run
+        run: |
+          cd jinsei_bio_redesign_server
+          chmod +x scripts/deploy_staging.sh
+          ./scripts/deploy_staging.sh
