@@ -19,8 +19,7 @@ BUILD_ID=$(gcloud builds submit \
   --async \
   --quiet \
   --project "${PROJECT_ID}" \
-  --tag "${IMAGE_TAG}" \
-  -f "jinsei_bio_redesign_server/Dockerfile" \
+  --config "jinsei_bio_redesign_server/cloudbuild.yaml" \
   "${REPO_ROOT}" \
   --format='value(id)')
 
