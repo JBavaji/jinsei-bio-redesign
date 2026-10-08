@@ -34,6 +34,8 @@ while true; do
     break
   elif [ "${STATUS}" = "FAILURE" ] || [ "${STATUS}" = "CANCELLED" ] || [ "${STATUS}" = "TIMEOUT" ]; then
     echo "❌ Cloud Build failed with status: ${STATUS}"
+    echo "📋 Fetching Cloud Build logs for diagnostic inspection..."
+    gcloud builds log "${BUILD_ID}" --project "${PROJECT_ID}" 2>&1 || true
     exit 1
   fi
   sleep 5
