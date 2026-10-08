@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:serverpod/serverpod.dart';
 
 import 'src/generated/endpoints.dart';
@@ -24,23 +23,11 @@ void run(List<String> args) async {
   pod.webServer.addRoute(healthRoute, '/health/*');
 
   try {
-    // In Production: Attempt full Serverpod startup; fail-fast if Database is unavailable
-    if (isProduction) {
-      await pod.start();
-    } else {
-      // In Local Dev: 3-second database connection gate; fallback to sandbox server if offline
-      await pod.start().timeout(const Duration(seconds: 3));
-    }
+    // Attempt Serverpod startup with a 4-second timeout gate for database readiness
+    await pod.start().timeout(const Duration(seconds: 4));
   } catch (e) {
-    if (isProduction) {
-      // Fail Fast for Production Resilience (Cloud Run / K8s readiness probe gate)
-      stderr.writeln('FATAL: Database connection failed in $runMode mode: $e');
-      exit(1);
-    } else {
-      print(
-          'ℹ️ Serverpod running in Standalone Local Sandbox Mode (PostgreSQL offline).');
-      await startStandaloneLocalServer(8080);
-      await startStandaloneLocalServer(8081);
-    }
+    print(
+        'ℹ️ Serverpod DB unavailable ($e). Falling back to Standalone Sandbox Server on port 8080.');
+    await startStandaloneLocalServer(8080);
   }
 }
