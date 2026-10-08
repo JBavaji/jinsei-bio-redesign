@@ -20,7 +20,7 @@ insightsServer:
   publicScheme: https
 
 database:
-  enabled: true
+  enabled: false
   host: localhost
   port: 5432
   name: jinsei_bio_redesign_staging
