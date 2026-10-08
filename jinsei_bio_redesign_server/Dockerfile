@@ -22,5 +22,6 @@ COPY --from=build /app/config /app/config
 
 EXPOSE 8080
 EXPOSE 8081
+EXPOSE 8082
 
 CMD ["/app/bin/main", "--mode", "staging", "--logging", "normal"]
