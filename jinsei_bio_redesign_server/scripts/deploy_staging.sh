@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 set -e
 
-# SERVER_ROOT: the directory this script is invoked from.
-# The workflow does `cd jinsei_bio_redesign_server` before calling this script,
-# so pwd() is always the server package root — which contains the Dockerfile.
-SERVER_ROOT="$(pwd)"
+# REPO_ROOT: resolve monorepo root containing root pubspec.yaml
+if [ -f "./pubspec.yaml" ] && [ -d "./jinsei_bio_redesign_server" ]; then
+  REPO_ROOT="$(pwd)"
+else
+  REPO_ROOT="$(cd "$(pwd)/.." && pwd)"
+fi
 
 PROJECT_ID=${GCP_PROJECT_ID:-"jinsei-bio-redesign"}
 REGION="us-central1"
@@ -12,12 +14,14 @@ SERVICE_NAME="jinsei-bio-server"
 IMAGE_TAG="gcr.io/${PROJECT_ID}/${SERVICE_NAME}:latest"
 
 echo "🚀 Step 1: Submitting Docker build to Cloud Build..."
+echo "Build Context: ${REPO_ROOT}"
 BUILD_ID=$(gcloud builds submit \
   --async \
   --quiet \
   --project "${PROJECT_ID}" \
   --tag "${IMAGE_TAG}" \
-  "${SERVER_ROOT}" \
+  -f "jinsei_bio_redesign_server/Dockerfile" \
+  "${REPO_ROOT}" \
   --format='value(id)')
 
 echo "⏳ Waiting for Cloud Build (${BUILD_ID}) to complete..."
