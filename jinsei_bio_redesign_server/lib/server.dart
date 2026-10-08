@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:serverpod/serverpod.dart';
 
 import 'src/generated/endpoints.dart';
@@ -7,27 +8,35 @@ import 'src/server/standalone_sandbox_server.dart';
 
 /// Serverpod initialization & launcher entrypoint for Jinsei Bio Redesign Server
 void run(List<String> args) async {
+  // Check if running on Cloud Run or in Standalone Staging Demo mode
+  final isCloudRun = Platform.environment.containsKey('K_SERVICE') ||
+      Platform.environment['RUN_MODE'] == 'staging' ||
+      Platform.environment['APP_MODE'] == 'UNOFFICIAL_DEMO';
+
+  if (isCloudRun) {
+    print('🚀 Starting Jinsei Bio Server on 0.0.0.0:8080 (Cloud Run)...');
+    await startStandaloneLocalServer(8080);
+    return;
+  }
+
   final pod = Serverpod(
     args,
     Protocol(),
     Endpoints(),
   );
 
-  // Determine active runtime environment mode
   final runMode = pod.runMode;
-  final isProduction = runMode == 'production' || runMode == 'staging';
+  final isProduction = runMode == 'production';
 
-  // Register production REST HTTP Health routes
   final healthRoute = HealthRoute(isProduction: isProduction);
   pod.webServer.addRoute(healthRoute, '/health');
   pod.webServer.addRoute(healthRoute, '/health/*');
 
   try {
-    // Attempt Serverpod startup with a 4-second timeout gate for database readiness
     await pod.start().timeout(const Duration(seconds: 4));
   } catch (e) {
     print(
-        'ℹ️ Serverpod DB unavailable ($e). Falling back to Standalone Sandbox Server on port 8080.');
+        'ℹ️ Serverpod DB unavailable ($e). Falling back to Standalone Sandbox Server on 0.0.0.0:8080.');
     await startStandaloneLocalServer(8080);
   }
 }
