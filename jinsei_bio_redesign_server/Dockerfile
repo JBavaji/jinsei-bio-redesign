@@ -2,11 +2,11 @@
 FROM dart:stable AS build
 WORKDIR /app
 
-# Copy root workspace pubspec.yaml and package pubspecs for Dart 3.5 workspace resolution
-COPY pubspec.yaml ./
+# Create a server-focused workspace pubspec.yaml for Docker build context (excluding Flutter SDK dependencies)
+RUN echo "name: server_build_workspace\nenvironment:\n  sdk: '>=3.5.0 <4.0.0'\nworkspace:\n  - jinsei_bio_redesign_server\n  - jinsei_bio_redesign_client" > pubspec.yaml
+
 COPY jinsei_bio_redesign_server/pubspec.* ./jinsei_bio_redesign_server/
 COPY jinsei_bio_redesign_client/pubspec.* ./jinsei_bio_redesign_client/
-COPY jinsei_bio_redesign_flutter/pubspec.* ./jinsei_bio_redesign_flutter/
 
 WORKDIR /app/jinsei_bio_redesign_server
 RUN dart pub get
