@@ -14,6 +14,11 @@ jobs:
   deploy_cloud_run:
     name: Build & Deploy Serverpod Container to Cloud Run
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for Workload Identity Federation (future-proofing)
+    env:
+      GCP_PROJECT_ID: jinsei-bio-redesign
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -25,6 +30,8 @@ jobs:
 
       - name: ☁️ Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: jinsei-bio-redesign
 
       - name: 🚀 Build Docker Container & Deploy to Cloud Run
         run: |
