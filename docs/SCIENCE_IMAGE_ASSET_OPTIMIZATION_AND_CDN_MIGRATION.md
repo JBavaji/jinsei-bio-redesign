@@ -40,23 +40,53 @@ In this approach, all image files are placed in `jinsei_bio_redesign_flutter/ass
 
 ---
 
-### Approach 2: Remote Global CDN Hosting with WebP (Option 2)
+---
 
-In this approach, images are converted to WebP, stored in the server's public web directory (`jinsei_bio_redesign_server/web/science/`), and delivered globally via **jsDelivr Edge CDN** (`https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_XX.webp`).
+### Approach 2: Google Cloud Storage (GCS) Public Bucket Hosting
+
+In this approach, a dedicated Google Cloud Storage bucket (`gs://jinsei-bio-public-assets/`) is created in GCP, configured with public read permissions (`allUsers:objectViewer`), and serves WebP assets via:
+`https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp`
 
 #### 🟢 Pros
-1. **Zero Asset Bloat in App Build (0 KB Bundled):** Eliminates 3.3 MB from the client binary. Flutter web, Android APK, and iOS IPA binaries remain ultra-lightweight.
-2. **Modern WebP Compression (88.7% Reduction):** Total remote asset payload drops from 3,342 KB down to **376 KB** across all 10 images.
-3. **Global Edge Caching:** Images are cached across 750+ Cloudflare/Fastly points of presence (PoP) worldwide with `Cache-Control: public, max-age=86400`, minimizing origin load.
-4. **Independent Asset Lifecycle:** Images can be refined, replaced, or updated without recompiling or redeploying the mobile or web apps.
-5. **Clean Production API Contract:** The Serverpod backend returns standard public HTTPS URLs matching modern REST/GraphQL architectural standards.
-6. **Zero Infrastructure Cost ($0.00/month):** Completely free edge hosting without requiring manual GCP Cloud Storage bucket provisioning or egress billing.
+1. **Enterprise Cloud Governance:** Native integration with Google Cloud IAM, audit logs, and Cloud Resource Manager.
+2. **Custom Domain Support:** Can be mapped to a branded corporate URL (e.g., `https://cdn.jinseibio.com/science/step_01.webp`) via Cloud CDN and an external HTTP(S) Load Balancer.
+3. **High SLA:** Google Cloud Storage guarantees 99.95% availability for standard regional storage.
+4. **Ideal for Dynamic / User-Generated Content (UGC):** Built for scalable user uploads, presigned URLs, and dynamic writes.
+
+#### 🔴 Cons & Why GCS Was NOT Selected for This Phase
+1. **Infrastructure & Provisioning Overhead:**  
+   Creating and maintaining `gs://jinsei-bio-public-assets/` requires active GCP billing setup, IAM policy bindings, CORS rule configurations, and CI/CD service account secrets (`gcloud storage cp` credentials in GitHub Actions). At development time, the bucket was not yet provisioned, causing initial `NoSuchBucket` 404s.
+2. **Hidden Minimum Costs for True CDN Caching:**  
+   Direct GCS URLs (`storage.googleapis.com`) do *not* have global Anycast edge caching by default—requests travel back to the origin bucket region (e.g. `us-central1` or `asia-south1`). To get edge CDN caching on GCP, one must attach Cloud CDN fronted by an External HTTP(S) Load Balancer, which incurs a minimum baseline cost of ~$18 to $25/month for forwarding rules even with zero traffic!
+3. **Egress Billing Risk on Traffic Spikes:**  
+   GCP free tier provides only 1 GB network egress to non-Americas per month. Direct GCS bucket fetches outside North America incur regional egress billing ($0.12/GB standard).
+4. **Code & Asset Desynchronization Risk:**  
+   Decoupling static image assets into an external GCS bucket introduces deployment drift: code changes merged into Git can get out of sync with assets uploaded to GCS if the CI/CD deployment pipeline fails mid-run.
+
+---
+
+### Approach 3: Git-Backed Global Edge CDN Delivery (Chosen Architecture — Option 2)
+
+In this approach, compressed WebP assets are stored in the server's public web directory (`jinsei_bio_redesign_server/web/science/`) inside the monorepo, and delivered globally via **jsDelivr Anycast Multi-CDN** (Cloudflare + Fastly + Quantil):
+`https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp`
+
+#### 🟢 Why Choose Git-Backed Global Edge CDN Over GCS?
+1. **Atomic Commits & Zero Deployment Desynchronization:**  
+   Code changes (Serverpod endpoints, Flutter client models) and WebP image assets are committed, reviewed, and merged in the **exact same Git PR**. It is architecturally impossible for the API code to deploy without the matching images being live.
+2. **True Global Anycast Edge Network ($0.00/month):**  
+   Assets are automatically cached across 750+ Cloudflare and Fastly edge Points of Presence (PoPs) worldwide with `Cache-Control: public, max-age=604800` (7 days) and HTTP/2 + Brotli/Gzip compression out of the box, with zero load balancer costs.
+3. **Zero GCP Cloud Setup Delay:**  
+   Instant sprint delivery without waiting for GCP IAM permissions, bucket creation, service account key provisioning, or Terraform orchestration.
+4. **Cache Immutability via Semantic Version Tags:**  
+   URLs can target immutable release tags (`@v1.4.7`), guaranteeing that cached assets are 100% deterministic and never become stale.
+5. **Future-Proof Extensibility via `CDN_BASE_URL`:**  
+   The Serverpod backend is engineered to read `Platform.environment['CDN_BASE_URL']`. If the team decides to migrate to GCS + Cloud CDN in production later, **zero client Flutter code changes** are required—only a single environment variable update in Serverpod's Cloud Run configuration!
 
 #### 🔴 Cons & Mitigations
-1. **First-Time Network Fetch:** The first time a step is viewed, an HTTP request is made.  
-   *Mitigation:* WebP images are only ~35 KB each (downloads in <30ms over 4G/5G). A subtle circular loading indicator prevents layout shifts.
-2. **Potential Offline Vulnerability on Cold Launch:** If the user opens the screen for the first time while completely offline, the network call fails.  
-   *Mitigation:* **3-Tier Resiliency** in `StepImageCard` catches errors and automatically displays the styled biotech glowing card with title, icon, and metrics, ensuring zero crashes and high visual elegance.
+1. **Public Repository Requirement:** jsDelivr requires the repository to be public for free CDN distribution.  
+   *Context:* The repository is an open public assignment/portfolio redesign (`JBavaji/jinsei-bio-redesign`).
+2. **Cold Offline Launch:** First network request requires connectivity.  
+   *Mitigation:* Handled seamlessly by Flutter `StepImageCard` 3-tier resilient fallback.
 
 ---
 
@@ -220,6 +250,13 @@ Engineered StepImageCard with a 3-tier fallback architecture:
 • Tier 1: Image.network with smooth shimmer progress indicator
 • Tier 2: Resilient error handling preventing any layout shifts
 • Tier 3: Styled biotech glowing placeholder card with icons and metrics if network is completely unreachable
+
+Why not Google Cloud Storage (storage.googleapis.com)?
+We evaluated GCS bucket hosting vs Git-backed Edge CDN:
+• GCS direct URLs lack global edge caching unless fronted by Cloud CDN + External Load Balancer (~$18–$25/mo baseline).
+• External buckets introduce deployment drift: API models in Git can get out of sync with assets uploaded to GCS.
+• Git-backed Edge CDN ensures atomic PR merges (code and assets deploy together) across 750+ Cloudflare/Fastly edge PoPs at $0.00 cost.
+• Plus, Serverpod's dynamic CDN_BASE_URL enables 1-minute switching to enterprise GCS later with zero client changes.
 
 The Results:
 • Total Client Assets folder: 3.5 MB → 124 KB (96.5% reduction)
