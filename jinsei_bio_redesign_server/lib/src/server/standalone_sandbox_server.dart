@@ -27,6 +27,23 @@ Future<void> startStandaloneLocalServer(int port) async {
           ? (rawPath.substring(4).isEmpty ? '/' : rawPath.substring(4))
           : rawPath;
 
+      if (path.startsWith('/static/science/') && path.endsWith('.webp')) {
+        final filename = path.split('/').last;
+        final file = File('web/science/$filename');
+        if (await file.exists()) {
+          response.statusCode = HttpStatus.ok;
+          response.headers.contentType = ContentType('image', 'webp');
+          response.headers.set('Cache-Control', 'public, max-age=86400');
+          await response.addStream(file.openRead());
+          await response.close();
+          return;
+        } else {
+          response.statusCode = HttpStatus.notFound;
+          await response.close();
+          return;
+        }
+      }
+
       if (path == '/health' ||
           path == '/health/' ||
           path == '/health/ping' ||
@@ -177,7 +194,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'search_rounded',
               'metricValue': '99.4%',
               'metricLabel': 'Target Precision',
-              'imageUrl': 'assets/images/science/step_01.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp',
               'displayOrder': 1
             },
             {
@@ -191,7 +209,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'biotech_rounded',
               'metricValue': '500+',
               'metricLabel': 'Strains Isolated',
-              'imageUrl': 'assets/images/science/step_02.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_02.webp',
               'displayOrder': 2
             },
             {
@@ -204,7 +223,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'analytics_rounded',
               'metricValue': '100%',
               'metricLabel': 'Sequence Coverage',
-              'imageUrl': 'assets/images/science/step_03.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_03.webp',
               'displayOrder': 3
             },
             {
@@ -217,7 +237,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'hub_rounded',
               'metricValue': '10M+',
               'metricLabel': 'Pairs Evaluated',
-              'imageUrl': 'assets/images/science/step_04.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_04.webp',
               'displayOrder': 4
             },
             {
@@ -230,7 +251,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'precision_manufacturing_rounded',
               'metricValue': '10^11',
               'metricLabel': 'CFU/g Yield',
-              'imageUrl': 'assets/images/science/step_05.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_05.webp',
               'displayOrder': 5
             },
             {
@@ -243,7 +265,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'security_rounded',
               'metricValue': '0',
               'metricLabel': 'Adverse Events',
-              'imageUrl': 'assets/images/science/step_06.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_06.webp',
               'displayOrder': 6
             },
             {
@@ -256,7 +279,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'verified_rounded',
               'metricValue': '88%',
               'metricLabel': 'Efficacy Rate',
-              'imageUrl': 'assets/images/science/step_07.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_07.webp',
               'displayOrder': 7
             },
             {
@@ -269,7 +293,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'assignment_rounded',
               'metricValue': '3',
               'metricLabel': 'Patents Filed',
-              'imageUrl': 'assets/images/science/step_08.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_08.webp',
               'displayOrder': 8
             },
             {
@@ -282,7 +307,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'factory_rounded',
               'metricValue': '24 Mo.',
               'metricLabel': 'Shelf Stability',
-              'imageUrl': 'assets/images/science/step_09.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_09.webp',
               'displayOrder': 9
             },
             {
@@ -295,7 +321,8 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'local_shipping_rounded',
               'metricValue': '4',
               'metricLabel': 'Vertical Markets',
-              'imageUrl': 'assets/images/science/step_10.jpg',
+              'imageUrl':
+                  'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_10.webp',
               'displayOrder': 10
             }
           ]

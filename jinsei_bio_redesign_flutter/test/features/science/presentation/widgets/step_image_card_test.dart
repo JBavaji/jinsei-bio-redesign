@@ -26,7 +26,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget(
         child: const StepImageCard(
-          imageUrl: 'assets/images/science/step_01.jpg',
+          imageUrl: 'assets/images/science/step_01.webp',
           title: 'Target Consumer Product Identification',
           isSelected: false,
         ),
@@ -39,7 +39,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget(
         child: const StepImageCard(
-          imageUrl: 'assets/images/science/step_01.jpg',
+          imageUrl: 'assets/images/science/step_01.webp',
           title: 'Target Consumer Product Identification',
           isSelected: true,
         ),
@@ -47,6 +47,20 @@ void main() {
 
       expect(find.byType(StepImageCard), findsOneWidget);
       expect(find.byType(AnimatedContainer), findsOneWidget);
+    });
+
+    testWidgets('StepImageCard renders gracefully with remote CDN URL',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestWidget(
+        child: const StepImageCard(
+          imageUrl:
+              'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp',
+          title: 'Metagenomic Biomarker Mapping',
+          isSelected: false,
+        ),
+      ));
+
+      expect(find.byType(StepImageCard), findsOneWidget);
     });
 
     testWidgets('StepImageCard renders fallback biotech UI on image error',

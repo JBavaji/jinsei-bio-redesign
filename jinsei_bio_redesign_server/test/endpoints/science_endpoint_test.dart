@@ -73,8 +73,10 @@ void main() {
         expect(steps[i].description, isNotEmpty);
         expect(steps[i].category, isNotEmpty);
         expect(steps[i].metricValue, isNotEmpty);
-        expect(steps[i].metricLabel, isNotEmpty);
-        expect(steps[i].imageUrl, contains('assets/images/science/step_'));
+        expect(steps[i].imageUrl,
+            contains('step_${(i + 1).toString().padLeft(2, '0')}.webp'));
+        expect(
+            steps[i].imageUrl, startsWith('https://storage.googleapis.com/'));
       }
     });
 

@@ -6,7 +6,7 @@ import 'package:jinsei_bio_redesign_server/src/server/standalone_sandbox_server.
 import 'package:test/test.dart';
 
 void main() {
-  group('Standalone Sandbox Server Tests (JIN-59)', () {
+  group('Standalone Sandbox Server Tests (JIN-59 & JIN-67)', () {
     const testPort = 8899;
 
     setUpAll(() async {
@@ -51,6 +51,12 @@ void main() {
       expect(data['pipelineSteps'], isList);
       expect((data['pipelineSteps'] as List).length, equals(10));
 
+      final firstStep = (data['pipelineSteps'] as List).first;
+      expect(
+          firstStep['imageUrl'],
+          contains(
+              'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp'));
+
       expect(data['clinicalQa'], isMap);
       expect((data['clinicalQa'] as Map)['badgeText'],
           equals('ISO 22000 & GMP Certified'));
@@ -64,6 +70,14 @@ void main() {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       expect(data['pipelineSteps'], isList);
       expect((data['pipelineSteps'] as List).length, equals(10));
+    });
+
+    test('GET /static/science/step_01.webp serves static WebP image', () async {
+      final response = await http.get(
+          Uri.parse('http://localhost:$testPort/static/science/step_01.webp'));
+      expect(response.statusCode, equals(200));
+      expect(response.headers['content-type'], contains('image/webp'));
+      expect(response.bodyBytes.length, greaterThan(1000));
     });
 
     test('OPTIONS request returns CORS 200 with OWASP security headers',

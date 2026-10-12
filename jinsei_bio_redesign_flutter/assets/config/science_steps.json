@@ -8,7 +8,7 @@
     "iconKey": "search_rounded",
     "metricValue": "99.4%",
     "metricLabel": "Target Precision",
-    "imageUrl": "assets/images/science/step_01.jpg"
+    "imageUrl": "assets/images/science/step_01.webp"
   },
   {
     "stepNumber": 2,
@@ -19,7 +19,7 @@
     "iconKey": "biotech_rounded",
     "metricValue": "500+",
     "metricLabel": "Strains Isolated",
-    "imageUrl": "assets/images/science/step_02.jpg"
+    "imageUrl": "assets/images/science/step_02.webp"
   },
   {
     "stepNumber": 3,
@@ -30,7 +30,7 @@
     "iconKey": "analytics_rounded",
     "metricValue": "100%",
     "metricLabel": "Sequence Coverage",
-    "imageUrl": "assets/images/science/step_03.jpg"
+    "imageUrl": "assets/images/science/step_03.webp"
   },
   {
     "stepNumber": 4,
@@ -41,7 +41,7 @@
     "iconKey": "hub_rounded",
     "metricValue": "10M+",
     "metricLabel": "Pairs Evaluated",
-    "imageUrl": "assets/images/science/step_04.jpg"
+    "imageUrl": "assets/images/science/step_04.webp"
   },
   {
     "stepNumber": 5,
@@ -52,7 +52,7 @@
     "iconKey": "precision_manufacturing_rounded",
     "metricValue": "10^11",
     "metricLabel": "CFU/g Yield",
-    "imageUrl": "assets/images/science/step_05.jpg"
+    "imageUrl": "assets/images/science/step_05.webp"
   },
   {
     "stepNumber": 6,
@@ -63,7 +63,7 @@
     "iconKey": "security_rounded",
     "metricValue": "0",
     "metricLabel": "Adverse Events",
-    "imageUrl": "assets/images/science/step_06.jpg"
+    "imageUrl": "assets/images/science/step_06.webp"
   },
   {
     "stepNumber": 7,
@@ -74,7 +74,7 @@
     "iconKey": "verified_rounded",
     "metricValue": "88%",
     "metricLabel": "Efficacy Rate",
-    "imageUrl": "assets/images/science/step_07.jpg"
+    "imageUrl": "assets/images/science/step_07.webp"
   },
   {
     "stepNumber": 8,
@@ -85,7 +85,7 @@
     "iconKey": "assignment_rounded",
     "metricValue": "3",
     "metricLabel": "Patents Filed",
-    "imageUrl": "assets/images/science/step_08.jpg"
+    "imageUrl": "assets/images/science/step_08.webp"
   },
   {
     "stepNumber": 9,
@@ -96,7 +96,7 @@
     "iconKey": "factory_rounded",
     "metricValue": "24 Mo.",
     "metricLabel": "Shelf Stability",
-    "imageUrl": "assets/images/science/step_09.jpg"
+    "imageUrl": "assets/images/science/step_09.webp"
   },
   {
     "stepNumber": 10,
@@ -107,6 +107,6 @@
     "iconKey": "local_shipping_rounded",
     "metricValue": "4",
     "metricLabel": "Vertical Markets",
-    "imageUrl": "assets/images/science/step_10.jpg"
+    "imageUrl": "assets/images/science/step_10.webp"
   }
 ]

@@ -79,7 +79,8 @@ void main() {
             'iconKey': 'search_rounded',
             'metricValue': '99%',
             'metricLabel': 'Precision',
-            'imageUrl': 'step_01.jpg',
+            'imageUrl':
+                'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp',
           }),
         ],
       );
