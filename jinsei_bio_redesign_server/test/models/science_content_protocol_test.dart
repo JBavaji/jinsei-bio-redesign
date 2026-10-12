@@ -30,7 +30,8 @@ void main() {
         iconKey: 'search_rounded',
         metricValue: '99.4%',
         metricLabel: 'Target Precision',
-        imageUrl: 'assets/images/science/step_01.jpg',
+        imageUrl:
+            'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
         displayOrder: 1,
       );
 
@@ -38,7 +39,10 @@ void main() {
       expect(step.title, equals('Target Consumer Product Identification'));
       expect(step.category, equals('discovery'));
       expect(step.metricValue, equals('99.4%'));
-      expect(step.imageUrl, equals('assets/images/science/step_01.jpg'));
+      expect(
+          step.imageUrl,
+          equals(
+              'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp'));
     });
 
     test('ClinicalQualityAssurance instantiates with compliance standards', () {

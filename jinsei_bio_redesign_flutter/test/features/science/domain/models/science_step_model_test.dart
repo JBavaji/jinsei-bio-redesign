@@ -15,7 +15,8 @@ void main() {
         iconKey: 'search_rounded',
         metricValue: '99.4%',
         metricLabel: 'Target Precision',
-        imageUrl: 'assets/images/science/step_01.jpg',
+        imageUrl:
+            'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
       );
       final json = step.toJson();
 

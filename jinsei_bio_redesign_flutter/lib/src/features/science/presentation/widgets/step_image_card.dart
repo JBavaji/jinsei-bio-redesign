@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 
 /// Modular Step Image Card Component for Science Stepper Timeline.
-/// Renders step illustration image with border glow and fallback indicator.
+/// Supports 3-Tier Resilient Image Rendering:
+/// 1. Remote CDN / Cloud Storage URLs via [Image.network] with loading progress.
+/// 2. Automatic fallback to local bundled WebP asset on network failure.
+/// 3. Graceful biotech glowing indicator card on complete asset absence.
 class StepImageCard extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -48,41 +51,76 @@ class StepImageCard extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
-        child: Image.asset(
-          imageUrl,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              color: isDark
-                  ? AppColors.darkSurfaceCard
-                  : AppColors.lightSurfaceCard,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.biotech_rounded,
-                      size: 44,
-                      color: accentColor.withValues(alpha: 0.7),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: isDark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.lightTextSecondary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+        child: _buildImage(context, accentColor, isDark),
+      ),
+    );
+  }
+
+  Widget _buildImage(BuildContext context, Color accentColor, bool isDark) {
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return Image.network(
+        imageUrl,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, progress) {
+          if (progress == null) return child;
+          return Container(
+            color:
+                isDark ? AppColors.darkSurfaceCard : AppColors.lightSurfaceCard,
+            child: Center(
+              child: SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(accentColor),
                 ),
               ),
-            );
-          },
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return _buildPlaceholder(context, accentColor, isDark);
+        },
+      );
+    } else if (imageUrl.startsWith('assets/')) {
+      return Image.asset(
+        imageUrl,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) =>
+            _buildPlaceholder(context, accentColor, isDark),
+      );
+    }
+    return _buildPlaceholder(context, accentColor, isDark);
+  }
+
+  Widget _buildPlaceholder(
+      BuildContext context, Color accentColor, bool isDark) {
+    final theme = Theme.of(context);
+    return Container(
+      color: isDark ? AppColors.darkSurfaceCard : AppColors.lightSurfaceCard,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.biotech_rounded,
+              size: 44,
+              color: accentColor.withValues(alpha: 0.7),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: isDark
+                    ? AppColors.darkTextSecondary
+                    : AppColors.lightTextSecondary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:serverpod/serverpod.dart';
 
 import '../generated/protocol.dart';
@@ -151,6 +152,9 @@ class ScienceEndpoint extends Endpoint {
     ),
   ];
 
+  static final String cdnBaseUrl = Platform.environment['CDN_BASE_URL'] ??
+      'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science';
+
   static final ClinicalQualityAssurance _defaultClinicalQa =
       ClinicalQualityAssurance(
     title: 'Clinical Validation & Standards',
@@ -171,7 +175,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'search_rounded',
       metricValue: '99.4%',
       metricLabel: 'Target Precision',
-      imageUrl: 'assets/images/science/step_01.jpg',
+      imageUrl: '$cdnBaseUrl/step_01.webp',
       displayOrder: 1,
     ),
     ScienceStep(
@@ -184,7 +188,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'biotech_rounded',
       metricValue: '500+',
       metricLabel: 'Strains Isolated',
-      imageUrl: 'assets/images/science/step_02.jpg',
+      imageUrl: '$cdnBaseUrl/step_02.webp',
       displayOrder: 2,
     ),
     ScienceStep(
@@ -197,7 +201,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'analytics_rounded',
       metricValue: '100%',
       metricLabel: 'Sequence Coverage',
-      imageUrl: 'assets/images/science/step_03.jpg',
+      imageUrl: '$cdnBaseUrl/step_03.webp',
       displayOrder: 3,
     ),
     ScienceStep(
@@ -210,7 +214,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'hub_rounded',
       metricValue: '10M+',
       metricLabel: 'Pairs Evaluated',
-      imageUrl: 'assets/images/science/step_04.jpg',
+      imageUrl: '$cdnBaseUrl/step_04.webp',
       displayOrder: 4,
     ),
     ScienceStep(
@@ -223,7 +227,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'precision_manufacturing_rounded',
       metricValue: '10^11',
       metricLabel: 'CFU/g Yield',
-      imageUrl: 'assets/images/science/step_05.jpg',
+      imageUrl: '$cdnBaseUrl/step_05.webp',
       displayOrder: 5,
     ),
     ScienceStep(
@@ -236,7 +240,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'security_rounded',
       metricValue: '0',
       metricLabel: 'Adverse Events',
-      imageUrl: 'assets/images/science/step_06.jpg',
+      imageUrl: '$cdnBaseUrl/step_06.webp',
       displayOrder: 6,
     ),
     ScienceStep(
@@ -249,7 +253,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'verified_rounded',
       metricValue: '88%',
       metricLabel: 'Efficacy Rate',
-      imageUrl: 'assets/images/science/step_07.jpg',
+      imageUrl: '$cdnBaseUrl/step_07.webp',
       displayOrder: 7,
     ),
     ScienceStep(
@@ -262,7 +266,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'assignment_rounded',
       metricValue: '3',
       metricLabel: 'Patents Filed',
-      imageUrl: 'assets/images/science/step_08.jpg',
+      imageUrl: '$cdnBaseUrl/step_08.webp',
       displayOrder: 8,
     ),
     ScienceStep(
@@ -275,7 +279,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'factory_rounded',
       metricValue: '24 Mo.',
       metricLabel: 'Shelf Stability',
-      imageUrl: 'assets/images/science/step_09.jpg',
+      imageUrl: '$cdnBaseUrl/step_09.webp',
       displayOrder: 9,
     ),
     ScienceStep(
@@ -288,7 +292,7 @@ class ScienceEndpoint extends Endpoint {
       iconKey: 'local_shipping_rounded',
       metricValue: '4',
       metricLabel: 'Vertical Markets',
-      imageUrl: 'assets/images/science/step_10.jpg',
+      imageUrl: '$cdnBaseUrl/step_10.webp',
       displayOrder: 10,
     ),
   ];
