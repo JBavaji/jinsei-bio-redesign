@@ -11,10 +11,7 @@ class ScienceStepperBloc
 
   ScienceStepperBloc({
     IScienceRepository? repository,
-  })  : _repository = repository ??
-            ScienceRepositoryImpl(
-              localDataSource: ScienceLocalDataSource(),
-            ),
+  })  : _repository = repository ?? ScienceRepositoryImpl(),
         super(const ScienceStepperState()) {
     on<LoadScienceStepsEvent>(_onLoadScienceSteps);
     on<SelectScienceStepEvent>(_onSelectScienceStep);
