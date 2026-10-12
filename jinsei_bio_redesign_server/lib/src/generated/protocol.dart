@@ -13,17 +13,25 @@ library protocol;
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'executive_stat.dart' as _i3;
-import 'health_status.dart' as _i4;
-import 'home_content.dart' as _i5;
-import 'pillar_item.dart' as _i6;
-import 'product_vertical.dart' as _i7;
-import 'protocol.dart' as _i8;
+import 'clinical_qa.dart' as _i3;
+import 'executive_stat.dart' as _i4;
+import 'health_status.dart' as _i5;
+import 'home_content.dart' as _i6;
+import 'pillar_item.dart' as _i7;
+import 'product_vertical.dart' as _i8;
+import 'science_content.dart' as _i9;
+import 'science_header_metric.dart' as _i10;
+import 'science_step.dart' as _i11;
+import 'protocol.dart' as _i12;
+export 'clinical_qa.dart';
 export 'executive_stat.dart';
 export 'health_status.dart';
 export 'home_content.dart';
 export 'pillar_item.dart';
 export 'product_vertical.dart';
+export 'science_content.dart';
+export 'science_header_metric.dart';
+export 'science_step.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -203,6 +211,160 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'science_header_metric',
+      dartName: 'ScienceHeaderMetric',
+      schema: 'public',
+      module: 'jinsei_bio_redesign',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'science_header_metric_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'iconKey',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'value',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'label',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'accentColorHex',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'displayOrder',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'science_header_metric_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'science_step',
+      dartName: 'ScienceStep',
+      schema: 'public',
+      module: 'jinsei_bio_redesign',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'science_step_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'stepNumber',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'title',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'subtitle',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'description',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'category',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'iconKey',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'metricValue',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'metricLabel',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'imageUrl',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'displayOrder',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'science_step_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     ..._i2.Protocol.targetTableDefinitions,
   ];
 
@@ -215,52 +377,91 @@ class Protocol extends _i1.SerializationManagerServer {
     if (customConstructors.containsKey(t)) {
       return customConstructors[t]!(data, this) as T;
     }
-    if (t == _i3.ExecutiveStat) {
-      return _i3.ExecutiveStat.fromJson(data, this) as T;
+    if (t == _i3.ClinicalQualityAssurance) {
+      return _i3.ClinicalQualityAssurance.fromJson(data, this) as T;
     }
-    if (t == _i4.HealthStatusResponse) {
-      return _i4.HealthStatusResponse.fromJson(data, this) as T;
+    if (t == _i4.ExecutiveStat) {
+      return _i4.ExecutiveStat.fromJson(data, this) as T;
     }
-    if (t == _i5.HomeContent) {
-      return _i5.HomeContent.fromJson(data, this) as T;
+    if (t == _i5.HealthStatusResponse) {
+      return _i5.HealthStatusResponse.fromJson(data, this) as T;
     }
-    if (t == _i6.PillarItem) {
-      return _i6.PillarItem.fromJson(data, this) as T;
+    if (t == _i6.HomeContent) {
+      return _i6.HomeContent.fromJson(data, this) as T;
     }
-    if (t == _i7.ProductVertical) {
-      return _i7.ProductVertical.fromJson(data, this) as T;
+    if (t == _i7.PillarItem) {
+      return _i7.PillarItem.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i3.ExecutiveStat?>()) {
-      return (data != null ? _i3.ExecutiveStat.fromJson(data, this) : null)
-          as T;
+    if (t == _i8.ProductVertical) {
+      return _i8.ProductVertical.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i4.HealthStatusResponse?>()) {
+    if (t == _i9.ScienceContent) {
+      return _i9.ScienceContent.fromJson(data, this) as T;
+    }
+    if (t == _i10.ScienceHeaderMetric) {
+      return _i10.ScienceHeaderMetric.fromJson(data, this) as T;
+    }
+    if (t == _i11.ScienceStep) {
+      return _i11.ScienceStep.fromJson(data, this) as T;
+    }
+    if (t == _i1.getType<_i3.ClinicalQualityAssurance?>()) {
       return (data != null
-          ? _i4.HealthStatusResponse.fromJson(data, this)
+          ? _i3.ClinicalQualityAssurance.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i5.HomeContent?>()) {
-      return (data != null ? _i5.HomeContent.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i6.PillarItem?>()) {
-      return (data != null ? _i6.PillarItem.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i7.ProductVertical?>()) {
-      return (data != null ? _i7.ProductVertical.fromJson(data, this) : null)
+    if (t == _i1.getType<_i4.ExecutiveStat?>()) {
+      return (data != null ? _i4.ExecutiveStat.fromJson(data, this) : null)
           as T;
     }
-    if (t == List<_i8.PillarItem>) {
-      return (data as List).map((e) => deserialize<_i8.PillarItem>(e)).toList()
+    if (t == _i1.getType<_i5.HealthStatusResponse?>()) {
+      return (data != null
+          ? _i5.HealthStatusResponse.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i6.HomeContent?>()) {
+      return (data != null ? _i6.HomeContent.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i7.PillarItem?>()) {
+      return (data != null ? _i7.PillarItem.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i8.ProductVertical?>()) {
+      return (data != null ? _i8.ProductVertical.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i9.ScienceContent?>()) {
+      return (data != null ? _i9.ScienceContent.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i10.ScienceHeaderMetric?>()) {
+      return (data != null
+          ? _i10.ScienceHeaderMetric.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i11.ScienceStep?>()) {
+      return (data != null ? _i11.ScienceStep.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i12.PillarItem>) {
+      return (data as List).map((e) => deserialize<_i12.PillarItem>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i8.ExecutiveStat>) {
+    if (t == List<_i12.ExecutiveStat>) {
       return (data as List)
-          .map((e) => deserialize<_i8.ExecutiveStat>(e))
+          .map((e) => deserialize<_i12.ExecutiveStat>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i8.ProductVertical>) {
+    if (t == List<_i12.ProductVertical>) {
       return (data as List)
-          .map((e) => deserialize<_i8.ProductVertical>(e))
+          .map((e) => deserialize<_i12.ProductVertical>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i12.ScienceHeaderMetric>) {
+      return (data as List)
+          .map((e) => deserialize<_i12.ScienceHeaderMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i12.ScienceStep>) {
+      return (data as List)
+          .map((e) => deserialize<_i12.ScienceStep>(e))
           .toList() as dynamic;
     }
     if (t == Map<String, String>) {
@@ -275,40 +476,64 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i3.ExecutiveStat) {
+    if (data is _i3.ClinicalQualityAssurance) {
+      return 'ClinicalQualityAssurance';
+    }
+    if (data is _i4.ExecutiveStat) {
       return 'ExecutiveStat';
     }
-    if (data is _i4.HealthStatusResponse) {
+    if (data is _i5.HealthStatusResponse) {
       return 'HealthStatusResponse';
     }
-    if (data is _i5.HomeContent) {
+    if (data is _i6.HomeContent) {
       return 'HomeContent';
     }
-    if (data is _i6.PillarItem) {
+    if (data is _i7.PillarItem) {
       return 'PillarItem';
     }
-    if (data is _i7.ProductVertical) {
+    if (data is _i8.ProductVertical) {
       return 'ProductVertical';
+    }
+    if (data is _i9.ScienceContent) {
+      return 'ScienceContent';
+    }
+    if (data is _i10.ScienceHeaderMetric) {
+      return 'ScienceHeaderMetric';
+    }
+    if (data is _i11.ScienceStep) {
+      return 'ScienceStep';
     }
     return super.getClassNameForObject(data);
   }
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'] == 'ClinicalQualityAssurance') {
+      return deserialize<_i3.ClinicalQualityAssurance>(data['data']);
+    }
     if (data['className'] == 'ExecutiveStat') {
-      return deserialize<_i3.ExecutiveStat>(data['data']);
+      return deserialize<_i4.ExecutiveStat>(data['data']);
     }
     if (data['className'] == 'HealthStatusResponse') {
-      return deserialize<_i4.HealthStatusResponse>(data['data']);
+      return deserialize<_i5.HealthStatusResponse>(data['data']);
     }
     if (data['className'] == 'HomeContent') {
-      return deserialize<_i5.HomeContent>(data['data']);
+      return deserialize<_i6.HomeContent>(data['data']);
     }
     if (data['className'] == 'PillarItem') {
-      return deserialize<_i6.PillarItem>(data['data']);
+      return deserialize<_i7.PillarItem>(data['data']);
     }
     if (data['className'] == 'ProductVertical') {
-      return deserialize<_i7.ProductVertical>(data['data']);
+      return deserialize<_i8.ProductVertical>(data['data']);
+    }
+    if (data['className'] == 'ScienceContent') {
+      return deserialize<_i9.ScienceContent>(data['data']);
+    }
+    if (data['className'] == 'ScienceHeaderMetric') {
+      return deserialize<_i10.ScienceHeaderMetric>(data['data']);
+    }
+    if (data['className'] == 'ScienceStep') {
+      return deserialize<_i11.ScienceStep>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -322,12 +547,16 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i3.ExecutiveStat:
-        return _i3.ExecutiveStat.t;
-      case _i6.PillarItem:
-        return _i6.PillarItem.t;
-      case _i7.ProductVertical:
-        return _i7.ProductVertical.t;
+      case _i4.ExecutiveStat:
+        return _i4.ExecutiveStat.t;
+      case _i7.PillarItem:
+        return _i7.PillarItem.t;
+      case _i8.ProductVertical:
+        return _i8.ProductVertical.t;
+      case _i10.ScienceHeaderMetric:
+        return _i10.ScienceHeaderMetric.t;
+      case _i11.ScienceStep:
+        return _i11.ScienceStep.t;
     }
     return null;
   }

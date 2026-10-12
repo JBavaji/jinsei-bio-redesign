@@ -1,0 +1,8 @@
+class: ScienceHeaderMetric
+table: science_header_metric
+fields:
+  iconKey: String
+  value: String
+  label: String
+  accentColorHex: String
+  displayOrder: int

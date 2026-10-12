@@ -1,0 +1,5 @@
+class: ScienceContent
+fields:
+  headerMetrics: List<ScienceHeaderMetric>
+  pipelineSteps: List<ScienceStep>
+  clinicalQa: ClinicalQualityAssurance?
