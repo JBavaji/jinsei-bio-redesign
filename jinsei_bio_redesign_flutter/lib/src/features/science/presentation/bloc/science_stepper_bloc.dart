@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/datasources/science_local_data_source.dart';
 import '../../data/repositories/science_repository_impl.dart';
 import '../../domain/repositories/i_science_repository.dart';
 import 'science_stepper_event.dart';
@@ -11,10 +10,7 @@ class ScienceStepperBloc
 
   ScienceStepperBloc({
     IScienceRepository? repository,
-  })  : _repository = repository ??
-            ScienceRepositoryImpl(
-              localDataSource: ScienceLocalDataSource(),
-            ),
+  })  : _repository = repository ?? ScienceRepositoryImpl(),
         super(const ScienceStepperState()) {
     on<LoadScienceStepsEvent>(_onLoadScienceSteps);
     on<SelectScienceStepEvent>(_onSelectScienceStep);

@@ -19,7 +19,15 @@ import 'package:jinsei_bio_redesign_client/src/protocol/executive_stat.dart'
     as _i5;
 import 'package:jinsei_bio_redesign_client/src/protocol/product_vertical.dart'
     as _i6;
-import 'protocol.dart' as _i7;
+import 'package:jinsei_bio_redesign_client/src/protocol/science_content.dart'
+    as _i7;
+import 'package:jinsei_bio_redesign_client/src/protocol/science_step.dart'
+    as _i8;
+import 'package:jinsei_bio_redesign_client/src/protocol/science_header_metric.dart'
+    as _i9;
+import 'package:jinsei_bio_redesign_client/src/protocol/clinical_qa.dart'
+    as _i10;
+import 'protocol.dart' as _i11;
 
 /// Serverpod endpoint for health check & system status
 /// {@category Endpoint}
@@ -123,6 +131,90 @@ class EndpointHome extends _i1.EndpointRef {
       );
 }
 
+/// Serverpod Endpoint for Science Screen content & 10-step R&D stepper pipeline
+/// {@category Endpoint}
+class EndpointScience extends _i1.EndpointRef {
+  EndpointScience(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'science';
+
+  /// Fetches complete Science Content payload with header metrics, 10 pipeline steps, and clinical QA.
+  _i2.Future<_i7.ScienceContent> getScienceContent() =>
+      caller.callServerEndpoint<_i7.ScienceContent>(
+        'science',
+        'getScienceContent',
+        {},
+      );
+
+  /// Fetches only the 10-step R&D pipeline stepper items.
+  _i2.Future<List<_i8.ScienceStep>> getScienceSteps() =>
+      caller.callServerEndpoint<List<_i8.ScienceStep>>(
+        'science',
+        'getScienceSteps',
+        {},
+      );
+
+  /// Fetches the science header metrics (milestones, coverage, patents).
+  _i2.Future<List<_i9.ScienceHeaderMetric>> getHeaderMetrics() =>
+      caller.callServerEndpoint<List<_i9.ScienceHeaderMetric>>(
+        'science',
+        'getHeaderMetrics',
+        {},
+      );
+
+  /// Fetches the clinical QA standards.
+  _i2.Future<_i10.ClinicalQualityAssurance> getClinicalQa() =>
+      caller.callServerEndpoint<_i10.ClinicalQualityAssurance>(
+        'science',
+        'getClinicalQa',
+        {},
+      );
+
+  _i2.Future<_i8.ScienceStep> createScienceStep(_i8.ScienceStep step) =>
+      caller.callServerEndpoint<_i8.ScienceStep>(
+        'science',
+        'createScienceStep',
+        {'step': step},
+      );
+
+  _i2.Future<_i8.ScienceStep> updateScienceStep(_i8.ScienceStep step) =>
+      caller.callServerEndpoint<_i8.ScienceStep>(
+        'science',
+        'updateScienceStep',
+        {'step': step},
+      );
+
+  _i2.Future<void> deleteScienceStep(int id) => caller.callServerEndpoint<void>(
+        'science',
+        'deleteScienceStep',
+        {'id': id},
+      );
+
+  _i2.Future<_i9.ScienceHeaderMetric> createHeaderMetric(
+          _i9.ScienceHeaderMetric metric) =>
+      caller.callServerEndpoint<_i9.ScienceHeaderMetric>(
+        'science',
+        'createHeaderMetric',
+        {'metric': metric},
+      );
+
+  _i2.Future<_i9.ScienceHeaderMetric> updateHeaderMetric(
+          _i9.ScienceHeaderMetric metric) =>
+      caller.callServerEndpoint<_i9.ScienceHeaderMetric>(
+        'science',
+        'updateHeaderMetric',
+        {'metric': metric},
+      );
+
+  _i2.Future<void> deleteHeaderMetric(int id) =>
+      caller.callServerEndpoint<void>(
+        'science',
+        'deleteHeaderMetric',
+        {'id': id},
+      );
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -132,7 +224,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i7.Protocol(),
+          _i11.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -140,16 +232,20 @@ class Client extends _i1.ServerpodClient {
         ) {
     health = EndpointHealth(this);
     home = EndpointHome(this);
+    science = EndpointScience(this);
   }
 
   late final EndpointHealth health;
 
   late final EndpointHome home;
 
+  late final EndpointScience science;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'health': health,
         'home': home,
+        'science': science,
       };
 
   @override
