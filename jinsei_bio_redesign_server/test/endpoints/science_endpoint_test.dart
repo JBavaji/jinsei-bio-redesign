@@ -1,6 +1,7 @@
 import 'package:serverpod/serverpod.dart';
 import 'package:test/test.dart';
 import 'package:jinsei_bio_redesign_server/src/endpoints/science_endpoint.dart';
+import 'package:jinsei_bio_redesign_server/src/generated/protocol.dart';
 
 import '../helpers/mock_session.dart';
 
@@ -19,6 +20,7 @@ void main() {
       expect(qa.title, equals('Clinical Validation & Standards'));
       expect(qa.badgeText, equals('ISO 22000 & GMP Certified'));
       expect(qa.complianceStandard, contains('DCGI & US-FDA'));
+      expect(qa.description, isNotEmpty);
     });
 
     test(
@@ -33,10 +35,18 @@ void main() {
       // Verify header metrics
       expect(content.headerMetrics[0].label, equals('Pipeline Milestones'));
       expect(content.headerMetrics[0].value, equals('10'));
+      expect(content.headerMetrics[0].accentColorHex, equals('#7BD4E2'));
+      expect(content.headerMetrics[0].displayOrder, equals(1));
+
       expect(content.headerMetrics[1].label, equals('Sequence Coverage'));
       expect(content.headerMetrics[1].value, equals('100%'));
+      expect(content.headerMetrics[1].accentColorHex, equals('#66DD8B'));
+      expect(content.headerMetrics[1].displayOrder, equals(2));
+
       expect(content.headerMetrics[2].label, equals('Global Patents Filed'));
       expect(content.headerMetrics[2].value, equals('3'));
+      expect(content.headerMetrics[2].accentColorHex, equals('#7BD4E2'));
+      expect(content.headerMetrics[2].displayOrder, equals(3));
 
       // Verify step order and details
       expect(content.pipelineSteps[0].stepNumber, equals(1));
@@ -59,6 +69,11 @@ void main() {
         expect(steps[i].stepNumber, equals(i + 1));
         expect(steps[i].displayOrder, equals(i + 1));
         expect(steps[i].title, isNotEmpty);
+        expect(steps[i].subtitle, isNotEmpty);
+        expect(steps[i].description, isNotEmpty);
+        expect(steps[i].category, isNotEmpty);
+        expect(steps[i].metricValue, isNotEmpty);
+        expect(steps[i].metricLabel, isNotEmpty);
         expect(steps[i].imageUrl, contains('assets/images/science/step_'));
       }
     });
@@ -72,6 +87,60 @@ void main() {
         'Sequence Coverage',
         'Global Patents Filed',
       ]);
+    });
+
+    test('ScienceStep CRUD operations throw on unconfigured database session',
+        () async {
+      final testStep = ScienceStep(
+        stepNumber: 99,
+        title: 'Test Step',
+        subtitle: 'Test Subtitle',
+        description: 'Test Description',
+        category: 'testing',
+        iconKey: 'test_icon',
+        metricValue: '100%',
+        metricLabel: 'Test Metric',
+        imageUrl: 'test.jpg',
+        displayOrder: 99,
+      );
+
+      expect(
+        () => endpoint.createScienceStep(session, testStep),
+        throwsA(anything),
+      );
+      expect(
+        () => endpoint.updateScienceStep(session, testStep),
+        throwsA(anything),
+      );
+      expect(
+        () => endpoint.deleteScienceStep(session, 1),
+        throwsA(anything),
+      );
+    });
+
+    test(
+        'ScienceHeaderMetric CRUD operations throw on unconfigured database session',
+        () async {
+      final testMetric = ScienceHeaderMetric(
+        iconKey: 'test_icon',
+        value: '99',
+        label: 'Test Label',
+        accentColorHex: '#FFFFFF',
+        displayOrder: 99,
+      );
+
+      expect(
+        () => endpoint.createHeaderMetric(session, testMetric),
+        throwsA(anything),
+      );
+      expect(
+        () => endpoint.updateHeaderMetric(session, testMetric),
+        throwsA(anything),
+      );
+      expect(
+        () => endpoint.deleteHeaderMetric(session, 1),
+        throwsA(anything),
+      );
     });
   });
 }
