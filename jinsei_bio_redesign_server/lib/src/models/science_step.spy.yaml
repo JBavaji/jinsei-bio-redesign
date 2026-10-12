@@ -1,0 +1,13 @@
+class: ScienceStep
+table: science_step
+fields:
+  stepNumber: int
+  title: String
+  subtitle: String
+  description: String
+  category: String
+  iconKey: String
+  metricValue: String
+  metricLabel: String
+  imageUrl: String
+  displayOrder: int
