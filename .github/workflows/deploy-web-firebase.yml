@@ -49,9 +49,9 @@ jobs:
         run: |
           cd jinsei_bio_redesign_flutter
           if [ "${{ github.ref }}" = "refs/heads/staging" ]; then
-            API_URL="https://jinsei-bio-staging.web.app/api/"
+            API_URL="https://jinsei-bio-server-k5rimgmzjq-uc.a.run.app/"
           else
-            API_URL="https://jinsei-bio-redesign.web.app/api/"
+            API_URL="https://jinsei-bio-server-k5rimgmzjq-uc.a.run.app/"
           fi
           flutter build web --release --dart-define=APP_MODE=UNOFFICIAL_DEMO --dart-define=SERVERPOD_URL="${API_URL}"
 
