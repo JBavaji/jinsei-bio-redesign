@@ -23,6 +23,10 @@ import 'science_content.dart' as _i9;
 import 'science_header_metric.dart' as _i10;
 import 'science_step.dart' as _i11;
 import 'protocol.dart' as _i12;
+import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+    as _i13;
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+    as _i14;
 export 'clinical_qa.dart';
 export 'executive_stat.dart';
 export 'health_status.dart';
@@ -467,6 +471,16 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
           MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
+    }
+    if (t == List<_i13.ScienceStep>) {
+      return (data as List)
+          .map((e) => deserialize<_i13.ScienceStep>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i14.ScienceHeaderMetric>) {
+      return (data as List)
+          .map((e) => deserialize<_i14.ScienceHeaderMetric>(e))
+          .toList() as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);

@@ -12,12 +12,17 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/health_endpoint.dart' as _i2;
 import '../endpoints/home_endpoint.dart' as _i3;
+import '../endpoints/science_endpoint.dart' as _i4;
 import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
-    as _i4;
-import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i5;
-import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i6;
+import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+    as _i7;
+import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+    as _i8;
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+    as _i9;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -33,6 +38,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'home',
+          null,
+        ),
+      'science': _i4.ScienceEndpoint()
+        ..initialize(
+          server,
+          'science',
           null,
         ),
     };
@@ -78,7 +89,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i4.PillarItem>(),
+              type: _i1.getType<_i5.PillarItem>(),
               nullable: false,
             )
           },
@@ -96,7 +107,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i4.PillarItem>(),
+              type: _i1.getType<_i5.PillarItem>(),
               nullable: false,
             )
           },
@@ -132,7 +143,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i5.ExecutiveStat>(),
+              type: _i1.getType<_i6.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -150,7 +161,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i5.ExecutiveStat>(),
+              type: _i1.getType<_i6.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -186,7 +197,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i6.ProductVertical>(),
+              type: _i1.getType<_i7.ProductVertical>(),
               nullable: false,
             )
           },
@@ -204,7 +215,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i6.ProductVertical>(),
+              type: _i1.getType<_i7.ProductVertical>(),
               nullable: false,
             )
           },
@@ -231,6 +242,160 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, dynamic> params,
           ) async =>
               (endpoints['home'] as _i3.HomeEndpoint).deleteProductVertical(
+            session,
+            params['id'],
+          ),
+        ),
+      },
+    );
+    connectors['science'] = _i1.EndpointConnector(
+      name: 'science',
+      endpoint: endpoints['science']!,
+      methodConnectors: {
+        'getScienceContent': _i1.MethodConnector(
+          name: 'getScienceContent',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint)
+                  .getScienceContent(session),
+        ),
+        'getScienceSteps': _i1.MethodConnector(
+          name: 'getScienceSteps',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint)
+                  .getScienceSteps(session),
+        ),
+        'getHeaderMetrics': _i1.MethodConnector(
+          name: 'getHeaderMetrics',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint)
+                  .getHeaderMetrics(session),
+        ),
+        'getClinicalQa': _i1.MethodConnector(
+          name: 'getClinicalQa',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint)
+                  .getClinicalQa(session),
+        ),
+        'createScienceStep': _i1.MethodConnector(
+          name: 'createScienceStep',
+          params: {
+            'step': _i1.ParameterDescription(
+              name: 'step',
+              type: _i1.getType<_i8.ScienceStep>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).createScienceStep(
+            session,
+            params['step'],
+          ),
+        ),
+        'updateScienceStep': _i1.MethodConnector(
+          name: 'updateScienceStep',
+          params: {
+            'step': _i1.ParameterDescription(
+              name: 'step',
+              type: _i1.getType<_i8.ScienceStep>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).updateScienceStep(
+            session,
+            params['step'],
+          ),
+        ),
+        'deleteScienceStep': _i1.MethodConnector(
+          name: 'deleteScienceStep',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).deleteScienceStep(
+            session,
+            params['id'],
+          ),
+        ),
+        'createHeaderMetric': _i1.MethodConnector(
+          name: 'createHeaderMetric',
+          params: {
+            'metric': _i1.ParameterDescription(
+              name: 'metric',
+              type: _i1.getType<_i9.ScienceHeaderMetric>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).createHeaderMetric(
+            session,
+            params['metric'],
+          ),
+        ),
+        'updateHeaderMetric': _i1.MethodConnector(
+          name: 'updateHeaderMetric',
+          params: {
+            'metric': _i1.ParameterDescription(
+              name: 'metric',
+              type: _i1.getType<_i9.ScienceHeaderMetric>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).updateHeaderMetric(
+            session,
+            params['metric'],
+          ),
+        ),
+        'deleteHeaderMetric': _i1.MethodConnector(
+          name: 'deleteHeaderMetric',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['science'] as _i4.ScienceEndpoint).deleteHeaderMetric(
             session,
             params['id'],
           ),

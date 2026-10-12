@@ -12,3 +12,14 @@ home:
   - createProductVertical:
   - updateProductVertical:
   - deleteProductVertical:
+science:
+  - getScienceContent:
+  - getScienceSteps:
+  - getHeaderMetrics:
+  - getClinicalQa:
+  - createScienceStep:
+  - updateScienceStep:
+  - deleteScienceStep:
+  - createHeaderMetric:
+  - updateHeaderMetric:
+  - deleteHeaderMetric:
