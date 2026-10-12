@@ -26,7 +26,8 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget(
         child: const StepImageCard(
-          imageUrl: 'assets/images/science/step_01.webp',
+          imageUrl:
+              'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
           title: 'Target Consumer Product Identification',
           isSelected: false,
         ),
@@ -39,7 +40,8 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestWidget(
         child: const StepImageCard(
-          imageUrl: 'assets/images/science/step_01.webp',
+          imageUrl:
+              'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
           title: 'Target Consumer Product Identification',
           isSelected: true,
         ),

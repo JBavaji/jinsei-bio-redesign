@@ -79,15 +79,6 @@ class StepImageCard extends StatelessWidget {
           );
         },
         errorBuilder: (context, error, stackTrace) {
-          final fallback = _resolveFallbackAsset(imageUrl);
-          if (fallback != null) {
-            return Image.asset(
-              fallback,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) =>
-                  _buildPlaceholder(context, accentColor, isDark),
-            );
-          }
           return _buildPlaceholder(context, accentColor, isDark);
         },
       );
@@ -100,14 +91,6 @@ class StepImageCard extends StatelessWidget {
       );
     }
     return _buildPlaceholder(context, accentColor, isDark);
-  }
-
-  String? _resolveFallbackAsset(String url) {
-    final match = RegExp(r'step_(\d{2})').firstMatch(url);
-    if (match != null) {
-      return 'assets/images/science/step_${match.group(1)}.webp';
-    }
-    return null;
   }
 
   Widget _buildPlaceholder(
