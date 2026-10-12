@@ -21,7 +21,12 @@ Future<void> startStandaloneLocalServer(int port) async {
         return;
       }
 
-      final path = request.uri.path.toLowerCase();
+      final rawPath = request.uri.path.toLowerCase();
+      // Strip /api prefix if present for unified routing
+      final path = rawPath.startsWith('/api')
+          ? (rawPath.substring(4).isEmpty ? '/' : rawPath.substring(4))
+          : rawPath;
+
       if (path == '/health' ||
           path == '/health/' ||
           path == '/health/ping' ||
