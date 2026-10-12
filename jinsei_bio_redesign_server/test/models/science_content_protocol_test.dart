@@ -31,7 +31,7 @@ void main() {
         metricValue: '99.4%',
         metricLabel: 'Target Precision',
         imageUrl:
-            'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp',
+            'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
         displayOrder: 1,
       );
 
@@ -42,7 +42,7 @@ void main() {
       expect(
           step.imageUrl,
           equals(
-              'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp'));
+              'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp'));
     });
 
     test('ClinicalQualityAssurance instantiates with compliance standards', () {

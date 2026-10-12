@@ -80,7 +80,7 @@ void main() {
             'metricValue': '99%',
             'metricLabel': 'Precision',
             'imageUrl':
-                'https://storage.googleapis.com/jinsei-bio-public-assets/science/step_01.webp',
+                'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_01.webp',
           }),
         ],
       );

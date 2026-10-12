@@ -152,7 +152,7 @@ class ScienceEndpoint extends Endpoint {
   ];
 
   static const String cdnBaseUrl =
-      'https://storage.googleapis.com/jinsei-bio-public-assets/science';
+      'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science';
 
   static final ClinicalQualityAssurance _defaultClinicalQa =
       ClinicalQualityAssurance(

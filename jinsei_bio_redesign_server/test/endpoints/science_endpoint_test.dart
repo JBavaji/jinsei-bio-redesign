@@ -75,8 +75,7 @@ void main() {
         expect(steps[i].metricValue, isNotEmpty);
         expect(steps[i].imageUrl,
             contains('step_${(i + 1).toString().padLeft(2, '0')}.webp'));
-        expect(
-            steps[i].imageUrl, startsWith('https://storage.googleapis.com/'));
+        expect(steps[i].imageUrl, startsWith('https://cdn.jsdelivr.net/'));
       }
     });
 
