@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:serverpod/serverpod.dart';
 
 import '../generated/protocol.dart';
@@ -151,7 +152,7 @@ class ScienceEndpoint extends Endpoint {
     ),
   ];
 
-  static const String cdnBaseUrl =
+  static final String cdnBaseUrl = Platform.environment['CDN_BASE_URL'] ??
       'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science';
 
   static final ClinicalQualityAssurance _defaultClinicalQa =
