@@ -13,7 +13,7 @@ class AppConfig {
     // Release builds on Web default to remote Staging API.
     // Debug mode defaults to local backend at http://localhost:8080/
     if (kIsWeb && !kDebugMode) {
-      return 'https://jinsei-bio-staging.web.app/api/';
+      return 'https://jinsei-bio-server-k5rimgmzjq-uc.a.run.app/';
     }
     return 'http://localhost:8080/';
   }
