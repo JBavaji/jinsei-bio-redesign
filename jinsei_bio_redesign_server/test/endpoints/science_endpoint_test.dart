@@ -2,10 +2,7 @@ import 'package:serverpod/serverpod.dart';
 import 'package:test/test.dart';
 import 'package:jinsei_bio_redesign_server/src/endpoints/science_endpoint.dart';
 
-class MockSession implements Session {
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-}
+import '../helpers/mock_session.dart';
 
 void main() {
   group('ScienceEndpoint Unit Tests (JIN-59)', () {
