@@ -27,7 +27,13 @@ import 'package:jinsei_bio_redesign_client/src/protocol/science_header_metric.da
     as _i9;
 import 'package:jinsei_bio_redesign_client/src/protocol/clinical_qa.dart'
     as _i10;
-import 'protocol.dart' as _i11;
+import 'package:jinsei_bio_redesign_client/src/protocol/solutions_content.dart'
+    as _i11;
+import 'package:jinsei_bio_redesign_client/src/protocol/solution_card.dart'
+    as _i12;
+import 'package:jinsei_bio_redesign_client/src/protocol/solution_metric.dart'
+    as _i13;
+import 'protocol.dart' as _i14;
 
 /// Serverpod endpoint for health check & system status
 /// {@category Endpoint}
@@ -215,6 +221,47 @@ class EndpointScience extends _i1.EndpointRef {
       );
 }
 
+/// Serverpod Endpoint for Commercial Solutions & Formulation Matrix
+/// {@category Endpoint}
+class EndpointSolutions extends _i1.EndpointRef {
+  EndpointSolutions(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'solutions';
+
+  /// Fetches the complete Solutions Matrix content payload including metrics, cards, and QA standards.
+  _i2.Future<_i11.SolutionsContent> getSolutionsContent() =>
+      caller.callServerEndpoint<_i11.SolutionsContent>(
+        'solutions',
+        'getSolutionsContent',
+        {},
+      );
+
+  /// Fetches all 4 commercial solution cards.
+  _i2.Future<List<_i12.SolutionCard>> getSolutions() =>
+      caller.callServerEndpoint<List<_i12.SolutionCard>>(
+        'solutions',
+        'getSolutions',
+        {},
+      );
+
+  /// Fetches solutions filtered by category (human-health, food-tech, dermo-biotics, agri-tech).
+  _i2.Future<List<_i12.SolutionCard>> getSolutionsByCategory(String category) =>
+      caller.callServerEndpoint<List<_i12.SolutionCard>>(
+        'solutions',
+        'getSolutionsByCategory',
+        {'category': category},
+      );
+
+  /// Fetches top summary KPI metrics.
+  _i2.Future<List<_i13.SolutionMetric>> getSolutionMetrics() =>
+      caller.callServerEndpoint<List<_i13.SolutionMetric>>(
+        'solutions',
+        'getSolutionMetrics',
+        {},
+      );
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -224,7 +271,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i11.Protocol(),
+          _i14.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -233,6 +280,7 @@ class Client extends _i1.ServerpodClient {
     health = EndpointHealth(this);
     home = EndpointHome(this);
     science = EndpointScience(this);
+    solutions = EndpointSolutions(this);
   }
 
   late final EndpointHealth health;
@@ -241,11 +289,14 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointScience science;
 
+  late final EndpointSolutions solutions;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'health': health,
         'home': home,
         'science': science,
+        'solutions': solutions,
       };
 
   @override

@@ -1,0 +1,5 @@
+class: SolutionsContent
+fields:
+  metrics: List<SolutionMetric>
+  solutions: List<SolutionCard>
+  qualityAssurance: ClinicalQualityAssurance?

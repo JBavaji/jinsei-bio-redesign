@@ -44,8 +44,7 @@ void main() {
     expect(find.byIcon(Icons.science_rounded), findsWidgets);
   });
 
-  testWidgets(
-      'Navigating to /solutions displays Commercial Solutions Coming Soon page',
+  testWidgets('Navigating to /solutions displays SolutionsScreen',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -55,9 +54,8 @@ void main() {
     appRouter.go('/solutions');
     await tester.pumpAndSettle();
 
-    expect(find.text('Commercial Solutions'), findsOneWidget);
-    expect(find.textContaining('COMING SOON'), findsOneWidget);
-    expect(find.byIcon(Icons.hub_rounded), findsWidgets);
+    expect(
+        find.text('Commercial Solutions & Formulation Matrix'), findsOneWidget);
   });
 
   testWidgets(

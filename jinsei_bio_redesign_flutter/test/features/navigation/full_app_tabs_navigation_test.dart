@@ -59,8 +59,7 @@ void main() {
       expect(find.text('Pipeline Milestones'), findsOneWidget);
     });
 
-    testWidgets('Renders SolutionsScreen coming soon route cleanly',
-        (tester) async {
+    testWidgets('Renders SolutionsScreen route cleanly', (tester) async {
       tester.view.physicalSize = const Size(1280, 1024);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
@@ -82,7 +81,8 @@ void main() {
       await tester.pumpWidget(buildTestApp(router));
       await tester.pump(const Duration(milliseconds: 500));
 
-      expect(find.text('Commercial Solutions'), findsOneWidget);
+      expect(find.text('Commercial Solutions & Formulation Matrix'),
+          findsOneWidget);
     });
 
     testWidgets('Renders LeadershipScreen coming soon route cleanly',

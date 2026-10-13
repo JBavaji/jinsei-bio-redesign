@@ -13,16 +13,17 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/health_endpoint.dart' as _i2;
 import '../endpoints/home_endpoint.dart' as _i3;
 import '../endpoints/science_endpoint.dart' as _i4;
+import '../endpoints/solutions_endpoint.dart' as _i5;
 import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
-    as _i5;
-import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i6;
-import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i7;
-import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
     as _i8;
-import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
     as _i9;
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+    as _i10;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -44,6 +45,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'science',
+          null,
+        ),
+      'solutions': _i5.SolutionsEndpoint()
+        ..initialize(
+          server,
+          'solutions',
           null,
         ),
     };
@@ -89,7 +96,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i5.PillarItem>(),
+              type: _i1.getType<_i6.PillarItem>(),
               nullable: false,
             )
           },
@@ -107,7 +114,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i5.PillarItem>(),
+              type: _i1.getType<_i6.PillarItem>(),
               nullable: false,
             )
           },
@@ -143,7 +150,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i6.ExecutiveStat>(),
+              type: _i1.getType<_i7.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -161,7 +168,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i6.ExecutiveStat>(),
+              type: _i1.getType<_i7.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -197,7 +204,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i7.ProductVertical>(),
+              type: _i1.getType<_i8.ProductVertical>(),
               nullable: false,
             )
           },
@@ -215,7 +222,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i7.ProductVertical>(),
+              type: _i1.getType<_i8.ProductVertical>(),
               nullable: false,
             )
           },
@@ -297,7 +304,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i8.ScienceStep>(),
+              type: _i1.getType<_i9.ScienceStep>(),
               nullable: false,
             )
           },
@@ -315,7 +322,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i8.ScienceStep>(),
+              type: _i1.getType<_i9.ScienceStep>(),
               nullable: false,
             )
           },
@@ -351,7 +358,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i9.ScienceHeaderMetric>(),
+              type: _i1.getType<_i10.ScienceHeaderMetric>(),
               nullable: false,
             )
           },
@@ -369,7 +376,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i9.ScienceHeaderMetric>(),
+              type: _i1.getType<_i10.ScienceHeaderMetric>(),
               nullable: false,
             )
           },
@@ -399,6 +406,61 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['id'],
           ),
+        ),
+      },
+    );
+    connectors['solutions'] = _i1.EndpointConnector(
+      name: 'solutions',
+      endpoint: endpoints['solutions']!,
+      methodConnectors: {
+        'getSolutionsContent': _i1.MethodConnector(
+          name: 'getSolutionsContent',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['solutions'] as _i5.SolutionsEndpoint)
+                  .getSolutionsContent(session),
+        ),
+        'getSolutions': _i1.MethodConnector(
+          name: 'getSolutions',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['solutions'] as _i5.SolutionsEndpoint)
+                  .getSolutions(session),
+        ),
+        'getSolutionsByCategory': _i1.MethodConnector(
+          name: 'getSolutionsByCategory',
+          params: {
+            'category': _i1.ParameterDescription(
+              name: 'category',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['solutions'] as _i5.SolutionsEndpoint)
+                  .getSolutionsByCategory(
+            session,
+            params['category'],
+          ),
+        ),
+        'getSolutionMetrics': _i1.MethodConnector(
+          name: 'getSolutionMetrics',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['solutions'] as _i5.SolutionsEndpoint)
+                  .getSolutionMetrics(session),
         ),
       },
     );
