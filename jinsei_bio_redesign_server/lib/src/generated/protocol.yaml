@@ -23,3 +23,8 @@ science:
   - createHeaderMetric:
   - updateHeaderMetric:
   - deleteHeaderMetric:
+solutions:
+  - getSolutionsContent:
+  - getSolutions:
+  - getSolutionsByCategory:
+  - getSolutionMetrics:

@@ -5,6 +5,8 @@ class AppColors {
   // Primary & Accent Brand Tokens from Stitch Project 436455633155776431
   static const Color primaryTeal =
       Color(0xFF7BD4E2); // Deep Science Primary Teal
+  static const Color deepScienceTeal =
+      primaryTeal; // Deep Science Primary Teal Alias
   static const Color primaryContainerTeal =
       Color(0xFF0F7D8A); // Deep Teal Container
   static const Color bioluminescentGreen =
@@ -18,6 +20,8 @@ class AppColors {
 
   // Dark Mode Tokens (Stitch Theme Mode: DARK #121414)
   static const Color darkObsidianBg = Color(0xFF121414);
+  static const Color labCharcoal =
+      darkObsidianBg; // Deep Charcoal / Lab Obsidian Alias
   static const Color darkSurface = Color(0xFF1E2020);
   static const Color darkSurfaceCard = Color(0xFF1E2020);
   static const Color darkSurfaceHigh = Color(0xFF282A2B);
