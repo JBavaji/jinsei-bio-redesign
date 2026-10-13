@@ -44,6 +44,23 @@ Future<void> startStandaloneLocalServer(int port) async {
         }
       }
 
+      if (path.startsWith('/static/solutions/') && path.endsWith('.webp')) {
+        final filename = path.split('/').last;
+        final file = File('web/solutions/$filename');
+        if (await file.exists()) {
+          response.statusCode = HttpStatus.ok;
+          response.headers.contentType = ContentType('image', 'webp');
+          response.headers.set('Cache-Control', 'public, max-age=86400');
+          await response.addStream(file.openRead());
+          await response.close();
+          return;
+        } else {
+          response.statusCode = HttpStatus.notFound;
+          await response.close();
+          return;
+        }
+      }
+
       if (path == '/health' ||
           path == '/health/' ||
           path == '/health/ping' ||
@@ -324,6 +341,154 @@ Future<void> startStandaloneLocalServer(int port) async {
               'imageUrl':
                   'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/science/step_10.webp',
               'displayOrder': 10
+            }
+          ]
+        }));
+      } else if (path.contains('solutions')) {
+        response.statusCode = HttpStatus.ok;
+        response.write(jsonEncode({
+          'metrics': [
+            {
+              'iconKey': 'hub_rounded',
+              'value': '4',
+              'label': 'Commercial Verticals',
+              'accentColorHex': '#7BD4E2',
+              'displayOrder': 1
+            },
+            {
+              'iconKey': 'biotech_rounded',
+              'value': '54+',
+              'label': 'Bio-Formulations',
+              'accentColorHex': '#66DD8B',
+              'displayOrder': 2
+            },
+            {
+              'iconKey': 'verified_rounded',
+              'value': '100%',
+              'label': 'Non-GMO Indigenous',
+              'accentColorHex': '#7BD4E2',
+              'displayOrder': 3
+            }
+          ],
+          'qualityAssurance': {
+            'title': 'Clinical & Commercial Quality Assurance',
+            'description':
+                'ISO 9001:2015 & GMP Certified Production Standards • Custom Strains & Blends',
+            'badgeText': 'Pune NCL Innovation Park',
+            'complianceStandard': 'Bio-Prospecting Ethics Compliant'
+          },
+          'solutions': [
+            {
+              'solutionId': 'human-health',
+              'categoryTag': 'PRECISION WELLNESS',
+              'title': 'Human Health: Precision Wellness',
+              'subtitle': 'Targeted Micro-Flora Therapeutics',
+              'description':
+                  'Clinical-grade strain formulations targeting gut, vaginal, and metabolic micro-biomes with high-viability spore technology.',
+              'iconKey': 'health_and_safety_rounded',
+              'category': 'human-health',
+              'formulationCount': '18 Formulations',
+              'keyBenefit': 'Targeted Micro-Flora',
+              'efficacyMetric': '88% Clinical Efficacy',
+              'bulletPoints': [
+                'Gastrointestinal Homeostasis: Targeted IBS, IBD, and gut-barrier integrity restore protocols.',
+                'Urogenital Health: L. crispatus consortia for protective acidification and pathogen exclusion.',
+                'Metabolic Signalling: Precision bile salt hydrolase activity regulating glucose & lipid absorption.'
+              ],
+              'actionCtaText': 'Explore Human Health Range',
+              'caseStudyUrl':
+                  'https://jinseibioscience.com/docs/human_health_clinical_trial.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health_light.webp',
+              'displayOrder': 1
+            },
+            {
+              'solutionId': 'food-tech',
+              'categoryTag': 'CLEAN LABEL PROTECTION',
+              'title': 'Food Tech & Clean Label Preservation',
+              'subtitle': 'Bio-Protective Cultures',
+              'description':
+                  'Next-gen microbial bio-protective cultures replacing chemical preservatives naturally.',
+              'iconKey': 'restaurant_rounded',
+              'category': 'food-tech',
+              'formulationCount': '12 Formulations',
+              'keyBenefit': 'Clean Label Bio-Preservation',
+              'efficacyMetric': '24 Mo. Shelf Extension',
+              'bulletPoints': [
+                'Shelf-Life Extension: Antimicrobial bacteriocins naturally suppress spoilage organisms.',
+                'Clean Label Solutions: Eliminate artificial benzoates, sorbates, and nitrates.',
+                'Fermentation Starters: Accelerated acidification with consistent organoleptic quality.'
+              ],
+              'actionCtaText': 'Explore Food Tech Range',
+              'caseStudyUrl':
+                  'https://jinseibioscience.com/docs/food_tech_clean_label_dossier.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech_light.webp',
+              'displayOrder': 2
+            },
+            {
+              'solutionId': 'dermo-biotics',
+              'categoryTag': 'CUTANEOUS BIOTICS',
+              'title': 'Dermo-Biotics & Bio-Hygiene',
+              'subtitle': 'Cutaneous Barrier Biotics',
+              'description':
+                  'Live-biome topical ferments and postbiotic solutions for barrier health and antimicrobial shielding.',
+              'iconKey': 'face_3_rounded',
+              'category': 'dermo-biotics',
+              'formulationCount': '9 Formulations',
+              'keyBenefit': 'Topical Barrier Health',
+              'efficacyMetric': '+42% Ceramide Synthesis',
+              'bulletPoints': [
+                'Acne Pathogen Mitigation: Selective inhibition of C. acnes phylotypes without skin irritation.',
+                'Barrier Lipid Synthesis: Upregulation of natural ceramide production by 42%.',
+                'Probiotic Cleaning: Self-replenishing surface defenses for clinical bio-hygiene.'
+              ],
+              'actionCtaText': 'Explore Dermo-Biotics Range',
+              'caseStudyUrl':
+                  'https://jinseibioscience.com/docs/dermo_biotics_safety_study.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics_light.webp',
+              'displayOrder': 3
+            },
+            {
+              'solutionId': 'agri-tech',
+              'categoryTag': 'REGENERATIVE AGRI',
+              'title': 'Agri-Tech & Environmental Security',
+              'subtitle': 'Bio-Inoculants & Remediation',
+              'description':
+                  'Specialized microbial consortia engineered to rejuvenate exhausted soil and accelerate remediation.',
+              'iconKey': 'eco_rounded',
+              'category': 'agri-tech',
+              'formulationCount': '15 Formulations',
+              'keyBenefit': 'Regenerative Soil Consortia',
+              'efficacyMetric': '+35% Root Bio-Mass',
+              'bulletPoints': [
+                'Nitrogen Fixing & P-Solubilizing: Strains that unlock bound soil minerals for root uptake.',
+                'Crop Immunity Priming: Triggering systemic acquired resistance (SAR) against blight.',
+                'Effluent Bioremediation: High-efficiency degradation of industrial hydrocarbons.'
+              ],
+              'actionCtaText': 'Explore Agri-Tech Solutions',
+              'caseStudyUrl':
+                  'https://jinseibioscience.com/docs/agri_tech_field_trial.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech_light.webp',
+              'displayOrder': 4
             }
           ]
         }));

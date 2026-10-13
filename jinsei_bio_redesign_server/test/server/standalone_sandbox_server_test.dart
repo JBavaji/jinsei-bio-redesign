@@ -80,6 +80,38 @@ void main() {
       expect(response.bodyBytes.length, greaterThan(1000));
     });
 
+    test(
+        'GET /solutions returns metrics, 4 commercial solutions with image URLs',
+        () async {
+      final response =
+          await http.get(Uri.parse('http://localhost:$testPort/solutions'));
+      expect(response.statusCode, equals(200));
+
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      expect(data['metrics'], isList);
+      expect(data['solutions'], isList);
+      expect((data['solutions'] as List).length, equals(4));
+
+      final firstSolution = (data['solutions'] as List).first;
+      expect(firstSolution['solutionId'], equals('human-health'));
+      expect(
+          firstSolution['imageUrl'], contains('solution_01_human_health.webp'));
+      expect(firstSolution['darkImageUrl'],
+          contains('solution_01_human_health_dark.webp'));
+      expect(firstSolution['lightImageUrl'],
+          contains('solution_01_human_health_light.webp'));
+    });
+
+    test(
+        'GET /static/solutions/solution_01_human_health.webp serves static WebP image',
+        () async {
+      final response = await http.get(Uri.parse(
+          'http://localhost:$testPort/static/solutions/solution_01_human_health.webp'));
+      expect(response.statusCode, equals(200));
+      expect(response.headers['content-type'], contains('image/webp'));
+      expect(response.bodyBytes.length, greaterThan(1000));
+    });
+
     test('OPTIONS request returns CORS 200 with OWASP security headers',
         () async {
       final client = HttpClient();

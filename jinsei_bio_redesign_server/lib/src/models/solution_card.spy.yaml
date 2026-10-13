@@ -1,0 +1,20 @@
+class: SolutionCard
+table: solution_card
+fields:
+  solutionId: String
+  categoryTag: String
+  title: String
+  subtitle: String
+  description: String
+  iconKey: String
+  category: String
+  formulationCount: String
+  keyBenefit: String
+  efficacyMetric: String
+  bulletPoints: List<String>
+  actionCtaText: String
+  caseStudyUrl: String
+  imageUrl: String?
+  darkImageUrl: String?
+  lightImageUrl: String?
+  displayOrder: int
