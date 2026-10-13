@@ -36,7 +36,7 @@ void main() {
         body: Center(
           child: SizedBox(
             width: 500,
-            height: 650,
+            height: 780,
             child: child,
           ),
         ),
@@ -47,6 +47,10 @@ void main() {
   group('SolutionCardWidget Tests (JIN-18)', () {
     testWidgets('renders all solution card details correctly in Dark Mode',
         (tester) async {
+      tester.view.physicalSize = const Size(1280, 1024);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
       await tester.pumpWidget(buildTestWidget(
         child: SolutionCardWidget(
           solution: testSolution,
@@ -67,6 +71,10 @@ void main() {
 
     testWidgets('renders all solution card details correctly in Light Mode',
         (tester) async {
+      tester.view.physicalSize = const Size(1280, 1024);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
       await tester.pumpWidget(buildTestWidget(
         theme: AppTheme.lightTheme,
         child: SolutionCardWidget(
@@ -83,6 +91,10 @@ void main() {
 
     testWidgets('calls onTap when user taps anywhere on the card',
         (tester) async {
+      tester.view.physicalSize = const Size(1280, 1024);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
       var tapCalled = false;
 
       await tester.pumpWidget(buildTestWidget(
@@ -104,6 +116,10 @@ void main() {
 
     testWidgets('calls onExplore when user taps the action CTA button',
         (tester) async {
+      tester.view.physicalSize = const Size(1280, 1024);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+
       var exploreCalled = false;
 
       await tester.pumpWidget(buildTestWidget(

@@ -146,6 +146,9 @@ class SolutionsEndpoint extends Endpoint {
     ),
   ];
 
+  static const String cdnBaseUrl =
+      'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions';
+
   static final List<SolutionCard> _defaultSolutions = [
     SolutionCard(
       solutionId: 'human-health',
@@ -167,6 +170,9 @@ class SolutionsEndpoint extends Endpoint {
       actionCtaText: 'Explore Human Health Range',
       caseStudyUrl:
           'https://jinseibioscience.com/docs/human_health_clinical_trial.pdf',
+      imageUrl: '$cdnBaseUrl/solution_01_human_health.webp',
+      darkImageUrl: '$cdnBaseUrl/solution_01_human_health_dark.webp',
+      lightImageUrl: '$cdnBaseUrl/solution_01_human_health_light.webp',
       displayOrder: 1,
     ),
     SolutionCard(
@@ -189,6 +195,9 @@ class SolutionsEndpoint extends Endpoint {
       actionCtaText: 'Explore Food Tech Range',
       caseStudyUrl:
           'https://jinseibioscience.com/docs/food_tech_clean_label_dossier.pdf',
+      imageUrl: '$cdnBaseUrl/solution_02_food_tech.webp',
+      darkImageUrl: '$cdnBaseUrl/solution_02_food_tech_dark.webp',
+      lightImageUrl: '$cdnBaseUrl/solution_02_food_tech_light.webp',
       displayOrder: 2,
     ),
     SolutionCard(
@@ -211,6 +220,9 @@ class SolutionsEndpoint extends Endpoint {
       actionCtaText: 'Explore Dermo-Biotics Range',
       caseStudyUrl:
           'https://jinseibioscience.com/docs/dermo_biotics_safety_study.pdf',
+      imageUrl: '$cdnBaseUrl/solution_03_dermo_biotics.webp',
+      darkImageUrl: '$cdnBaseUrl/solution_03_dermo_biotics_dark.webp',
+      lightImageUrl: '$cdnBaseUrl/solution_03_dermo_biotics_light.webp',
       displayOrder: 3,
     ),
     SolutionCard(
@@ -233,6 +245,9 @@ class SolutionsEndpoint extends Endpoint {
       actionCtaText: 'Explore Agri-Tech Solutions',
       caseStudyUrl:
           'https://jinseibioscience.com/docs/agri_tech_field_trial.pdf',
+      imageUrl: '$cdnBaseUrl/solution_04_agri_tech.webp',
+      darkImageUrl: '$cdnBaseUrl/solution_04_agri_tech_dark.webp',
+      lightImageUrl: '$cdnBaseUrl/solution_04_agri_tech_light.webp',
       displayOrder: 4,
     ),
   ];

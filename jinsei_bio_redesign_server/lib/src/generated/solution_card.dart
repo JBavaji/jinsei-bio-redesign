@@ -28,6 +28,9 @@ abstract class SolutionCard extends _i1.TableRow {
     required this.bulletPoints,
     required this.actionCtaText,
     required this.caseStudyUrl,
+    this.imageUrl,
+    this.darkImageUrl,
+    this.lightImageUrl,
     required this.displayOrder,
   }) : super(id);
 
@@ -46,6 +49,9 @@ abstract class SolutionCard extends _i1.TableRow {
     required List<String> bulletPoints,
     required String actionCtaText,
     required String caseStudyUrl,
+    String? imageUrl,
+    String? darkImageUrl,
+    String? lightImageUrl,
     required int displayOrder,
   }) = _SolutionCardImpl;
 
@@ -81,6 +87,12 @@ abstract class SolutionCard extends _i1.TableRow {
           .deserialize<String>(jsonSerialization['actionCtaText']),
       caseStudyUrl: serializationManager
           .deserialize<String>(jsonSerialization['caseStudyUrl']),
+      imageUrl: serializationManager
+          .deserialize<String?>(jsonSerialization['imageUrl']),
+      darkImageUrl: serializationManager
+          .deserialize<String?>(jsonSerialization['darkImageUrl']),
+      lightImageUrl: serializationManager
+          .deserialize<String?>(jsonSerialization['lightImageUrl']),
       displayOrder: serializationManager
           .deserialize<int>(jsonSerialization['displayOrder']),
     );
@@ -116,6 +128,12 @@ abstract class SolutionCard extends _i1.TableRow {
 
   String caseStudyUrl;
 
+  String? imageUrl;
+
+  String? darkImageUrl;
+
+  String? lightImageUrl;
+
   int displayOrder;
 
   @override
@@ -136,6 +154,9 @@ abstract class SolutionCard extends _i1.TableRow {
     List<String>? bulletPoints,
     String? actionCtaText,
     String? caseStudyUrl,
+    String? imageUrl,
+    String? darkImageUrl,
+    String? lightImageUrl,
     int? displayOrder,
   });
   @override
@@ -155,6 +176,9 @@ abstract class SolutionCard extends _i1.TableRow {
       'bulletPoints': bulletPoints.toJson(),
       'actionCtaText': actionCtaText,
       'caseStudyUrl': caseStudyUrl,
+      if (imageUrl != null) 'imageUrl': imageUrl,
+      if (darkImageUrl != null) 'darkImageUrl': darkImageUrl,
+      if (lightImageUrl != null) 'lightImageUrl': lightImageUrl,
       'displayOrder': displayOrder,
     };
   }
@@ -177,6 +201,9 @@ abstract class SolutionCard extends _i1.TableRow {
       'bulletPoints': bulletPoints,
       'actionCtaText': actionCtaText,
       'caseStudyUrl': caseStudyUrl,
+      'imageUrl': imageUrl,
+      'darkImageUrl': darkImageUrl,
+      'lightImageUrl': lightImageUrl,
       'displayOrder': displayOrder,
     };
   }
@@ -198,6 +225,9 @@ abstract class SolutionCard extends _i1.TableRow {
       'bulletPoints': bulletPoints.toJson(),
       'actionCtaText': actionCtaText,
       'caseStudyUrl': caseStudyUrl,
+      if (imageUrl != null) 'imageUrl': imageUrl,
+      if (darkImageUrl != null) 'darkImageUrl': darkImageUrl,
+      if (lightImageUrl != null) 'lightImageUrl': lightImageUrl,
       'displayOrder': displayOrder,
     };
   }
@@ -250,6 +280,15 @@ abstract class SolutionCard extends _i1.TableRow {
         return;
       case 'caseStudyUrl':
         caseStudyUrl = value;
+        return;
+      case 'imageUrl':
+        imageUrl = value;
+        return;
+      case 'darkImageUrl':
+        darkImageUrl = value;
+        return;
+      case 'lightImageUrl':
+        lightImageUrl = value;
         return;
       case 'displayOrder':
         displayOrder = value;
@@ -419,6 +458,9 @@ class _SolutionCardImpl extends SolutionCard {
     required List<String> bulletPoints,
     required String actionCtaText,
     required String caseStudyUrl,
+    String? imageUrl,
+    String? darkImageUrl,
+    String? lightImageUrl,
     required int displayOrder,
   }) : super._(
           id: id,
@@ -435,6 +477,9 @@ class _SolutionCardImpl extends SolutionCard {
           bulletPoints: bulletPoints,
           actionCtaText: actionCtaText,
           caseStudyUrl: caseStudyUrl,
+          imageUrl: imageUrl,
+          darkImageUrl: darkImageUrl,
+          lightImageUrl: lightImageUrl,
           displayOrder: displayOrder,
         );
 
@@ -454,6 +499,9 @@ class _SolutionCardImpl extends SolutionCard {
     List<String>? bulletPoints,
     String? actionCtaText,
     String? caseStudyUrl,
+    Object? imageUrl = _Undefined,
+    Object? darkImageUrl = _Undefined,
+    Object? lightImageUrl = _Undefined,
     int? displayOrder,
   }) {
     return SolutionCard(
@@ -471,6 +519,10 @@ class _SolutionCardImpl extends SolutionCard {
       bulletPoints: bulletPoints ?? this.bulletPoints.clone(),
       actionCtaText: actionCtaText ?? this.actionCtaText,
       caseStudyUrl: caseStudyUrl ?? this.caseStudyUrl,
+      imageUrl: imageUrl is String? ? imageUrl : this.imageUrl,
+      darkImageUrl: darkImageUrl is String? ? darkImageUrl : this.darkImageUrl,
+      lightImageUrl:
+          lightImageUrl is String? ? lightImageUrl : this.lightImageUrl,
       displayOrder: displayOrder ?? this.displayOrder,
     );
   }
@@ -530,6 +582,18 @@ class SolutionCardTable extends _i1.Table {
       'caseStudyUrl',
       this,
     );
+    imageUrl = _i1.ColumnString(
+      'imageUrl',
+      this,
+    );
+    darkImageUrl = _i1.ColumnString(
+      'darkImageUrl',
+      this,
+    );
+    lightImageUrl = _i1.ColumnString(
+      'lightImageUrl',
+      this,
+    );
     displayOrder = _i1.ColumnInt(
       'displayOrder',
       this,
@@ -562,6 +626,12 @@ class SolutionCardTable extends _i1.Table {
 
   late final _i1.ColumnString caseStudyUrl;
 
+  late final _i1.ColumnString imageUrl;
+
+  late final _i1.ColumnString darkImageUrl;
+
+  late final _i1.ColumnString lightImageUrl;
+
   late final _i1.ColumnInt displayOrder;
 
   @override
@@ -580,6 +650,9 @@ class SolutionCardTable extends _i1.Table {
         bulletPoints,
         actionCtaText,
         caseStudyUrl,
+        imageUrl,
+        darkImageUrl,
+        lightImageUrl,
         displayOrder,
       ];
 }

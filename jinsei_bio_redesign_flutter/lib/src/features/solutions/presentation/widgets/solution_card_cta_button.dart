@@ -31,7 +31,7 @@ class SolutionCardCtaButton extends StatelessWidget {
           ),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 16),
           backgroundColor: isHovered || isSelected
               ? (isDark
                   ? AppColors.cyanInteractive.withValues(alpha: 0.15)

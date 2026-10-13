@@ -39,7 +39,7 @@ class SolutionsGridLayout extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 24,
             mainAxisSpacing: 24,
-            mainAxisExtent: 640,
+            mainAxisExtent: isWide ? 650 : 680,
           ),
           itemCount: solutions.length,
           itemBuilder: (context, index) {

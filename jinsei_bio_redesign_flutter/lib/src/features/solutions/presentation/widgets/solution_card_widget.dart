@@ -3,7 +3,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../domain/models/solution_card_model.dart';
 import 'solution_card_bullet_point.dart';
 import 'solution_card_cta_button.dart';
-import 'solution_card_graphic_header.dart';
+import 'solution_card_image.dart';
 import 'solution_card_metadata_row.dart';
 
 class SolutionCardWidget extends StatefulWidget {
@@ -67,20 +67,20 @@ class _SolutionCardWidgetState extends State<SolutionCardWidget> {
                 ),
             ],
           ),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SolutionCardGraphicHeader(
+              SolutionCardImage(
                 solution: widget.solution,
                 isDark: isDark,
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
               SolutionCardMetadataRow(
                 solution: widget.solution,
                 isDark: isDark,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
               Text(
                 widget.solution.title,
                 style: theme.textTheme.titleLarge?.copyWith(
@@ -88,22 +88,36 @@ class _SolutionCardWidgetState extends State<SolutionCardWidget> {
                   color: isDark ? Colors.white : AppColors.labCharcoal,
                 ),
               ),
-              const SizedBox(height: 8),
+              if (widget.solution.subtitle.isNotEmpty) ...[
+                const SizedBox(height: 2),
+                Text(
+                  widget.solution.subtitle,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.5,
+                    color: isDark
+                        ? AppColors.cyanInteractive
+                        : AppColors.primaryTeal,
+                  ),
+                ),
+              ],
+              const SizedBox(height: 6),
               Text(
                 widget.solution.description,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: isDark
                       ? AppColors.darkTextSecondary
                       : AppColors.lightTextSecondary,
-                  height: 1.5,
+                  height: 1.4,
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
               ...widget.solution.bulletPoints.map(
                 (b) => SolutionCardBulletPoint(text: b, isDark: isDark),
               ),
               const Spacer(),
-              const SizedBox(height: 14),
+              const SizedBox(height: 6),
               SolutionCardCtaButton(
                 solution: widget.solution,
                 isDark: isDark,

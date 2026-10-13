@@ -44,6 +44,23 @@ Future<void> startStandaloneLocalServer(int port) async {
         }
       }
 
+      if (path.startsWith('/static/solutions/') && path.endsWith('.webp')) {
+        final filename = path.split('/').last;
+        final file = File('web/solutions/$filename');
+        if (await file.exists()) {
+          response.statusCode = HttpStatus.ok;
+          response.headers.contentType = ContentType('image', 'webp');
+          response.headers.set('Cache-Control', 'public, max-age=86400');
+          await response.addStream(file.openRead());
+          await response.close();
+          return;
+        } else {
+          response.statusCode = HttpStatus.notFound;
+          await response.close();
+          return;
+        }
+      }
+
       if (path == '/health' ||
           path == '/health/' ||
           path == '/health/ping' ||
@@ -381,6 +398,12 @@ Future<void> startStandaloneLocalServer(int port) async {
               'actionCtaText': 'Explore Human Health Range',
               'caseStudyUrl':
                   'https://jinseibioscience.com/docs/human_health_clinical_trial.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_01_human_health_light.webp',
               'displayOrder': 1
             },
             {
@@ -403,6 +426,12 @@ Future<void> startStandaloneLocalServer(int port) async {
               'actionCtaText': 'Explore Food Tech Range',
               'caseStudyUrl':
                   'https://jinseibioscience.com/docs/food_tech_clean_label_dossier.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_02_food_tech_light.webp',
               'displayOrder': 2
             },
             {
@@ -425,6 +454,12 @@ Future<void> startStandaloneLocalServer(int port) async {
               'actionCtaText': 'Explore Dermo-Biotics Range',
               'caseStudyUrl':
                   'https://jinseibioscience.com/docs/dermo_biotics_safety_study.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_03_dermo_biotics_light.webp',
               'displayOrder': 3
             },
             {
@@ -447,6 +482,12 @@ Future<void> startStandaloneLocalServer(int port) async {
               'actionCtaText': 'Explore Agri-Tech Solutions',
               'caseStudyUrl':
                   'https://jinseibioscience.com/docs/agri_tech_field_trial.pdf',
+              'imageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech.webp',
+              'darkImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech_dark.webp',
+              'lightImageUrl':
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech_light.webp',
               'displayOrder': 4
             }
           ]

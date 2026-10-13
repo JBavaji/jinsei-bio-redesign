@@ -55,6 +55,9 @@ class SolutionCardModel {
   final List<String> bulletPoints;
   final String actionCtaText;
   final String caseStudyUrl;
+  final String imageUrl;
+  final String? darkImageUrl;
+  final String? lightImageUrl;
   final int displayOrder;
 
   const SolutionCardModel({
@@ -72,8 +75,14 @@ class SolutionCardModel {
     required this.bulletPoints,
     required this.actionCtaText,
     required this.caseStudyUrl,
+    this.imageUrl = '',
+    this.darkImageUrl,
+    this.lightImageUrl,
     required this.displayOrder,
   });
+
+  String get effectiveDarkImage => darkImageUrl ?? imageUrl;
+  String get effectiveLightImage => lightImageUrl ?? imageUrl;
 
   static const Map<String, IconData> _iconMap = {
     'health_and_safety_rounded': Icons.health_and_safety_rounded,
@@ -104,6 +113,9 @@ class SolutionCardModel {
       bulletPoints: bullets,
       actionCtaText: json['actionCtaText'] as String? ?? 'Explore Vertical',
       caseStudyUrl: json['caseStudyUrl'] as String? ?? '',
+      imageUrl: json['imageUrl'] as String? ?? '',
+      darkImageUrl: json['darkImageUrl'] as String?,
+      lightImageUrl: json['lightImageUrl'] as String?,
       displayOrder: (json['displayOrder'] as num?)?.toInt() ?? 1,
     );
   }
@@ -123,6 +135,9 @@ class SolutionCardModel {
       'bulletPoints': bulletPoints,
       'actionCtaText': actionCtaText,
       'caseStudyUrl': caseStudyUrl,
+      'imageUrl': imageUrl,
+      'darkImageUrl': darkImageUrl,
+      'lightImageUrl': lightImageUrl,
       'displayOrder': displayOrder,
     };
   }

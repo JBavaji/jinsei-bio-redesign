@@ -14,4 +14,7 @@ fields:
   bulletPoints: List<String>
   actionCtaText: String
   caseStudyUrl: String
+  imageUrl: String?
+  darkImageUrl: String?
+  lightImageUrl: String?
   displayOrder: int

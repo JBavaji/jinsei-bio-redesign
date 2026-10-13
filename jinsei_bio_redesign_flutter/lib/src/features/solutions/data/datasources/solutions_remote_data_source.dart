@@ -51,6 +51,9 @@ class SolutionsRemoteDataSource implements ISolutionsRemoteDataSource {
                 'bulletPoints': s.bulletPoints,
                 'actionCtaText': s.actionCtaText,
                 'caseStudyUrl': s.caseStudyUrl,
+                'imageUrl': s.imageUrl,
+                'darkImageUrl': s.darkImageUrl,
+                'lightImageUrl': s.lightImageUrl,
                 'displayOrder': s.displayOrder,
               }))
           .toList();

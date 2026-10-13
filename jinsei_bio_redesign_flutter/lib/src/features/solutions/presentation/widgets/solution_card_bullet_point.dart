@@ -14,12 +14,12 @@ class SolutionCardBulletPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(bottom: 5.0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 6, right: 8),
+            margin: const EdgeInsets.only(top: 5, right: 8),
             width: 6,
             height: 6,
             decoration: const BoxDecoration(
@@ -32,7 +32,7 @@ class SolutionCardBulletPoint extends StatelessWidget {
               text,
               style: TextStyle(
                 fontSize: 12,
-                height: 1.4,
+                height: 1.35,
                 color:
                     isDark ? const Color(0xFFCBD5E1) : const Color(0xFF334155),
               ),
