@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../domain/models/solution_card_model.dart';
 
-/// Modular Solution Card Image Component with 3-Tier Resilient Rendering:
-/// 1. Remote CDN URL (jsDelivr / Serverpod static web).
-/// 2. Bundled local WebP asset fallback (dark & light variants).
-/// 3. Biotech glowing fallback indicator.
+/// Modular Solution Card Image Component:
+/// 1. Remote CDN / Cloud Storage URL via [Image.network] with loading indicator.
+/// 2. Graceful biotech glowing fallback indicator with vertical icon.
 class SolutionCardImage extends StatelessWidget {
   final SolutionCardModel solution;
   final bool isDark;
@@ -20,8 +19,6 @@ class SolutionCardImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final targetUrl =
         isDark ? solution.effectiveDarkImage : solution.effectiveLightImage;
-    final fallbackAsset =
-        'assets/images/solutions/solution_0${solution.displayOrder}_${solution.solutionId.replaceAll('-', '_')}_${isDark ? 'dark' : 'light'}.webp';
 
     return Container(
       height: 155,
@@ -39,7 +36,7 @@ class SolutionCardImage extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            _buildImage(targetUrl, fallbackAsset),
+            _buildImage(targetUrl),
             // Subtle bottom gradient vignette
             Positioned(
               bottom: 0,
@@ -91,31 +88,19 @@ class SolutionCardImage extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(String targetUrl, String fallbackAsset) {
-    if (targetUrl
-        .contains('@develop/jinsei_bio_redesign_server/web/solutions/')) {
-      return _buildAsset(fallbackAsset);
-    }
+  Widget _buildImage(String targetUrl) {
     if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
       return Image.network(
         targetUrl,
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _buildAsset(fallbackAsset),
+        errorBuilder: (_, __, ___) => _buildFallbackBiotech(),
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return _buildLoadingPlaceholder();
         },
       );
     }
-    return _buildAsset(targetUrl.isNotEmpty ? targetUrl : fallbackAsset);
-  }
-
-  Widget _buildAsset(String assetPath) {
-    return Image.asset(
-      assetPath,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => _buildFallbackBiotech(),
-    );
+    return _buildFallbackBiotech();
   }
 
   Widget _buildLoadingPlaceholder() {
