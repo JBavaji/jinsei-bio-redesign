@@ -20,6 +20,15 @@
   <!-- Theme Color -->
   <meta name="theme-color" content="#121414">
 
+  <!-- Resource Preconnects for Accelerated CanvasKit & Font Loading -->
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- Responsive Viewport without restrictive zoom lock (WCAG 1.4.4 Compliance) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     html, body {
       margin: 0;
@@ -29,28 +38,17 @@
       overflow: hidden;
       background-color: #121414; /* Dark mode default */
     }
-    @media (prefers-color-scheme: light) {
-      html, body {
-        background-color: #FFFFFF; /* Light mode */
-      }
-    }
-    @media (prefers-color-scheme: dark) {
-      html, body {
-        background-color: #121414; /* Dark mode */
-      }
-    }
   </style>
 
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
     function removeSplashFromWeb() {
-      // Pure background color index.html splash removal stub
+      // Pure background splash stub required by flutter_native_splash
     }
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer=""></script>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 </head>
 <body>
 

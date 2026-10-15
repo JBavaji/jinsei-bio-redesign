@@ -67,15 +67,19 @@ Future<void> startStandaloneLocalServer(int port) async {
           path == '/health/status' ||
           path == '/') {
         response.statusCode = HttpStatus.ok;
-        response.write(jsonEncode({
-          'status': 'HEALTHY',
-          'service': 'jinsei_bio_redesign_server',
-          'version': VersionService.version,
-          'appMode': 'UNOFFICIAL_DEMO',
-          'environment': 'development-sandbox',
-          'database': 'PostgreSQL (Local Standalone Sandbox)',
-          'timestamp': DateTime.now().toUtc().toIso8601String(),
-        }));
+        if (request.method == 'POST') {
+          response.write('"PONG"');
+        } else {
+          response.write(jsonEncode({
+            'status': 'HEALTHY',
+            'service': 'jinsei_bio_redesign_server',
+            'version': VersionService.version,
+            'appMode': 'UNOFFICIAL_DEMO',
+            'environment': 'development-sandbox',
+            'database': 'PostgreSQL (Local Standalone Sandbox)',
+            'timestamp': DateTime.now().toUtc().toIso8601String(),
+          }));
+        }
       } else if (path.contains('home')) {
         response.statusCode = HttpStatus.ok;
         response.write(jsonEncode({
@@ -84,66 +88,77 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'public_rounded',
               'title': 'Indigenous Focus',
               'description':
-                  'Sourcing and preserving native microbiomes adapted to specific regional ecosystems.'
+                  'Sourcing and preserving native microbiomes adapted to specific regional ecosystems.',
+              'displayOrder': 1,
             },
             {
               'iconKey': 'dataset_rounded',
               'title': 'Data-Centred',
               'description':
-                  'Advanced bioinformatics pipeline for high-resolution strain characterization and predictive modeling.'
+                  'Advanced bioinformatics pipeline for high-resolution strain characterization and predictive modeling.',
+              'displayOrder': 2,
             },
             {
               'iconKey': 'biotech_rounded',
               'title': 'Evidence-Based',
               'description':
-                  'Rigorous double-blind clinical and laboratory validation for every developed bioactive compound.'
+                  'Rigorous double-blind clinical and laboratory validation for every developed bioactive compound.',
+              'displayOrder': 3,
             },
             {
               'iconKey': 'health_and_safety_rounded',
               'title': 'Gut Health Emphasis',
               'description':
-                  'Targeting the microbiome-gut-brain axis for holistic systemic wellness and metabolic regulation.'
+                  'Targeting the microbiome-gut-brain axis for holistic systemic wellness and metabolic regulation.',
+              'displayOrder': 4,
             },
             {
               'iconKey': 'layers_rounded',
               'title': 'Scalable Platform',
               'description':
-                  'Modular solid-state & liquid fermentation processes designed for rapid industrial-scale manufacturing.'
+                  'Modular solid-state & liquid fermentation processes designed for rapid industrial-scale manufacturing.',
+              'displayOrder': 5,
             },
             {
               'iconKey': 'diversity_3_rounded',
               'title': 'Community Integration',
               'description':
-                  'Partnering with local agricultural & forest populations for ethical, benefit-sharing bio-prospecting.'
+                  'Partnering with local agricultural & forest populations for ethical, benefit-sharing bio-prospecting.',
+              'displayOrder': 6,
             },
             {
               'iconKey': 'tune_rounded',
               'title': 'Customized Solutions',
               'description':
-                  'Tailored consortia formulation engineered for specific food science and therapeutic partner requirements.'
+                  'Tailored consortia formulation engineered for specific food science and therapeutic partner requirements.',
+              'displayOrder': 7,
             },
             {
               'iconKey': 'eco_rounded',
               'title': 'Ecologically Informed',
               'description':
-                  'Ensuring all bio-interventions preserve microbiome equilibrium and natural environmental biodiversity.'
+                  'Ensuring all bio-interventions preserve microbiome equilibrium and natural environmental biodiversity.',
+              'displayOrder': 8,
             }
           ],
           'executiveStats': [
             {
               'iconKey': 'military_tech_rounded',
               'title': '3+ Global Patents Filed',
-              'subtitle': 'International IP Protection'
+              'subtitle': 'International IP Protection',
+              'displayOrder': 1,
             },
             {
               'iconKey': 'account_tree_rounded',
               'title': '10-Step Proprietary Platform',
-              'subtitle': 'End-to-end Strain Isolation'
+              'subtitle': 'End-to-end Strain Isolation',
+              'displayOrder': 2,
             },
             {
               'iconKey': 'school_rounded',
               'title': '8+ PhD Academic Advisors',
-              'subtitle': 'UC Irvine, Cambridge, Cornell'
+              'subtitle': 'UC Irvine, Cambridge, Cornell',
+              'displayOrder': 3,
             }
           ],
           'productVerticals': [
@@ -151,19 +166,22 @@ Future<void> startStandaloneLocalServer(int port) async {
               'title': 'Jinsei-Gut Pro',
               'strainId': 'Strain ID: L. rhamnosus JN-01',
               'description':
-                  'Advanced digestive support matrix utilizing native flora extraction and gastro-resistant spore technology.'
+                  'Advanced digestive support matrix utilizing native flora extraction and gastro-resistant spore technology.',
+              'displayOrder': 1,
             },
             {
               'title': 'FemmeFlora Bio-Shield',
               'strainId': 'Strain ID: L. crispatus JN-02',
               'description':
-                  'Targeted microbiome balancing for specialized female wellness, vaginal tract stability, and immune homeostasis.'
+                  'Targeted microbiome balancing for specialized female wellness, vaginal tract stability, and immune homeostasis.',
+              'displayOrder': 2,
             },
             {
               'title': 'MetaboliMet Probiotic',
               'strainId': 'Strain ID: L. plantarum JN-04',
               'description':
-                  'Metabolic optimization complex developed from isolated indigenous cultures targeting lipid signaling pathways.'
+                  'Metabolic optimization complex developed from isolated indigenous cultures targeting lipid signaling pathways.',
+              'displayOrder': 3,
             }
           ]
         }));
