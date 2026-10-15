@@ -64,15 +64,20 @@ class HeaderActionsBlock extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 4),
-        IconButton(
-          icon: const Icon(
-            Icons.menu_rounded,
-            color: AppColors.cyanInteractive,
-            size: 26,
+        Semantics(
+          button: true,
+          label: 'Open navigation menu',
+          child: IconButton(
+            tooltip: 'Open navigation menu',
+            icon: const Icon(
+              Icons.menu_rounded,
+              color: AppColors.cyanInteractive,
+              size: 26,
+            ),
+            onPressed: () {
+              Scaffold.of(context).openEndDrawer();
+            },
           ),
-          onPressed: () {
-            Scaffold.of(context).openEndDrawer();
-          },
         ),
       ],
     );

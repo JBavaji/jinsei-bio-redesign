@@ -1,0 +1,9 @@
+class: LeadershipContent
+fields:
+  headerBadge: String
+  headline: String
+  subhead: String
+  emblemTitle: String
+  emblemSubtitle: String
+  members: List<TeamMember>
+  governanceAssurance: ClinicalQualityAssurance?

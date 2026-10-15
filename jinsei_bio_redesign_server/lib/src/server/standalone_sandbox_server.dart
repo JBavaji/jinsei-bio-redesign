@@ -67,15 +67,19 @@ Future<void> startStandaloneLocalServer(int port) async {
           path == '/health/status' ||
           path == '/') {
         response.statusCode = HttpStatus.ok;
-        response.write(jsonEncode({
-          'status': 'HEALTHY',
-          'service': 'jinsei_bio_redesign_server',
-          'version': VersionService.version,
-          'appMode': 'UNOFFICIAL_DEMO',
-          'environment': 'development-sandbox',
-          'database': 'PostgreSQL (Local Standalone Sandbox)',
-          'timestamp': DateTime.now().toUtc().toIso8601String(),
-        }));
+        if (request.method == 'POST') {
+          response.write('"PONG"');
+        } else {
+          response.write(jsonEncode({
+            'status': 'HEALTHY',
+            'service': 'jinsei_bio_redesign_server',
+            'version': VersionService.version,
+            'appMode': 'UNOFFICIAL_DEMO',
+            'environment': 'development-sandbox',
+            'database': 'PostgreSQL (Local Standalone Sandbox)',
+            'timestamp': DateTime.now().toUtc().toIso8601String(),
+          }));
+        }
       } else if (path.contains('home')) {
         response.statusCode = HttpStatus.ok;
         response.write(jsonEncode({
@@ -84,66 +88,77 @@ Future<void> startStandaloneLocalServer(int port) async {
               'iconKey': 'public_rounded',
               'title': 'Indigenous Focus',
               'description':
-                  'Sourcing and preserving native microbiomes adapted to specific regional ecosystems.'
+                  'Sourcing and preserving native microbiomes adapted to specific regional ecosystems.',
+              'displayOrder': 1,
             },
             {
               'iconKey': 'dataset_rounded',
               'title': 'Data-Centred',
               'description':
-                  'Advanced bioinformatics pipeline for high-resolution strain characterization and predictive modeling.'
+                  'Advanced bioinformatics pipeline for high-resolution strain characterization and predictive modeling.',
+              'displayOrder': 2,
             },
             {
               'iconKey': 'biotech_rounded',
               'title': 'Evidence-Based',
               'description':
-                  'Rigorous double-blind clinical and laboratory validation for every developed bioactive compound.'
+                  'Rigorous double-blind clinical and laboratory validation for every developed bioactive compound.',
+              'displayOrder': 3,
             },
             {
               'iconKey': 'health_and_safety_rounded',
               'title': 'Gut Health Emphasis',
               'description':
-                  'Targeting the microbiome-gut-brain axis for holistic systemic wellness and metabolic regulation.'
+                  'Targeting the microbiome-gut-brain axis for holistic systemic wellness and metabolic regulation.',
+              'displayOrder': 4,
             },
             {
               'iconKey': 'layers_rounded',
               'title': 'Scalable Platform',
               'description':
-                  'Modular solid-state & liquid fermentation processes designed for rapid industrial-scale manufacturing.'
+                  'Modular solid-state & liquid fermentation processes designed for rapid industrial-scale manufacturing.',
+              'displayOrder': 5,
             },
             {
               'iconKey': 'diversity_3_rounded',
               'title': 'Community Integration',
               'description':
-                  'Partnering with local agricultural & forest populations for ethical, benefit-sharing bio-prospecting.'
+                  'Partnering with local agricultural & forest populations for ethical, benefit-sharing bio-prospecting.',
+              'displayOrder': 6,
             },
             {
               'iconKey': 'tune_rounded',
               'title': 'Customized Solutions',
               'description':
-                  'Tailored consortia formulation engineered for specific food science and therapeutic partner requirements.'
+                  'Tailored consortia formulation engineered for specific food science and therapeutic partner requirements.',
+              'displayOrder': 7,
             },
             {
               'iconKey': 'eco_rounded',
               'title': 'Ecologically Informed',
               'description':
-                  'Ensuring all bio-interventions preserve microbiome equilibrium and natural environmental biodiversity.'
+                  'Ensuring all bio-interventions preserve microbiome equilibrium and natural environmental biodiversity.',
+              'displayOrder': 8,
             }
           ],
           'executiveStats': [
             {
               'iconKey': 'military_tech_rounded',
               'title': '3+ Global Patents Filed',
-              'subtitle': 'International IP Protection'
+              'subtitle': 'International IP Protection',
+              'displayOrder': 1,
             },
             {
               'iconKey': 'account_tree_rounded',
               'title': '10-Step Proprietary Platform',
-              'subtitle': 'End-to-end Strain Isolation'
+              'subtitle': 'End-to-end Strain Isolation',
+              'displayOrder': 2,
             },
             {
               'iconKey': 'school_rounded',
               'title': '8+ PhD Academic Advisors',
-              'subtitle': 'UC Irvine, Cambridge, Cornell'
+              'subtitle': 'UC Irvine, Cambridge, Cornell',
+              'displayOrder': 3,
             }
           ],
           'productVerticals': [
@@ -151,19 +166,22 @@ Future<void> startStandaloneLocalServer(int port) async {
               'title': 'Jinsei-Gut Pro',
               'strainId': 'Strain ID: L. rhamnosus JN-01',
               'description':
-                  'Advanced digestive support matrix utilizing native flora extraction and gastro-resistant spore technology.'
+                  'Advanced digestive support matrix utilizing native flora extraction and gastro-resistant spore technology.',
+              'displayOrder': 1,
             },
             {
               'title': 'FemmeFlora Bio-Shield',
               'strainId': 'Strain ID: L. crispatus JN-02',
               'description':
-                  'Targeted microbiome balancing for specialized female wellness, vaginal tract stability, and immune homeostasis.'
+                  'Targeted microbiome balancing for specialized female wellness, vaginal tract stability, and immune homeostasis.',
+              'displayOrder': 2,
             },
             {
               'title': 'MetaboliMet Probiotic',
               'strainId': 'Strain ID: L. plantarum JN-04',
               'description':
-                  'Metabolic optimization complex developed from isolated indigenous cultures targeting lipid signaling pathways.'
+                  'Metabolic optimization complex developed from isolated indigenous cultures targeting lipid signaling pathways.',
+              'displayOrder': 3,
             }
           ]
         }));
@@ -489,6 +507,134 @@ Future<void> startStandaloneLocalServer(int port) async {
               'lightImageUrl':
                   'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/solutions/solution_04_agri_tech_light.webp',
               'displayOrder': 4
+            }
+          ]
+        }));
+      } else if (path.contains('leadership') || path.contains('team')) {
+        response.statusCode = HttpStatus.ok;
+        response.write(jsonEncode({
+          'headerBadge': 'ONE TEAM, ONE VISION',
+          'headline': 'Leadership & R&D Team',
+          'subhead':
+              'Pioneering microbiologists, computational biologists, and growth strategists translating indigenous human microbial isolates into validated therapeutic solutions.',
+          'emblemTitle': 'JINSEI BIOSCIENCE',
+          'emblemSubtitle': 'Translational Microbial Discovery Engine',
+          'governanceAssurance': {
+            'title': 'Scientific Governance & Ethics Assurance',
+            'description':
+                'ISO 9001:2015 & GMP Certified R&D Standards • Ethical Bio-Prospecting',
+            'badgeText': 'Pune NCL Innovation Park',
+            'complianceStandard': 'Bio-Prospecting Ethics Compliant'
+          },
+          'members': [
+            {
+              'memberId': 'dr-ria-deshpande',
+              'name': 'Dr. Ria Deshpande, PhD',
+              'role': 'Chief Executive Officer (CEO)',
+              'categoryTag': 'EXECUTIVE LEAD',
+              'category': 'executive',
+              'academicCredential':
+                  'PhD in Mathematical, Computational and Systems Biology from University of California, Irvine',
+              'areaOfExpertise':
+                  'Overseeing all aspects of business, finance, regulatory compliance, and daily operations.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1X_nmBcbi4M1mmLUOONovLgU248e0BXOYbLPu01ed2b8zpAvEh70rSrUyENlT7yDJqnHltkEnYTmf0Fp3JMX5N8OJi65ZgU5GU765zIMDl0bkeJR09cFNcZacqufbR0pcUSq_-JKtHjJCXoFfeWCscIbR3St1Pjg1tC6coHwr5L54ysSxi-i9X1IdCZ8CpkO9JF8mVPXJyDMEoyZxc2191LGuesziA954s9tOGvyC_UuNyfkHTqvYIM',
+              'displayOrder': 1
+            },
+            {
+              'memberId': 'dr-asha-kembhavi',
+              'name': 'Dr. Asha Kembhavi',
+              'role': 'Chief Scientific Officer (CSO)',
+              'categoryTag': 'SCIENTIFIC LEADERSHIP',
+              'category': 'executive',
+              'academicCredential':
+                  'PhD in Applied Biology from Cambridge University',
+              'areaOfExpertise':
+                  'Overseeing all aspects of R&D operations and long-term scientific strategy.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1X2yXb4Q4KyxNFq1vrKVbk7aR5EZnCBkKgMksjDs3gAY_NjXwUgogKu3bL3dyyEAu_I-VYlqHS89CLD1hOcaPUjKrNGQg1iVB66Sy5bzQr80Y0bCdZocIF-0UBOnanB2wfJywT1gjVkOs_xWJY0FE6tvCoMtl84aCbfyVaEWUk2bX2srw0PLhRH-S6JrCFxNZyZa5ZjWA2qlnXrWyBty6SUolrW2kLkdBLTauOn6qLQ7IcI7BwdCwR5gw',
+              'displayOrder': 2
+            },
+            {
+              'memberId': 'dr-kirankumar-beede',
+              'name': 'Dr. Kirankumar Beede',
+              'role': 'Principal Scientist',
+              'categoryTag': 'PRINCIPAL SCIENTIST',
+              'category': 'scientific',
+              'academicCredential': 'PhD in Biochemistry',
+              'areaOfExpertise':
+                  'Characterization, upstream and downstream optimization, pre-pilot development, formulations, bioactivity optimization, scaling for commercialization.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1U69qjewYlHwognIESNy4LumoHBt9_wSPFdw2jxn8teuHI4bdcUYocvS96VdjNCJBumF0GIxnCWDZWIF9BdqmlUnP8ikHSRZTtDQDlPidRW8hPu8f08krPex4VJZyfFrRPON-2GntmCCWqMcxtFj9Oh6OUuik9zZ1-azr7aoy84krO5CYaJKqkJxLn0AjDwtHHF4FD7ojxJxVXtNT5iQ8WgTLtqI7cZbMDCAjRTkSvUSrDt3nZETpfk',
+              'displayOrder': 3
+            },
+            {
+              'memberId': 'nandita-bal',
+              'name': 'Nandita Bal',
+              'role': 'Scientist & Growth Strategist',
+              'categoryTag': 'GROWTH & REGULATORY',
+              'category': 'product',
+              'academicCredential':
+                  'Master\'s in Biomedical Engg (Cornell University) & Master\'s in Chemical Engg (Northeastern University)',
+              'areaOfExpertise':
+                  'Target consumer product identification, regulatory compliance, IP strategy, business development and finance.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1WVMWIvu0m8YsGoYsmLevVnEVOlk6XXxCPG-10rZNw61oyqpaItUGBhmqwy5w8BCr4jTheXk2Z2JQox_NEibriroC3lHY37Kc3RxbjUb1r0_2KOqy2C-VWsyt-W9qxpS76RUsr7VqCnaovvgl8maefl5W4PS5dJ6RxHZEX7SVa3bJH4n0Fe4SNnyYuFCF9qtZyEq-1mK2qsWKT-UstJ66_u-5g87jhQLijmAN__HTGinGAGdQJkPToAPA',
+              'displayOrder': 4
+            },
+            {
+              'memberId': 'rucha-karkamkar',
+              'name': 'Rucha Karkamkar',
+              'role': 'Scientist & Product Manager',
+              'categoryTag': 'PRODUCT MANAGEMENT',
+              'category': 'product',
+              'academicCredential':
+                  'Master\'s in Biotechnology (Pune University)',
+              'areaOfExpertise':
+                  'Characterization, product development, formulation and formats, shelf life and stability, scaling for commercialization.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1XITF4MhT8uQV8yydRxFOhX-c20iXygFBtQpblni7JpejlrDW8rvBqBaAXAqls9Bwa2ws26uNzuP3mSSVVQAIRkv8eMGWYoxv6MgwlBDvmwB0V-ucoIrXlfO2AD99qy3OIdRvrSZjiLwFTqqMkxzr9AWdD6PYojMMHlT7KpTeSPE3xJI2kyTJKmlq0TVGDXEMpTOFSQGMAOA1BSp9vuFlXupKa57jDMTZSkJT2exwPv7dEOwRhq_Geu',
+              'displayOrder': 5
+            },
+            {
+              'memberId': 'sudharani-beede',
+              'name': 'Sudharani Beede',
+              'role': 'Lab Manager',
+              'categoryTag': 'OPERATIONS & LAB',
+              'category': 'operations',
+              'academicCredential': 'B.Sc (CBZ) and MBA (Karnataka)',
+              'areaOfExpertise':
+                  'Lab inventory management, vendor relationships, procurement management.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1XD_aQFupkewEaHzyGnLoq5eSX5vbwEfNw-X2U8gd6EYu-VDwk2y_Gb84jKD0ieQ6PFFqRXMXPuaPaiAoHuY8yv20FKcIYWD47fibJL5gzWbYy1qtt5il7SfzE3u_TPesnXF8FUdu0I-p59wGXut-PFJ8nUx0LlLwtlaIGE7sWmuIOw5NezMHPkdzRehPv2TePmZ5gKl2-AMOU9GbbnUr6NpGzQ4shYfX-BFwiJBTDdDCn5psEfztBBRw',
+              'displayOrder': 6
+            },
+            {
+              'memberId': 'harshal-kelkar',
+              'name': 'Harshal Kelkar',
+              'role': 'Associate Scientist',
+              'categoryTag': 'UPSTREAM OPTIMIZATION',
+              'category': 'scientific',
+              'academicCredential': 'M.Sc. Biotechnology (Lund University)',
+              'areaOfExpertise':
+                  'Upstream optimization, strain characterization.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1XY5WWYws8wWvmk1PjhR2UrT_El8FovSWKwp4owcqKNke2diyZGwACOTotQhOZuwVxSIOBRV7PAnixviFlwqxvDKB47PXLl3tMSAs71xxfuHCR2K6jTEMyct2FtD5VH1t_XYBUs7loUZNregJZ4tZ6pT1C9UQ-es-s3vRsNUUakOudeBj9NJjB2McTpeCnCbv-HGgU1Kuv2zILb-JYybBOF8rDWed5Mw29uaI643kQGLGqa-0Dni91oZw',
+              'displayOrder': 7
+            },
+            {
+              'memberId': 'saloni-koul',
+              'name': 'Saloni Koul',
+              'role': 'Associate Scientist',
+              'categoryTag': 'BIO-FUNCTIONAL ASSAYS',
+              'category': 'scientific',
+              'academicCredential':
+                  'Integrated Master of Science (M.Sc.) in Biotechnology (IBB, SPPU)',
+              'areaOfExpertise':
+                  'Strain characterization, assay development, application studies.',
+              'imageUrl':
+                  'https://lh3.googleusercontent.com/aida/AEtjO1UUeFJkLEBv_XHTbceDTfn_7tHy3eo3bHqtTu7txlNisTAiRms3tqojUa_pRYVbcWGHUPDYTK36L_798WsIjTXKQQLOhhozww27ySUJ0bj-036P8yGD-_5THk5Huu3cZE0mlQpGpPgc0DqEWP6y-r5tWcWZW-X16HSO5n5sbn6JGS7CIwrjDRLN3fMYpY6jPYe2TBMC4rdZnYc1x_lN4H_3cILLwy5O_9hOUvFQF_NxHYXI9HKMJenOTg',
+              'displayOrder': 8
             }
           ]
         }));

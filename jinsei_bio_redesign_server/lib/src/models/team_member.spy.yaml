@@ -1,0 +1,12 @@
+class: TeamMember
+table: team_member
+fields:
+  memberId: String
+  name: String
+  role: String
+  categoryTag: String
+  category: String
+  academicCredential: String
+  areaOfExpertise: String
+  imageUrl: String?
+  displayOrder: int
