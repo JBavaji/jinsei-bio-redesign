@@ -59,7 +59,7 @@ void main() {
   });
 
   testWidgets(
-      'Navigating to /leadership displays Leadership & Advisory Coming Soon page',
+      'Navigating to /leadership displays LeadershipScreen with team members',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -69,9 +69,8 @@ void main() {
     appRouter.go('/leadership');
     await tester.pumpAndSettle();
 
-    expect(find.text('Leadership & Advisory'), findsOneWidget);
-    expect(find.textContaining('COMING SOON'), findsOneWidget);
-    expect(find.byIcon(Icons.people_rounded), findsWidgets);
+    expect(find.text('Leadership & R&D Team'), findsOneWidget);
+    expect(find.text('ONE TEAM, ONE VISION'), findsOneWidget);
   });
 
   testWidgets(

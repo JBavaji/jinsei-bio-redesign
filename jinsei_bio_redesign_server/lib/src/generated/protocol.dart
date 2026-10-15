@@ -17,27 +17,32 @@ import 'clinical_qa.dart' as _i3;
 import 'executive_stat.dart' as _i4;
 import 'health_status.dart' as _i5;
 import 'home_content.dart' as _i6;
-import 'pillar_item.dart' as _i7;
-import 'product_vertical.dart' as _i8;
-import 'science_content.dart' as _i9;
-import 'science_header_metric.dart' as _i10;
-import 'science_step.dart' as _i11;
-import 'solution_card.dart' as _i12;
-import 'solution_metric.dart' as _i13;
-import 'solutions_content.dart' as _i14;
-import 'protocol.dart' as _i15;
+import 'leadership_content.dart' as _i7;
+import 'pillar_item.dart' as _i8;
+import 'product_vertical.dart' as _i9;
+import 'science_content.dart' as _i10;
+import 'science_header_metric.dart' as _i11;
+import 'science_step.dart' as _i12;
+import 'solution_card.dart' as _i13;
+import 'solution_metric.dart' as _i14;
+import 'solutions_content.dart' as _i15;
+import 'team_member.dart' as _i16;
+import 'protocol.dart' as _i17;
 import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
-    as _i16;
-import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
-    as _i17;
-import 'package:jinsei_bio_redesign_server/src/generated/solution_card.dart'
     as _i18;
-import 'package:jinsei_bio_redesign_server/src/generated/solution_metric.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
     as _i19;
+import 'package:jinsei_bio_redesign_server/src/generated/solution_card.dart'
+    as _i20;
+import 'package:jinsei_bio_redesign_server/src/generated/solution_metric.dart'
+    as _i21;
+import 'package:jinsei_bio_redesign_server/src/generated/team_member.dart'
+    as _i22;
 export 'clinical_qa.dart';
 export 'executive_stat.dart';
 export 'health_status.dart';
 export 'home_content.dart';
+export 'leadership_content.dart';
 export 'pillar_item.dart';
 export 'product_vertical.dart';
 export 'science_content.dart';
@@ -46,6 +51,7 @@ export 'science_step.dart';
 export 'solution_card.dart';
 export 'solution_metric.dart';
 export 'solutions_content.dart';
+export 'team_member.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -575,6 +581,92 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'team_member',
+      dartName: 'TeamMember',
+      schema: 'public',
+      module: 'jinsei_bio_redesign',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'team_member_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'memberId',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'role',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'categoryTag',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'category',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'academicCredential',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'areaOfExpertise',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'imageUrl',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'displayOrder',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'team_member_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     ..._i2.Protocol.targetTableDefinitions,
   ];
 
@@ -599,29 +691,35 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i6.HomeContent) {
       return _i6.HomeContent.fromJson(data, this) as T;
     }
-    if (t == _i7.PillarItem) {
-      return _i7.PillarItem.fromJson(data, this) as T;
+    if (t == _i7.LeadershipContent) {
+      return _i7.LeadershipContent.fromJson(data, this) as T;
     }
-    if (t == _i8.ProductVertical) {
-      return _i8.ProductVertical.fromJson(data, this) as T;
+    if (t == _i8.PillarItem) {
+      return _i8.PillarItem.fromJson(data, this) as T;
     }
-    if (t == _i9.ScienceContent) {
-      return _i9.ScienceContent.fromJson(data, this) as T;
+    if (t == _i9.ProductVertical) {
+      return _i9.ProductVertical.fromJson(data, this) as T;
     }
-    if (t == _i10.ScienceHeaderMetric) {
-      return _i10.ScienceHeaderMetric.fromJson(data, this) as T;
+    if (t == _i10.ScienceContent) {
+      return _i10.ScienceContent.fromJson(data, this) as T;
     }
-    if (t == _i11.ScienceStep) {
-      return _i11.ScienceStep.fromJson(data, this) as T;
+    if (t == _i11.ScienceHeaderMetric) {
+      return _i11.ScienceHeaderMetric.fromJson(data, this) as T;
     }
-    if (t == _i12.SolutionCard) {
-      return _i12.SolutionCard.fromJson(data, this) as T;
+    if (t == _i12.ScienceStep) {
+      return _i12.ScienceStep.fromJson(data, this) as T;
     }
-    if (t == _i13.SolutionMetric) {
-      return _i13.SolutionMetric.fromJson(data, this) as T;
+    if (t == _i13.SolutionCard) {
+      return _i13.SolutionCard.fromJson(data, this) as T;
     }
-    if (t == _i14.SolutionsContent) {
-      return _i14.SolutionsContent.fromJson(data, this) as T;
+    if (t == _i14.SolutionMetric) {
+      return _i14.SolutionMetric.fromJson(data, this) as T;
+    }
+    if (t == _i15.SolutionsContent) {
+      return _i15.SolutionsContent.fromJson(data, this) as T;
+    }
+    if (t == _i16.TeamMember) {
+      return _i16.TeamMember.fromJson(data, this) as T;
     }
     if (t == _i1.getType<_i3.ClinicalQualityAssurance?>()) {
       return (data != null
@@ -640,98 +738,113 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i6.HomeContent?>()) {
       return (data != null ? _i6.HomeContent.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i7.PillarItem?>()) {
-      return (data != null ? _i7.PillarItem.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i8.ProductVertical?>()) {
-      return (data != null ? _i8.ProductVertical.fromJson(data, this) : null)
+    if (t == _i1.getType<_i7.LeadershipContent?>()) {
+      return (data != null ? _i7.LeadershipContent.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i9.ScienceContent?>()) {
-      return (data != null ? _i9.ScienceContent.fromJson(data, this) : null)
+    if (t == _i1.getType<_i8.PillarItem?>()) {
+      return (data != null ? _i8.PillarItem.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i9.ProductVertical?>()) {
+      return (data != null ? _i9.ProductVertical.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i10.ScienceHeaderMetric?>()) {
+    if (t == _i1.getType<_i10.ScienceContent?>()) {
+      return (data != null ? _i10.ScienceContent.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i11.ScienceHeaderMetric?>()) {
       return (data != null
-          ? _i10.ScienceHeaderMetric.fromJson(data, this)
+          ? _i11.ScienceHeaderMetric.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i11.ScienceStep?>()) {
-      return (data != null ? _i11.ScienceStep.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i12.ScienceStep?>()) {
+      return (data != null ? _i12.ScienceStep.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i12.SolutionCard?>()) {
-      return (data != null ? _i12.SolutionCard.fromJson(data, this) : null)
+    if (t == _i1.getType<_i13.SolutionCard?>()) {
+      return (data != null ? _i13.SolutionCard.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i13.SolutionMetric?>()) {
-      return (data != null ? _i13.SolutionMetric.fromJson(data, this) : null)
+    if (t == _i1.getType<_i14.SolutionMetric?>()) {
+      return (data != null ? _i14.SolutionMetric.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i14.SolutionsContent?>()) {
-      return (data != null ? _i14.SolutionsContent.fromJson(data, this) : null)
+    if (t == _i1.getType<_i15.SolutionsContent?>()) {
+      return (data != null ? _i15.SolutionsContent.fromJson(data, this) : null)
           as T;
     }
-    if (t == List<_i15.PillarItem>) {
-      return (data as List).map((e) => deserialize<_i15.PillarItem>(e)).toList()
+    if (t == _i1.getType<_i16.TeamMember?>()) {
+      return (data != null ? _i16.TeamMember.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i17.PillarItem>) {
+      return (data as List).map((e) => deserialize<_i17.PillarItem>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i15.ExecutiveStat>) {
+    if (t == List<_i17.ExecutiveStat>) {
       return (data as List)
-          .map((e) => deserialize<_i15.ExecutiveStat>(e))
+          .map((e) => deserialize<_i17.ExecutiveStat>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i15.ProductVertical>) {
+    if (t == List<_i17.ProductVertical>) {
       return (data as List)
-          .map((e) => deserialize<_i15.ProductVertical>(e))
+          .map((e) => deserialize<_i17.ProductVertical>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i15.ScienceHeaderMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i15.ScienceHeaderMetric>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i15.ScienceStep>) {
-      return (data as List)
-          .map((e) => deserialize<_i15.ScienceStep>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<String>) {
-      return (data as List).map((e) => deserialize<String>(e)).toList()
+    if (t == List<_i17.TeamMember>) {
+      return (data as List).map((e) => deserialize<_i17.TeamMember>(e)).toList()
           as dynamic;
-    }
-    if (t == List<_i15.SolutionMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i15.SolutionMetric>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i15.SolutionCard>) {
-      return (data as List)
-          .map((e) => deserialize<_i15.SolutionCard>(e))
-          .toList() as dynamic;
-    }
-    if (t == Map<String, String>) {
-      return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
-    }
-    if (t == List<_i16.ScienceStep>) {
-      return (data as List)
-          .map((e) => deserialize<_i16.ScienceStep>(e))
-          .toList() as dynamic;
     }
     if (t == List<_i17.ScienceHeaderMetric>) {
       return (data as List)
           .map((e) => deserialize<_i17.ScienceHeaderMetric>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i18.SolutionCard>) {
+    if (t == List<_i17.ScienceStep>) {
       return (data as List)
-          .map((e) => deserialize<_i18.SolutionCard>(e))
+          .map((e) => deserialize<_i17.ScienceStep>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i19.SolutionMetric>) {
+    if (t == List<String>) {
+      return (data as List).map((e) => deserialize<String>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i17.SolutionMetric>) {
       return (data as List)
-          .map((e) => deserialize<_i19.SolutionMetric>(e))
+          .map((e) => deserialize<_i17.SolutionMetric>(e))
           .toList() as dynamic;
+    }
+    if (t == List<_i17.SolutionCard>) {
+      return (data as List)
+          .map((e) => deserialize<_i17.SolutionCard>(e))
+          .toList() as dynamic;
+    }
+    if (t == Map<String, String>) {
+      return (data as Map).map((k, v) =>
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
+    }
+    if (t == List<_i18.ScienceStep>) {
+      return (data as List)
+          .map((e) => deserialize<_i18.ScienceStep>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i19.ScienceHeaderMetric>) {
+      return (data as List)
+          .map((e) => deserialize<_i19.ScienceHeaderMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i20.SolutionCard>) {
+      return (data as List)
+          .map((e) => deserialize<_i20.SolutionCard>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i21.SolutionMetric>) {
+      return (data as List)
+          .map((e) => deserialize<_i21.SolutionMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i22.TeamMember>) {
+      return (data as List).map((e) => deserialize<_i22.TeamMember>(e)).toList()
+          as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -753,29 +866,35 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i6.HomeContent) {
       return 'HomeContent';
     }
-    if (data is _i7.PillarItem) {
+    if (data is _i7.LeadershipContent) {
+      return 'LeadershipContent';
+    }
+    if (data is _i8.PillarItem) {
       return 'PillarItem';
     }
-    if (data is _i8.ProductVertical) {
+    if (data is _i9.ProductVertical) {
       return 'ProductVertical';
     }
-    if (data is _i9.ScienceContent) {
+    if (data is _i10.ScienceContent) {
       return 'ScienceContent';
     }
-    if (data is _i10.ScienceHeaderMetric) {
+    if (data is _i11.ScienceHeaderMetric) {
       return 'ScienceHeaderMetric';
     }
-    if (data is _i11.ScienceStep) {
+    if (data is _i12.ScienceStep) {
       return 'ScienceStep';
     }
-    if (data is _i12.SolutionCard) {
+    if (data is _i13.SolutionCard) {
       return 'SolutionCard';
     }
-    if (data is _i13.SolutionMetric) {
+    if (data is _i14.SolutionMetric) {
       return 'SolutionMetric';
     }
-    if (data is _i14.SolutionsContent) {
+    if (data is _i15.SolutionsContent) {
       return 'SolutionsContent';
+    }
+    if (data is _i16.TeamMember) {
+      return 'TeamMember';
     }
     return super.getClassNameForObject(data);
   }
@@ -794,29 +913,35 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'HomeContent') {
       return deserialize<_i6.HomeContent>(data['data']);
     }
+    if (data['className'] == 'LeadershipContent') {
+      return deserialize<_i7.LeadershipContent>(data['data']);
+    }
     if (data['className'] == 'PillarItem') {
-      return deserialize<_i7.PillarItem>(data['data']);
+      return deserialize<_i8.PillarItem>(data['data']);
     }
     if (data['className'] == 'ProductVertical') {
-      return deserialize<_i8.ProductVertical>(data['data']);
+      return deserialize<_i9.ProductVertical>(data['data']);
     }
     if (data['className'] == 'ScienceContent') {
-      return deserialize<_i9.ScienceContent>(data['data']);
+      return deserialize<_i10.ScienceContent>(data['data']);
     }
     if (data['className'] == 'ScienceHeaderMetric') {
-      return deserialize<_i10.ScienceHeaderMetric>(data['data']);
+      return deserialize<_i11.ScienceHeaderMetric>(data['data']);
     }
     if (data['className'] == 'ScienceStep') {
-      return deserialize<_i11.ScienceStep>(data['data']);
+      return deserialize<_i12.ScienceStep>(data['data']);
     }
     if (data['className'] == 'SolutionCard') {
-      return deserialize<_i12.SolutionCard>(data['data']);
+      return deserialize<_i13.SolutionCard>(data['data']);
     }
     if (data['className'] == 'SolutionMetric') {
-      return deserialize<_i13.SolutionMetric>(data['data']);
+      return deserialize<_i14.SolutionMetric>(data['data']);
     }
     if (data['className'] == 'SolutionsContent') {
-      return deserialize<_i14.SolutionsContent>(data['data']);
+      return deserialize<_i15.SolutionsContent>(data['data']);
+    }
+    if (data['className'] == 'TeamMember') {
+      return deserialize<_i16.TeamMember>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -832,18 +957,20 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i4.ExecutiveStat:
         return _i4.ExecutiveStat.t;
-      case _i7.PillarItem:
-        return _i7.PillarItem.t;
-      case _i8.ProductVertical:
-        return _i8.ProductVertical.t;
-      case _i10.ScienceHeaderMetric:
-        return _i10.ScienceHeaderMetric.t;
-      case _i11.ScienceStep:
-        return _i11.ScienceStep.t;
-      case _i12.SolutionCard:
-        return _i12.SolutionCard.t;
-      case _i13.SolutionMetric:
-        return _i13.SolutionMetric.t;
+      case _i8.PillarItem:
+        return _i8.PillarItem.t;
+      case _i9.ProductVertical:
+        return _i9.ProductVertical.t;
+      case _i11.ScienceHeaderMetric:
+        return _i11.ScienceHeaderMetric.t;
+      case _i12.ScienceStep:
+        return _i12.ScienceStep.t;
+      case _i13.SolutionCard:
+        return _i13.SolutionCard.t;
+      case _i14.SolutionMetric:
+        return _i14.SolutionMetric.t;
+      case _i16.TeamMember:
+        return _i16.TeamMember.t;
     }
     return null;
   }
