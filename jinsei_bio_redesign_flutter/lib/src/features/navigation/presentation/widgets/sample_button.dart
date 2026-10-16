@@ -26,24 +26,28 @@ class SampleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final button = ElevatedButton(
-      onPressed: onPressed ?? () => context.go('/'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.emeraldGreen,
-        foregroundColor: AppColors.darkObsidianBg,
-        padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        textStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: fontSize,
+    final button = Semantics(
+      button: true,
+      label: label,
+      child: ElevatedButton(
+        onPressed: onPressed ?? () => context.go('/'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.emeraldGreen,
+          foregroundColor: AppColors.darkObsidianBg,
+          padding: padding ??
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          textStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: fontSize,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(label),
         ),
-      ),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Text(label),
       ),
     );
 

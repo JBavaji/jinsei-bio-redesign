@@ -33,7 +33,11 @@ import 'package:jinsei_bio_redesign_client/src/protocol/solution_card.dart'
     as _i12;
 import 'package:jinsei_bio_redesign_client/src/protocol/solution_metric.dart'
     as _i13;
-import 'protocol.dart' as _i14;
+import 'package:jinsei_bio_redesign_client/src/protocol/leadership_content.dart'
+    as _i14;
+import 'package:jinsei_bio_redesign_client/src/protocol/team_member.dart'
+    as _i15;
+import 'protocol.dart' as _i16;
 
 /// Serverpod endpoint for health check & system status
 /// {@category Endpoint}
@@ -262,6 +266,39 @@ class EndpointSolutions extends _i1.EndpointRef {
       );
 }
 
+/// Serverpod Endpoint for Leadership & Advisory Team
+/// {@category Endpoint}
+class EndpointTeam extends _i1.EndpointRef {
+  EndpointTeam(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'team';
+
+  /// Fetches the complete Leadership Team content payload including members and governance standards.
+  _i2.Future<_i14.LeadershipContent> getLeadershipContent() =>
+      caller.callServerEndpoint<_i14.LeadershipContent>(
+        'team',
+        'getLeadershipContent',
+        {},
+      );
+
+  /// Fetches all team members ordered by display order.
+  _i2.Future<List<_i15.TeamMember>> getTeamMembers() =>
+      caller.callServerEndpoint<List<_i15.TeamMember>>(
+        'team',
+        'getTeamMembers',
+        {},
+      );
+
+  /// Fetches team members filtered by category (executive, scientific, product, operations).
+  _i2.Future<List<_i15.TeamMember>> getTeamMembersByCategory(String category) =>
+      caller.callServerEndpoint<List<_i15.TeamMember>>(
+        'team',
+        'getTeamMembersByCategory',
+        {'category': category},
+      );
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -271,7 +308,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i14.Protocol(),
+          _i16.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -281,6 +318,7 @@ class Client extends _i1.ServerpodClient {
     home = EndpointHome(this);
     science = EndpointScience(this);
     solutions = EndpointSolutions(this);
+    team = EndpointTeam(this);
   }
 
   late final EndpointHealth health;
@@ -291,12 +329,15 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointSolutions solutions;
 
+  late final EndpointTeam team;
+
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'health': health,
         'home': home,
         'science': science,
         'solutions': solutions,
+        'team': team,
       };
 
   @override

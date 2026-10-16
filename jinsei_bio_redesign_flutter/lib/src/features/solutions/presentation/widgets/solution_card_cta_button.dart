@@ -22,40 +22,46 @@ class SolutionCardCtaButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton(
-        onPressed: onExplore,
-        style: OutlinedButton.styleFrom(
-          side: BorderSide(
-            color: isDark ? AppColors.cyanInteractive : AppColors.primaryTeal,
-            width: 1.5,
-          ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-          padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 16),
-          backgroundColor: isHovered || isSelected
-              ? (isDark
-                  ? AppColors.cyanInteractive.withValues(alpha: 0.15)
-                  : AppColors.primaryTeal.withValues(alpha: 0.1))
-              : Colors.transparent,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              solution.actionCtaText,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color:
-                    isDark ? AppColors.cyanInteractive : AppColors.primaryTeal,
-              ),
+      child: Semantics(
+        button: true,
+        label: '${solution.actionCtaText} for ${solution.title}',
+        child: OutlinedButton(
+          onPressed: onExplore,
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(
+              color: isDark ? AppColors.cyanInteractive : AppColors.primaryTeal,
+              width: 1.5,
             ),
-            const SizedBox(width: 8),
-            Icon(Icons.arrow_forward_rounded,
-                size: 16,
-                color:
-                    isDark ? AppColors.cyanInteractive : AppColors.primaryTeal),
-          ],
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 16),
+            backgroundColor: isHovered || isSelected
+                ? (isDark
+                    ? AppColors.cyanInteractive.withValues(alpha: 0.15)
+                    : AppColors.primaryTeal.withValues(alpha: 0.1))
+                : Colors.transparent,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                solution.actionCtaText,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: isDark
+                      ? AppColors.cyanInteractive
+                      : AppColors.primaryTeal,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Icon(Icons.arrow_forward_rounded,
+                  size: 16,
+                  color: isDark
+                      ? AppColors.cyanInteractive
+                      : AppColors.primaryTeal),
+            ],
+          ),
         ),
       ),
     );

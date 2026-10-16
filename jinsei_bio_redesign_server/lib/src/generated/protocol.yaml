@@ -28,3 +28,7 @@ solutions:
   - getSolutions:
   - getSolutionsByCategory:
   - getSolutionMetrics:
+team:
+  - getLeadershipContent:
+  - getTeamMembers:
+  - getTeamMembersByCategory:

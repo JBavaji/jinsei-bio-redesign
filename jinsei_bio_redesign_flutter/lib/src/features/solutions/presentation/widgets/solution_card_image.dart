@@ -92,6 +92,7 @@ class SolutionCardImage extends StatelessWidget {
     if (targetUrl.startsWith('http://') || targetUrl.startsWith('https://')) {
       return Image.network(
         targetUrl,
+        semanticLabel: '${solution.title} illustration',
         fit: BoxFit.cover,
         errorBuilder: (_, __, ___) => _buildFallbackBiotech(),
         loadingBuilder: (context, child, loadingProgress) {
@@ -119,14 +120,17 @@ class SolutionCardImage extends StatelessWidget {
   }
 
   Widget _buildFallbackBiotech() {
-    return Container(
-      color: isDark ? const Color(0xFF0C242E) : const Color(0xFFE2E8F0),
-      child: Center(
-        child: Icon(
-          solution.icon,
-          size: 48,
-          color: (isDark ? AppColors.cyanInteractive : AppColors.primaryTeal)
-              .withValues(alpha: 0.7),
+    return Semantics(
+      label: '${solution.title} icon illustration',
+      child: Container(
+        color: isDark ? const Color(0xFF0C242E) : const Color(0xFFE2E8F0),
+        child: Center(
+          child: Icon(
+            solution.icon,
+            size: 48,
+            color: (isDark ? AppColors.cyanInteractive : AppColors.primaryTeal)
+                .withValues(alpha: 0.7),
+          ),
         ),
       ),
     );

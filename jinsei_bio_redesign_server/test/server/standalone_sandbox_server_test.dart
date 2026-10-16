@@ -112,6 +112,24 @@ void main() {
       expect(response.bodyBytes.length, greaterThan(1000));
     });
 
+    test('GET /leadership returns 8 members, headers, and emblem metadata',
+        () async {
+      final response =
+          await http.get(Uri.parse('http://localhost:$testPort/leadership'));
+      expect(response.statusCode, equals(200));
+
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      expect(data['headerBadge'], equals('ONE TEAM, ONE VISION'));
+      expect(data['headline'], equals('Leadership & R&D Team'));
+      expect(data['members'], isList);
+      expect((data['members'] as List).length, equals(8));
+
+      final firstMember = (data['members'] as List).first;
+      expect(firstMember['memberId'], equals('dr-ria-deshpande'));
+      expect(firstMember['name'], equals('Dr. Ria Deshpande, PhD'));
+      expect(firstMember['role'], contains('Chief Executive Officer'));
+    });
+
     test('OPTIONS request returns CORS 200 with OWASP security headers',
         () async {
       final client = HttpClient();
