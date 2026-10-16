@@ -108,30 +108,32 @@ class LeadershipCardImage extends StatelessWidget {
   }
 
   Widget _buildImage(String url) {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return _buildFallback();
-    }
-    return Image.network(
-      url,
-      semanticLabel: '${member.name} portrait',
-      fit: BoxFit.cover,
-      alignment: Alignment.topCenter,
-      errorBuilder: (_, __, ___) => _buildFallback(),
-      loadingBuilder: (context, child, progress) => progress == null
-          ? child
-          : Center(
-              child: SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    isDark ? AppColors.cyanInteractive : AppColors.primaryTeal,
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return Image.network(
+        url,
+        semanticLabel: '${member.name} portrait',
+        fit: BoxFit.cover,
+        alignment: Alignment.topCenter,
+        errorBuilder: (_, __, ___) => _buildFallback(),
+        loadingBuilder: (context, child, progress) => progress == null
+            ? child
+            : Center(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      isDark
+                          ? AppColors.cyanInteractive
+                          : AppColors.primaryTeal,
+                    ),
                   ),
                 ),
               ),
-            ),
-    );
+      );
+    }
+    return _buildFallback();
   }
 
   Widget _buildFallback() {

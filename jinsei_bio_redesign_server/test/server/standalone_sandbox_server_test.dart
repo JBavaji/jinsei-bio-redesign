@@ -128,6 +128,18 @@ void main() {
       expect(firstMember['memberId'], equals('dr-ria-deshpande'));
       expect(firstMember['name'], equals('Dr. Ria Deshpande, PhD'));
       expect(firstMember['role'], contains('Chief Executive Officer'));
+      expect(
+          firstMember['imageUrl'], contains('member_01_dr_ria_deshpande.webp'));
+    });
+
+    test(
+        'GET /static/team/member_01_dr_ria_deshpande.webp serves static WebP image',
+        () async {
+      final response = await http.get(Uri.parse(
+          'http://localhost:$testPort/static/team/member_01_dr_ria_deshpande.webp'));
+      expect(response.statusCode, equals(200));
+      expect(response.headers['content-type'], contains('image/webp'));
+      expect(response.bodyBytes.length, greaterThan(1000));
     });
 
     test('OPTIONS request returns CORS 200 with OWASP security headers',
