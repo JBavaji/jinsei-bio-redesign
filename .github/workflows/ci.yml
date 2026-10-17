@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Java JDK (for Android build)
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -78,6 +78,7 @@ jobs:
 
       - name: Verify Flutter Android APK Build
         run: |
+          rm -f ~/.m2/settings.xml
           cd jinsei_bio_redesign_flutter && flutter build apk --debug --dart-define=APP_MODE=UNOFFICIAL_DEMO
 
   # ---------------------------------------------------------------------------
