@@ -61,6 +61,24 @@ Future<void> startStandaloneLocalServer(int port) async {
         }
       }
 
+      if (path.startsWith('/static/team/') && path.endsWith('.webp')) {
+        final filename = path.split('/').last;
+        final file = File('web/team/$filename');
+        if (await file.exists()) {
+          response.statusCode = HttpStatus.ok;
+          response.headers.contentType = ContentType('image', 'webp');
+          response.headers.set('Cache-Control', 'public, max-age=86400');
+          response.headers.set('Access-Control-Allow-Origin', '*');
+          await response.addStream(file.openRead());
+          await response.close();
+          return;
+        } else {
+          response.statusCode = HttpStatus.notFound;
+          await response.close();
+          return;
+        }
+      }
+
       if (path == '/health' ||
           path == '/health/' ||
           path == '/health/ping' ||
@@ -538,7 +556,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Overseeing all aspects of business, finance, regulatory compliance, and daily operations.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1X_nmBcbi4M1mmLUOONovLgU248e0BXOYbLPu01ed2b8zpAvEh70rSrUyENlT7yDJqnHltkEnYTmf0Fp3JMX5N8OJi65ZgU5GU765zIMDl0bkeJR09cFNcZacqufbR0pcUSq_-JKtHjJCXoFfeWCscIbR3St1Pjg1tC6coHwr5L54ysSxi-i9X1IdCZ8CpkO9JF8mVPXJyDMEoyZxc2191LGuesziA954s9tOGvyC_UuNyfkHTqvYIM',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_01_dr_ria_deshpande.webp',
               'displayOrder': 1
             },
             {
@@ -552,7 +570,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Overseeing all aspects of R&D operations and long-term scientific strategy.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1X2yXb4Q4KyxNFq1vrKVbk7aR5EZnCBkKgMksjDs3gAY_NjXwUgogKu3bL3dyyEAu_I-VYlqHS89CLD1hOcaPUjKrNGQg1iVB66Sy5bzQr80Y0bCdZocIF-0UBOnanB2wfJywT1gjVkOs_xWJY0FE6tvCoMtl84aCbfyVaEWUk2bX2srw0PLhRH-S6JrCFxNZyZa5ZjWA2qlnXrWyBty6SUolrW2kLkdBLTauOn6qLQ7IcI7BwdCwR5gw',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_02_dr_asha_kembhavi.webp',
               'displayOrder': 2
             },
             {
@@ -565,7 +583,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Characterization, upstream and downstream optimization, pre-pilot development, formulations, bioactivity optimization, scaling for commercialization.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1U69qjewYlHwognIESNy4LumoHBt9_wSPFdw2jxn8teuHI4bdcUYocvS96VdjNCJBumF0GIxnCWDZWIF9BdqmlUnP8ikHSRZTtDQDlPidRW8hPu8f08krPex4VJZyfFrRPON-2GntmCCWqMcxtFj9Oh6OUuik9zZ1-azr7aoy84krO5CYaJKqkJxLn0AjDwtHHF4FD7ojxJxVXtNT5iQ8WgTLtqI7cZbMDCAjRTkSvUSrDt3nZETpfk',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_03_dr_kirankumar_beede.webp',
               'displayOrder': 3
             },
             {
@@ -579,7 +597,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Target consumer product identification, regulatory compliance, IP strategy, business development and finance.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1WVMWIvu0m8YsGoYsmLevVnEVOlk6XXxCPG-10rZNw61oyqpaItUGBhmqwy5w8BCr4jTheXk2Z2JQox_NEibriroC3lHY37Kc3RxbjUb1r0_2KOqy2C-VWsyt-W9qxpS76RUsr7VqCnaovvgl8maefl5W4PS5dJ6RxHZEX7SVa3bJH4n0Fe4SNnyYuFCF9qtZyEq-1mK2qsWKT-UstJ66_u-5g87jhQLijmAN__HTGinGAGdQJkPToAPA',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_04_nandita_bal.webp',
               'displayOrder': 4
             },
             {
@@ -593,7 +611,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Characterization, product development, formulation and formats, shelf life and stability, scaling for commercialization.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1XITF4MhT8uQV8yydRxFOhX-c20iXygFBtQpblni7JpejlrDW8rvBqBaAXAqls9Bwa2ws26uNzuP3mSSVVQAIRkv8eMGWYoxv6MgwlBDvmwB0V-ucoIrXlfO2AD99qy3OIdRvrSZjiLwFTqqMkxzr9AWdD6PYojMMHlT7KpTeSPE3xJI2kyTJKmlq0TVGDXEMpTOFSQGMAOA1BSp9vuFlXupKa57jDMTZSkJT2exwPv7dEOwRhq_Geu',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_05_rucha_karkamkar.webp',
               'displayOrder': 5
             },
             {
@@ -606,7 +624,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Lab inventory management, vendor relationships, procurement management.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1XD_aQFupkewEaHzyGnLoq5eSX5vbwEfNw-X2U8gd6EYu-VDwk2y_Gb84jKD0ieQ6PFFqRXMXPuaPaiAoHuY8yv20FKcIYWD47fibJL5gzWbYy1qtt5il7SfzE3u_TPesnXF8FUdu0I-p59wGXut-PFJ8nUx0LlLwtlaIGE7sWmuIOw5NezMHPkdzRehPv2TePmZ5gKl2-AMOU9GbbnUr6NpGzQ4shYfX-BFwiJBTDdDCn5psEfztBBRw',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_06_sudharani_beede.webp',
               'displayOrder': 6
             },
             {
@@ -619,7 +637,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Upstream optimization, strain characterization.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1XY5WWYws8wWvmk1PjhR2UrT_El8FovSWKwp4owcqKNke2diyZGwACOTotQhOZuwVxSIOBRV7PAnixviFlwqxvDKB47PXLl3tMSAs71xxfuHCR2K6jTEMyct2FtD5VH1t_XYBUs7loUZNregJZ4tZ6pT1C9UQ-es-s3vRsNUUakOudeBj9NJjB2McTpeCnCbv-HGgU1Kuv2zILb-JYybBOF8rDWed5Mw29uaI643kQGLGqa-0Dni91oZw',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_07_harshal_kelkar.webp',
               'displayOrder': 7
             },
             {
@@ -633,7 +651,7 @@ Future<void> startStandaloneLocalServer(int port) async {
               'areaOfExpertise':
                   'Strain characterization, assay development, application studies.',
               'imageUrl':
-                  'https://lh3.googleusercontent.com/aida/AEtjO1UUeFJkLEBv_XHTbceDTfn_7tHy3eo3bHqtTu7txlNisTAiRms3tqojUa_pRYVbcWGHUPDYTK36L_798WsIjTXKQQLOhhozww27ySUJ0bj-036P8yGD-_5THk5Huu3cZE0mlQpGpPgc0DqEWP6y-r5tWcWZW-X16HSO5n5sbn6JGS7CIwrjDRLN3fMYpY6jPYe2TBMC4rdZnYc1x_lN4H_3cILLwy5O_9hOUvFQF_NxHYXI9HKMJenOTg',
+                  'https://cdn.jsdelivr.net/gh/JBavaji/jinsei-bio-redesign@develop/jinsei_bio_redesign_server/web/team/member_08_saloni_koul.webp',
               'displayOrder': 8
             }
           ]

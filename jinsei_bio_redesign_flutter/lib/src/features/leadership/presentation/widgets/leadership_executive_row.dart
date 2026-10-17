@@ -30,7 +30,7 @@ class LeadershipExecutiveRow extends StatelessWidget {
 
         if (isDesktop) {
           return Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: LeadershipCardWidget(
@@ -62,6 +62,7 @@ class LeadershipExecutiveRow extends StatelessWidget {
 
         // Mobile & Tablet Layout: Stack with Emblem
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             LeadershipCardWidget(
               member: ceo,
