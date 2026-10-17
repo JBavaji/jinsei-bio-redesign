@@ -42,8 +42,10 @@ class _DiscoveryEmblemWidgetState extends State<DiscoveryEmblemWidget> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isDark
-                      ? Colors.white.withValues(alpha: 0.95)
-                      : Colors.white,
+                      ? (_isHovered
+                          ? const Color(0xFF14202D)
+                          : const Color(0xFF101A24))
+                      : (_isHovered ? Colors.white : const Color(0xFFFAFCFD)),
                   border: Border.all(
                     color: _isHovered
                         ? AppColors.emeraldAccent
@@ -55,11 +57,12 @@ class _DiscoveryEmblemWidgetState extends State<DiscoveryEmblemWidget> {
                   boxShadow: [
                     BoxShadow(
                       color: _isHovered
-                          ? AppColors.emeraldAccent.withValues(alpha: 0.4)
+                          ? AppColors.emeraldAccent.withValues(alpha: 0.45)
                           : (isDark
-                              ? AppColors.cyanInteractive.withValues(alpha: 0.3)
+                              ? AppColors.cyanInteractive
+                                  .withValues(alpha: 0.35)
                               : AppColors.primaryTeal.withValues(alpha: 0.15)),
-                      blurRadius: _isHovered ? 36 : 24,
+                      blurRadius: _isHovered ? 36 : 28,
                       spreadRadius: _isHovered ? 4 : 2,
                     ),
                   ],
