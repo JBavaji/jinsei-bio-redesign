@@ -23,6 +23,15 @@
               "value": "max-age=31536000, public"
             }
           ]
+        },
+        {
+          "source": "@(index.html|flutter_service_worker.js|version.json)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
+            }
+          ]
         }
       ]
     },
@@ -47,6 +56,15 @@
             {
               "key": "Cache-Control",
               "value": "max-age=31536000, public"
+            }
+          ]
+        },
+        {
+          "source": "@(index.html|flutter_service_worker.js|version.json)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, must-revalidate"
             }
           ]
         }
