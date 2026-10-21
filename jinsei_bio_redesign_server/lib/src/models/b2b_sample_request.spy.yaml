@@ -1,0 +1,12 @@
+class: B2bSampleRequest
+table: b2b_sample_request
+fields:
+  strainId: String
+  fullName: String
+  email: String
+  company: String
+  formulationFormat: String
+  clinicalScope: String?
+  trackingId: String
+  submittedAt: DateTime
+  status: String

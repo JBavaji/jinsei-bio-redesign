@@ -1,3 +1,6 @@
+b2b:
+  - getModalContent:
+  - submitSampleRequest:
 health:
   - ping:
   - status:

@@ -1,0 +1,5 @@
+class: FormulationFormatOption
+fields:
+  formatId: String
+  label: String
+  displayOrder: int

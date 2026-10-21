@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jinsei_bio_redesign/src/core/theme/app_theme.dart';
+import '../../../b2b/presentation/widgets/b2b_sample_modal.dart';
 import '../../../navigation/presentation/widgets/sample_button.dart';
 
 class ClinicalQualityBanner extends StatelessWidget {
@@ -73,7 +74,7 @@ class ClinicalQualityBanner extends StatelessWidget {
           );
 
           final ctaButton = SampleButton(
-            onPressed: () {},
+            onPressed: () => B2bSampleModal.show(context),
             label: 'Request B2B Sample',
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             fontSize: 13,

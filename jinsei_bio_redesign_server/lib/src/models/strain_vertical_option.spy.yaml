@@ -1,0 +1,9 @@
+class: StrainVerticalOption
+fields:
+  strainId: String
+  category: String
+  name: String
+  strainCode: String
+  highlight: String
+  defaultFormat: String
+  displayOrder: int
