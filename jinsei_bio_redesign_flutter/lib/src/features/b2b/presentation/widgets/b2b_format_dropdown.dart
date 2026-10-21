@@ -35,7 +35,7 @@ class B2bFormatDropdown extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           isExpanded: true,
           dropdownColor:
               isDark ? const Color(0xFF101A26) : AppColors.lightSurface,

@@ -7,7 +7,7 @@ import 'package:jinsei_bio_redesign/src/features/b2b/domain/models/strain_vertic
 void main() {
   group('B2B Domain Models Tests (JIN-22)', () {
     test('StrainVerticalOptionModel serializes and deserializes correctly', () {
-      final model = const StrainVerticalOptionModel(
+      const model = StrainVerticalOptionModel(
         strainId: 'gut_pro',
         category: 'HUMAN HEALTH',
         name: 'Jinsei-Gut Pro',
@@ -27,7 +27,7 @@ void main() {
 
     test('FormulationFormatOptionModel serializes and deserializes correctly',
         () {
-      final model = const FormulationFormatOptionModel(
+      const model = FormulationFormatOptionModel(
         formatId: 'lyophilized_powder',
         label: 'Lyophilized Bulk Powder',
         displayOrder: 1,
@@ -41,7 +41,7 @@ void main() {
     });
 
     test('B2bModalContentModel serializes and deserializes full hierarchy', () {
-      final model = const B2bModalContentModel(
+      const model = B2bModalContentModel(
         badgeText: 'SAMPLING',
         title: 'Request Sample',
         subtitle: 'Research grade isolates',

@@ -67,7 +67,7 @@ void main() {
     late MockLocalDataSource localDataSource;
     late B2bRepositoryImpl repository;
 
-    final dummyRequest = const B2bSampleRequestModel(
+    const dummyRequest = B2bSampleRequestModel(
       strainId: 'gut_pro',
       fullName: 'Dr. Test',
       email: 'test@pharma.org',

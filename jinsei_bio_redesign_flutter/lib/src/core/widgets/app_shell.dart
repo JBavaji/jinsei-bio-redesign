@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../features/b2b/presentation/widgets/b2b_sample_modal.dart';
 import '../../features/navigation/presentation/bloc/navigation_bloc.dart';
 import '../../features/navigation/presentation/bloc/navigation_event.dart';
 import '../../features/navigation/presentation/widgets/app_header_bar.dart';
@@ -24,8 +25,12 @@ class AppShell extends StatelessWidget {
           NavigationBloc()..add(const LoadNavigationItemsEvent()),
       child: Scaffold(
         backgroundColor: isDark ? AppColors.darkObsidianBg : AppColors.lightBg,
-        appBar: const AppHeaderBar(),
-        endDrawer: const AppMobileNavDrawer(),
+        appBar: AppHeaderBar(
+          onRequestB2bSample: () => B2bSampleModal.show(context),
+        ),
+        endDrawer: AppMobileNavDrawer(
+          onRequestB2bSample: () => B2bSampleModal.show(context),
+        ),
         body: SafeArea(
           top: false,
           child: Column(
