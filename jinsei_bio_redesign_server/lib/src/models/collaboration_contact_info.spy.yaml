@@ -1,0 +1,10 @@
+class: CollaborationContactInfo
+fields:
+  supportEmail: String
+  supportNotice: String
+  facilityName: String
+  facilityAddress: String
+  facilityCoordinates: String
+  visitingTimings: String
+  visitingStatus: String
+  standards: List<CollaborationComplianceStandard>
