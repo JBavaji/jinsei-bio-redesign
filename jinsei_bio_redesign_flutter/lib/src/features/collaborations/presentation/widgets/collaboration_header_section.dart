@@ -27,12 +27,12 @@ class CollaborationHeaderSection extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
                 color: isDark
-                    ? AppColors.cyanInteractive.withOpacity(0.12)
-                    : AppColors.primaryContainerTeal.withOpacity(0.08),
+                    ? AppColors.cyanInteractive.withValues(alpha: 0.12)
+                    : AppColors.primaryContainerTeal.withValues(alpha: 0.08),
                 border: Border.all(
                   color: isDark
-                      ? AppColors.cyanInteractive.withOpacity(0.35)
-                      : AppColors.primaryContainerTeal.withOpacity(0.25),
+                      ? AppColors.cyanInteractive.withValues(alpha: 0.35)
+                      : AppColors.primaryContainerTeal.withValues(alpha: 0.25),
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),

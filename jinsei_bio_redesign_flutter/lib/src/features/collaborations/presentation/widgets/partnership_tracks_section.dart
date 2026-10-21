@@ -29,13 +29,15 @@ class PartnershipTracksSection extends StatelessWidget {
               size: 20,
             ),
             const SizedBox(width: 8),
-            Text(
-              'Partnership Tracks',
-              style: AppTypography.displayMedium(
-                color: isDark ? Colors.white : AppColors.lightTextPrimary,
-              ).copyWith(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
+            Expanded(
+              child: Text(
+                'Partnership Tracks',
+                style: AppTypography.displayMedium(
+                  color: isDark ? Colors.white : AppColors.lightTextPrimary,
+                ).copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ],
@@ -112,9 +114,9 @@ class _TrackCard extends StatelessWidget {
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.12),
+              color: accentColor.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: accentColor.withOpacity(0.3)),
+              border: Border.all(color: accentColor.withValues(alpha: 0.3)),
             ),
             child:
                 Icon(_resolveIcon(track.iconKey), color: accentColor, size: 20),

@@ -71,10 +71,10 @@ class CollaborationContactCard extends StatelessWidget {
           trailing: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: AppColors.emeraldAccent.withOpacity(0.15),
+              color: AppColors.emeraldAccent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20),
-              border:
-                  Border.all(color: AppColors.emeraldAccent.withOpacity(0.3)),
+              border: Border.all(
+                  color: AppColors.emeraldAccent.withValues(alpha: 0.3)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -131,7 +131,13 @@ class CollaborationContactCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(days, style: const TextStyle(fontSize: 12)),
+        Expanded(
+          child: Text(
+            days,
+            style: const TextStyle(fontSize: 12),
+          ),
+        ),
+        const SizedBox(width: 8),
         Text(
           hours,
           style: TextStyle(
@@ -171,9 +177,9 @@ class CollaborationContactCard extends StatelessWidget {
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.12),
+                  color: iconColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: iconColor.withOpacity(0.3)),
+                  border: Border.all(color: iconColor.withValues(alpha: 0.3)),
                 ),
                 child: Icon(icon, color: iconColor, size: 20),
               ),
@@ -250,7 +256,7 @@ class CollaborationContactCard extends StatelessWidget {
                       isDark ? const Color(0xFF0A1118) : AppColors.lightSurface,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: AppColors.emeraldAccent.withOpacity(0.3),
+                    color: AppColors.emeraldAccent.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Text(

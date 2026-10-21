@@ -112,9 +112,9 @@ class _FormContent extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.red.withOpacity(0.12),
+              color: Colors.red.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.red.withOpacity(0.3)),
+              border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
             ),
             child: Text(
               state.errorMessage!,
@@ -197,7 +197,7 @@ class _FormContent extends StatelessWidget {
             ),
             filled: true,
             fillColor: isDark
-                ? const Color(0xFF0A1118).withOpacity(0.8)
+                ? const Color(0xFF0A1118).withValues(alpha: 0.8)
                 : Colors.white,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -246,7 +246,8 @@ class _FormContent extends StatelessWidget {
         const SizedBox(height: 6),
         DropdownButtonFormField<String>(
           key: const Key('collab_track_dropdown'),
-          value: state.partnershipTrack,
+          initialValue: state.partnershipTrack,
+          isExpanded: true,
           dropdownColor:
               isDark ? const Color(0xFF0A1118) : AppColors.lightSurfaceCard,
           style: TextStyle(
@@ -256,7 +257,7 @@ class _FormContent extends StatelessWidget {
           decoration: InputDecoration(
             filled: true,
             fillColor: isDark
-                ? const Color(0xFF0A1118).withOpacity(0.8)
+                ? const Color(0xFF0A1118).withValues(alpha: 0.8)
                 : Colors.white,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 14, vertical: 12),

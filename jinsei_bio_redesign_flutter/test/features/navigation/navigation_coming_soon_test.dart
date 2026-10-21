@@ -74,7 +74,7 @@ void main() {
   });
 
   testWidgets(
-      'Navigating to /collaborations displays Global Collaborations Coming Soon page',
+      'Navigating to /collaborations displays CollaborationsScreen with partnership tracks',
       (WidgetTester tester) async {
     tester.view.physicalSize = const Size(1280, 1024);
     tester.view.devicePixelRatio = 1.0;
@@ -84,8 +84,7 @@ void main() {
     appRouter.go('/collaborations');
     await tester.pumpAndSettle();
 
-    expect(find.text('Global Collaborations'), findsOneWidget);
-    expect(find.textContaining('COMING SOON'), findsOneWidget);
-    expect(find.byIcon(Icons.handshake_rounded), findsWidgets);
+    expect(find.text('STRATEGIC ALLIANCES & CRO SERVICES'), findsOneWidget);
+    expect(find.text('LOOKING TO COLLABORATE WITH US?'), findsOneWidget);
   });
 }
