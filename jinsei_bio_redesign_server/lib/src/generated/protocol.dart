@@ -16,35 +16,45 @@ import 'package:serverpod/protocol.dart' as _i2;
 import 'b2b_modal_content.dart' as _i3;
 import 'b2b_sample_request.dart' as _i4;
 import 'clinical_qa.dart' as _i5;
-import 'executive_stat.dart' as _i6;
-import 'formulation_format_option.dart' as _i7;
-import 'health_status.dart' as _i8;
-import 'home_content.dart' as _i9;
-import 'leadership_content.dart' as _i10;
-import 'pillar_item.dart' as _i11;
-import 'product_vertical.dart' as _i12;
-import 'science_content.dart' as _i13;
-import 'science_header_metric.dart' as _i14;
-import 'science_step.dart' as _i15;
-import 'solution_card.dart' as _i16;
-import 'solution_metric.dart' as _i17;
-import 'solutions_content.dart' as _i18;
-import 'strain_vertical_option.dart' as _i19;
-import 'team_member.dart' as _i20;
-import 'protocol.dart' as _i21;
+import 'collaboration_compliance_standard.dart' as _i6;
+import 'collaboration_contact_info.dart' as _i7;
+import 'collaboration_content.dart' as _i8;
+import 'collaboration_inquiry.dart' as _i9;
+import 'collaboration_track.dart' as _i10;
+import 'executive_stat.dart' as _i11;
+import 'formulation_format_option.dart' as _i12;
+import 'health_status.dart' as _i13;
+import 'home_content.dart' as _i14;
+import 'leadership_content.dart' as _i15;
+import 'pillar_item.dart' as _i16;
+import 'product_vertical.dart' as _i17;
+import 'science_content.dart' as _i18;
+import 'science_header_metric.dart' as _i19;
+import 'science_step.dart' as _i20;
+import 'solution_card.dart' as _i21;
+import 'solution_metric.dart' as _i22;
+import 'solutions_content.dart' as _i23;
+import 'strain_vertical_option.dart' as _i24;
+import 'team_member.dart' as _i25;
+import 'protocol.dart' as _i26;
 import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
-    as _i22;
+    as _i27;
 import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
-    as _i23;
+    as _i28;
 import 'package:jinsei_bio_redesign_server/src/generated/solution_card.dart'
-    as _i24;
+    as _i29;
 import 'package:jinsei_bio_redesign_server/src/generated/solution_metric.dart'
-    as _i25;
+    as _i30;
 import 'package:jinsei_bio_redesign_server/src/generated/team_member.dart'
-    as _i26;
+    as _i31;
 export 'b2b_modal_content.dart';
 export 'b2b_sample_request.dart';
 export 'clinical_qa.dart';
+export 'collaboration_compliance_standard.dart';
+export 'collaboration_contact_info.dart';
+export 'collaboration_content.dart';
+export 'collaboration_inquiry.dart';
+export 'collaboration_track.dart';
 export 'executive_stat.dart';
 export 'formulation_format_option.dart';
 export 'health_status.dart';
@@ -143,6 +153,86 @@ class Protocol extends _i1.SerializationManagerServer {
       indexes: [
         _i2.IndexDefinition(
           indexName: 'b2b_sample_request_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'collaboration_inquiry',
+      dartName: 'CollaborationInquiry',
+      schema: 'public',
+      module: 'jinsei_bio_redesign',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'collaboration_inquiry_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'email',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'organization',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'partnershipTrack',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'message',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'trackingId',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'submittedAt',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'status',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'collaboration_inquiry_pkey',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
@@ -782,50 +872,65 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i5.ClinicalQualityAssurance) {
       return _i5.ClinicalQualityAssurance.fromJson(data, this) as T;
     }
-    if (t == _i6.ExecutiveStat) {
-      return _i6.ExecutiveStat.fromJson(data, this) as T;
+    if (t == _i6.CollaborationComplianceStandard) {
+      return _i6.CollaborationComplianceStandard.fromJson(data, this) as T;
     }
-    if (t == _i7.FormulationFormatOption) {
-      return _i7.FormulationFormatOption.fromJson(data, this) as T;
+    if (t == _i7.CollaborationContactInfo) {
+      return _i7.CollaborationContactInfo.fromJson(data, this) as T;
     }
-    if (t == _i8.HealthStatusResponse) {
-      return _i8.HealthStatusResponse.fromJson(data, this) as T;
+    if (t == _i8.CollaborationContent) {
+      return _i8.CollaborationContent.fromJson(data, this) as T;
     }
-    if (t == _i9.HomeContent) {
-      return _i9.HomeContent.fromJson(data, this) as T;
+    if (t == _i9.CollaborationInquiry) {
+      return _i9.CollaborationInquiry.fromJson(data, this) as T;
     }
-    if (t == _i10.LeadershipContent) {
-      return _i10.LeadershipContent.fromJson(data, this) as T;
+    if (t == _i10.CollaborationTrack) {
+      return _i10.CollaborationTrack.fromJson(data, this) as T;
     }
-    if (t == _i11.PillarItem) {
-      return _i11.PillarItem.fromJson(data, this) as T;
+    if (t == _i11.ExecutiveStat) {
+      return _i11.ExecutiveStat.fromJson(data, this) as T;
     }
-    if (t == _i12.ProductVertical) {
-      return _i12.ProductVertical.fromJson(data, this) as T;
+    if (t == _i12.FormulationFormatOption) {
+      return _i12.FormulationFormatOption.fromJson(data, this) as T;
     }
-    if (t == _i13.ScienceContent) {
-      return _i13.ScienceContent.fromJson(data, this) as T;
+    if (t == _i13.HealthStatusResponse) {
+      return _i13.HealthStatusResponse.fromJson(data, this) as T;
     }
-    if (t == _i14.ScienceHeaderMetric) {
-      return _i14.ScienceHeaderMetric.fromJson(data, this) as T;
+    if (t == _i14.HomeContent) {
+      return _i14.HomeContent.fromJson(data, this) as T;
     }
-    if (t == _i15.ScienceStep) {
-      return _i15.ScienceStep.fromJson(data, this) as T;
+    if (t == _i15.LeadershipContent) {
+      return _i15.LeadershipContent.fromJson(data, this) as T;
     }
-    if (t == _i16.SolutionCard) {
-      return _i16.SolutionCard.fromJson(data, this) as T;
+    if (t == _i16.PillarItem) {
+      return _i16.PillarItem.fromJson(data, this) as T;
     }
-    if (t == _i17.SolutionMetric) {
-      return _i17.SolutionMetric.fromJson(data, this) as T;
+    if (t == _i17.ProductVertical) {
+      return _i17.ProductVertical.fromJson(data, this) as T;
     }
-    if (t == _i18.SolutionsContent) {
-      return _i18.SolutionsContent.fromJson(data, this) as T;
+    if (t == _i18.ScienceContent) {
+      return _i18.ScienceContent.fromJson(data, this) as T;
     }
-    if (t == _i19.StrainVerticalOption) {
-      return _i19.StrainVerticalOption.fromJson(data, this) as T;
+    if (t == _i19.ScienceHeaderMetric) {
+      return _i19.ScienceHeaderMetric.fromJson(data, this) as T;
     }
-    if (t == _i20.TeamMember) {
-      return _i20.TeamMember.fromJson(data, this) as T;
+    if (t == _i20.ScienceStep) {
+      return _i20.ScienceStep.fromJson(data, this) as T;
+    }
+    if (t == _i21.SolutionCard) {
+      return _i21.SolutionCard.fromJson(data, this) as T;
+    }
+    if (t == _i22.SolutionMetric) {
+      return _i22.SolutionMetric.fromJson(data, this) as T;
+    }
+    if (t == _i23.SolutionsContent) {
+      return _i23.SolutionsContent.fromJson(data, this) as T;
+    }
+    if (t == _i24.StrainVerticalOption) {
+      return _i24.StrainVerticalOption.fromJson(data, this) as T;
+    }
+    if (t == _i25.TeamMember) {
+      return _i25.TeamMember.fromJson(data, this) as T;
     }
     if (t == _i1.getType<_i3.B2bModalContent?>()) {
       return (data != null ? _i3.B2bModalContent.fromJson(data, this) : null)
@@ -840,144 +945,179 @@ class Protocol extends _i1.SerializationManagerServer {
           ? _i5.ClinicalQualityAssurance.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i6.ExecutiveStat?>()) {
-      return (data != null ? _i6.ExecutiveStat.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i7.FormulationFormatOption?>()) {
+    if (t == _i1.getType<_i6.CollaborationComplianceStandard?>()) {
       return (data != null
-          ? _i7.FormulationFormatOption.fromJson(data, this)
+          ? _i6.CollaborationComplianceStandard.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i8.HealthStatusResponse?>()) {
+    if (t == _i1.getType<_i7.CollaborationContactInfo?>()) {
       return (data != null
-          ? _i8.HealthStatusResponse.fromJson(data, this)
+          ? _i7.CollaborationContactInfo.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i9.HomeContent?>()) {
-      return (data != null ? _i9.HomeContent.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i10.LeadershipContent?>()) {
-      return (data != null ? _i10.LeadershipContent.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i11.PillarItem?>()) {
-      return (data != null ? _i11.PillarItem.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i12.ProductVertical?>()) {
-      return (data != null ? _i12.ProductVertical.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i13.ScienceContent?>()) {
-      return (data != null ? _i13.ScienceContent.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i14.ScienceHeaderMetric?>()) {
+    if (t == _i1.getType<_i8.CollaborationContent?>()) {
       return (data != null
-          ? _i14.ScienceHeaderMetric.fromJson(data, this)
+          ? _i8.CollaborationContent.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i15.ScienceStep?>()) {
-      return (data != null ? _i15.ScienceStep.fromJson(data, this) : null) as T;
-    }
-    if (t == _i1.getType<_i16.SolutionCard?>()) {
-      return (data != null ? _i16.SolutionCard.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i17.SolutionMetric?>()) {
-      return (data != null ? _i17.SolutionMetric.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i18.SolutionsContent?>()) {
-      return (data != null ? _i18.SolutionsContent.fromJson(data, this) : null)
-          as T;
-    }
-    if (t == _i1.getType<_i19.StrainVerticalOption?>()) {
+    if (t == _i1.getType<_i9.CollaborationInquiry?>()) {
       return (data != null
-          ? _i19.StrainVerticalOption.fromJson(data, this)
+          ? _i9.CollaborationInquiry.fromJson(data, this)
           : null) as T;
     }
-    if (t == _i1.getType<_i20.TeamMember?>()) {
-      return (data != null ? _i20.TeamMember.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i10.CollaborationTrack?>()) {
+      return (data != null
+          ? _i10.CollaborationTrack.fromJson(data, this)
+          : null) as T;
     }
-    if (t == List<_i21.StrainVerticalOption>) {
+    if (t == _i1.getType<_i11.ExecutiveStat?>()) {
+      return (data != null ? _i11.ExecutiveStat.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i12.FormulationFormatOption?>()) {
+      return (data != null
+          ? _i12.FormulationFormatOption.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i13.HealthStatusResponse?>()) {
+      return (data != null
+          ? _i13.HealthStatusResponse.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i14.HomeContent?>()) {
+      return (data != null ? _i14.HomeContent.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i15.LeadershipContent?>()) {
+      return (data != null ? _i15.LeadershipContent.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i16.PillarItem?>()) {
+      return (data != null ? _i16.PillarItem.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i17.ProductVertical?>()) {
+      return (data != null ? _i17.ProductVertical.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i18.ScienceContent?>()) {
+      return (data != null ? _i18.ScienceContent.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i19.ScienceHeaderMetric?>()) {
+      return (data != null
+          ? _i19.ScienceHeaderMetric.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i20.ScienceStep?>()) {
+      return (data != null ? _i20.ScienceStep.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i21.SolutionCard?>()) {
+      return (data != null ? _i21.SolutionCard.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i22.SolutionMetric?>()) {
+      return (data != null ? _i22.SolutionMetric.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i23.SolutionsContent?>()) {
+      return (data != null ? _i23.SolutionsContent.fromJson(data, this) : null)
+          as T;
+    }
+    if (t == _i1.getType<_i24.StrainVerticalOption?>()) {
+      return (data != null
+          ? _i24.StrainVerticalOption.fromJson(data, this)
+          : null) as T;
+    }
+    if (t == _i1.getType<_i25.TeamMember?>()) {
+      return (data != null ? _i25.TeamMember.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i26.StrainVerticalOption>) {
       return (data as List)
-          .map((e) => deserialize<_i21.StrainVerticalOption>(e))
+          .map((e) => deserialize<_i26.StrainVerticalOption>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.FormulationFormatOption>) {
+    if (t == List<_i26.FormulationFormatOption>) {
       return (data as List)
-          .map((e) => deserialize<_i21.FormulationFormatOption>(e))
+          .map((e) => deserialize<_i26.FormulationFormatOption>(e))
           .toList() as dynamic;
     }
     if (t == List<String>) {
       return (data as List).map((e) => deserialize<String>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i21.PillarItem>) {
-      return (data as List).map((e) => deserialize<_i21.PillarItem>(e)).toList()
+    if (t == List<_i26.CollaborationComplianceStandard>) {
+      return (data as List)
+          .map((e) => deserialize<_i26.CollaborationComplianceStandard>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i26.CollaborationTrack>) {
+      return (data as List)
+          .map((e) => deserialize<_i26.CollaborationTrack>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i26.PillarItem>) {
+      return (data as List).map((e) => deserialize<_i26.PillarItem>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i21.ExecutiveStat>) {
+    if (t == List<_i26.ExecutiveStat>) {
       return (data as List)
-          .map((e) => deserialize<_i21.ExecutiveStat>(e))
+          .map((e) => deserialize<_i26.ExecutiveStat>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.ProductVertical>) {
+    if (t == List<_i26.ProductVertical>) {
       return (data as List)
-          .map((e) => deserialize<_i21.ProductVertical>(e))
+          .map((e) => deserialize<_i26.ProductVertical>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.TeamMember>) {
-      return (data as List).map((e) => deserialize<_i21.TeamMember>(e)).toList()
+    if (t == List<_i26.TeamMember>) {
+      return (data as List).map((e) => deserialize<_i26.TeamMember>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i21.ScienceHeaderMetric>) {
+    if (t == List<_i26.ScienceHeaderMetric>) {
       return (data as List)
-          .map((e) => deserialize<_i21.ScienceHeaderMetric>(e))
+          .map((e) => deserialize<_i26.ScienceHeaderMetric>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.ScienceStep>) {
+    if (t == List<_i26.ScienceStep>) {
       return (data as List)
-          .map((e) => deserialize<_i21.ScienceStep>(e))
+          .map((e) => deserialize<_i26.ScienceStep>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.SolutionMetric>) {
+    if (t == List<_i26.SolutionMetric>) {
       return (data as List)
-          .map((e) => deserialize<_i21.SolutionMetric>(e))
+          .map((e) => deserialize<_i26.SolutionMetric>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.SolutionCard>) {
+    if (t == List<_i26.SolutionCard>) {
       return (data as List)
-          .map((e) => deserialize<_i21.SolutionCard>(e))
+          .map((e) => deserialize<_i26.SolutionCard>(e))
           .toList() as dynamic;
     }
     if (t == Map<String, String>) {
       return (data as Map).map((k, v) =>
           MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
     }
-    if (t == List<_i22.ScienceStep>) {
+    if (t == List<_i27.ScienceStep>) {
       return (data as List)
-          .map((e) => deserialize<_i22.ScienceStep>(e))
+          .map((e) => deserialize<_i27.ScienceStep>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i23.ScienceHeaderMetric>) {
+    if (t == List<_i28.ScienceHeaderMetric>) {
       return (data as List)
-          .map((e) => deserialize<_i23.ScienceHeaderMetric>(e))
+          .map((e) => deserialize<_i28.ScienceHeaderMetric>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i24.SolutionCard>) {
+    if (t == List<_i29.SolutionCard>) {
       return (data as List)
-          .map((e) => deserialize<_i24.SolutionCard>(e))
+          .map((e) => deserialize<_i29.SolutionCard>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i25.SolutionMetric>) {
+    if (t == List<_i30.SolutionMetric>) {
       return (data as List)
-          .map((e) => deserialize<_i25.SolutionMetric>(e))
+          .map((e) => deserialize<_i30.SolutionMetric>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i26.TeamMember>) {
-      return (data as List).map((e) => deserialize<_i26.TeamMember>(e)).toList()
+    if (t == List<_i31.TeamMember>) {
+      return (data as List).map((e) => deserialize<_i31.TeamMember>(e)).toList()
           as dynamic;
     }
     try {
@@ -997,49 +1137,64 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i5.ClinicalQualityAssurance) {
       return 'ClinicalQualityAssurance';
     }
-    if (data is _i6.ExecutiveStat) {
+    if (data is _i6.CollaborationComplianceStandard) {
+      return 'CollaborationComplianceStandard';
+    }
+    if (data is _i7.CollaborationContactInfo) {
+      return 'CollaborationContactInfo';
+    }
+    if (data is _i8.CollaborationContent) {
+      return 'CollaborationContent';
+    }
+    if (data is _i9.CollaborationInquiry) {
+      return 'CollaborationInquiry';
+    }
+    if (data is _i10.CollaborationTrack) {
+      return 'CollaborationTrack';
+    }
+    if (data is _i11.ExecutiveStat) {
       return 'ExecutiveStat';
     }
-    if (data is _i7.FormulationFormatOption) {
+    if (data is _i12.FormulationFormatOption) {
       return 'FormulationFormatOption';
     }
-    if (data is _i8.HealthStatusResponse) {
+    if (data is _i13.HealthStatusResponse) {
       return 'HealthStatusResponse';
     }
-    if (data is _i9.HomeContent) {
+    if (data is _i14.HomeContent) {
       return 'HomeContent';
     }
-    if (data is _i10.LeadershipContent) {
+    if (data is _i15.LeadershipContent) {
       return 'LeadershipContent';
     }
-    if (data is _i11.PillarItem) {
+    if (data is _i16.PillarItem) {
       return 'PillarItem';
     }
-    if (data is _i12.ProductVertical) {
+    if (data is _i17.ProductVertical) {
       return 'ProductVertical';
     }
-    if (data is _i13.ScienceContent) {
+    if (data is _i18.ScienceContent) {
       return 'ScienceContent';
     }
-    if (data is _i14.ScienceHeaderMetric) {
+    if (data is _i19.ScienceHeaderMetric) {
       return 'ScienceHeaderMetric';
     }
-    if (data is _i15.ScienceStep) {
+    if (data is _i20.ScienceStep) {
       return 'ScienceStep';
     }
-    if (data is _i16.SolutionCard) {
+    if (data is _i21.SolutionCard) {
       return 'SolutionCard';
     }
-    if (data is _i17.SolutionMetric) {
+    if (data is _i22.SolutionMetric) {
       return 'SolutionMetric';
     }
-    if (data is _i18.SolutionsContent) {
+    if (data is _i23.SolutionsContent) {
       return 'SolutionsContent';
     }
-    if (data is _i19.StrainVerticalOption) {
+    if (data is _i24.StrainVerticalOption) {
       return 'StrainVerticalOption';
     }
-    if (data is _i20.TeamMember) {
+    if (data is _i25.TeamMember) {
       return 'TeamMember';
     }
     return super.getClassNameForObject(data);
@@ -1056,50 +1211,65 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'ClinicalQualityAssurance') {
       return deserialize<_i5.ClinicalQualityAssurance>(data['data']);
     }
+    if (data['className'] == 'CollaborationComplianceStandard') {
+      return deserialize<_i6.CollaborationComplianceStandard>(data['data']);
+    }
+    if (data['className'] == 'CollaborationContactInfo') {
+      return deserialize<_i7.CollaborationContactInfo>(data['data']);
+    }
+    if (data['className'] == 'CollaborationContent') {
+      return deserialize<_i8.CollaborationContent>(data['data']);
+    }
+    if (data['className'] == 'CollaborationInquiry') {
+      return deserialize<_i9.CollaborationInquiry>(data['data']);
+    }
+    if (data['className'] == 'CollaborationTrack') {
+      return deserialize<_i10.CollaborationTrack>(data['data']);
+    }
     if (data['className'] == 'ExecutiveStat') {
-      return deserialize<_i6.ExecutiveStat>(data['data']);
+      return deserialize<_i11.ExecutiveStat>(data['data']);
     }
     if (data['className'] == 'FormulationFormatOption') {
-      return deserialize<_i7.FormulationFormatOption>(data['data']);
+      return deserialize<_i12.FormulationFormatOption>(data['data']);
     }
     if (data['className'] == 'HealthStatusResponse') {
-      return deserialize<_i8.HealthStatusResponse>(data['data']);
+      return deserialize<_i13.HealthStatusResponse>(data['data']);
     }
     if (data['className'] == 'HomeContent') {
-      return deserialize<_i9.HomeContent>(data['data']);
+      return deserialize<_i14.HomeContent>(data['data']);
     }
     if (data['className'] == 'LeadershipContent') {
-      return deserialize<_i10.LeadershipContent>(data['data']);
+      return deserialize<_i15.LeadershipContent>(data['data']);
     }
     if (data['className'] == 'PillarItem') {
-      return deserialize<_i11.PillarItem>(data['data']);
+      return deserialize<_i16.PillarItem>(data['data']);
     }
     if (data['className'] == 'ProductVertical') {
-      return deserialize<_i12.ProductVertical>(data['data']);
+      return deserialize<_i17.ProductVertical>(data['data']);
     }
     if (data['className'] == 'ScienceContent') {
-      return deserialize<_i13.ScienceContent>(data['data']);
+      return deserialize<_i18.ScienceContent>(data['data']);
     }
     if (data['className'] == 'ScienceHeaderMetric') {
-      return deserialize<_i14.ScienceHeaderMetric>(data['data']);
+      return deserialize<_i19.ScienceHeaderMetric>(data['data']);
     }
     if (data['className'] == 'ScienceStep') {
-      return deserialize<_i15.ScienceStep>(data['data']);
+      return deserialize<_i20.ScienceStep>(data['data']);
     }
     if (data['className'] == 'SolutionCard') {
-      return deserialize<_i16.SolutionCard>(data['data']);
+      return deserialize<_i21.SolutionCard>(data['data']);
     }
     if (data['className'] == 'SolutionMetric') {
-      return deserialize<_i17.SolutionMetric>(data['data']);
+      return deserialize<_i22.SolutionMetric>(data['data']);
     }
     if (data['className'] == 'SolutionsContent') {
-      return deserialize<_i18.SolutionsContent>(data['data']);
+      return deserialize<_i23.SolutionsContent>(data['data']);
     }
     if (data['className'] == 'StrainVerticalOption') {
-      return deserialize<_i19.StrainVerticalOption>(data['data']);
+      return deserialize<_i24.StrainVerticalOption>(data['data']);
     }
     if (data['className'] == 'TeamMember') {
-      return deserialize<_i20.TeamMember>(data['data']);
+      return deserialize<_i25.TeamMember>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -1115,22 +1285,24 @@ class Protocol extends _i1.SerializationManagerServer {
     switch (t) {
       case _i4.B2bSampleRequest:
         return _i4.B2bSampleRequest.t;
-      case _i6.ExecutiveStat:
-        return _i6.ExecutiveStat.t;
-      case _i11.PillarItem:
-        return _i11.PillarItem.t;
-      case _i12.ProductVertical:
-        return _i12.ProductVertical.t;
-      case _i14.ScienceHeaderMetric:
-        return _i14.ScienceHeaderMetric.t;
-      case _i15.ScienceStep:
-        return _i15.ScienceStep.t;
-      case _i16.SolutionCard:
-        return _i16.SolutionCard.t;
-      case _i17.SolutionMetric:
-        return _i17.SolutionMetric.t;
-      case _i20.TeamMember:
-        return _i20.TeamMember.t;
+      case _i9.CollaborationInquiry:
+        return _i9.CollaborationInquiry.t;
+      case _i11.ExecutiveStat:
+        return _i11.ExecutiveStat.t;
+      case _i16.PillarItem:
+        return _i16.PillarItem.t;
+      case _i17.ProductVertical:
+        return _i17.ProductVertical.t;
+      case _i19.ScienceHeaderMetric:
+        return _i19.ScienceHeaderMetric.t;
+      case _i20.ScienceStep:
+        return _i20.ScienceStep.t;
+      case _i21.SolutionCard:
+        return _i21.SolutionCard.t;
+      case _i22.SolutionMetric:
+        return _i22.SolutionMetric.t;
+      case _i25.TeamMember:
+        return _i25.TeamMember.t;
     }
     return null;
   }

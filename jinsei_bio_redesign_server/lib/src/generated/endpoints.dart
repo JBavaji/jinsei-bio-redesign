@@ -11,23 +11,26 @@
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/b2b_endpoint.dart' as _i2;
-import '../endpoints/health_endpoint.dart' as _i3;
-import '../endpoints/home_endpoint.dart' as _i4;
-import '../endpoints/science_endpoint.dart' as _i5;
-import '../endpoints/solutions_endpoint.dart' as _i6;
-import '../endpoints/team_endpoint.dart' as _i7;
+import '../endpoints/collaborations_endpoint.dart' as _i3;
+import '../endpoints/health_endpoint.dart' as _i4;
+import '../endpoints/home_endpoint.dart' as _i5;
+import '../endpoints/science_endpoint.dart' as _i6;
+import '../endpoints/solutions_endpoint.dart' as _i7;
+import '../endpoints/team_endpoint.dart' as _i8;
 import 'package:jinsei_bio_redesign_server/src/generated/b2b_sample_request.dart'
-    as _i8;
-import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
     as _i9;
-import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/collaboration_inquiry.dart'
     as _i10;
-import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
     as _i11;
-import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i12;
-import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
     as _i13;
+import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+    as _i14;
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+    as _i15;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -39,31 +42,37 @@ class Endpoints extends _i1.EndpointDispatch {
           'b2b',
           null,
         ),
-      'health': _i3.HealthEndpoint()
+      'collaborations': _i3.CollaborationsEndpoint()
+        ..initialize(
+          server,
+          'collaborations',
+          null,
+        ),
+      'health': _i4.HealthEndpoint()
         ..initialize(
           server,
           'health',
           null,
         ),
-      'home': _i4.HomeEndpoint()
+      'home': _i5.HomeEndpoint()
         ..initialize(
           server,
           'home',
           null,
         ),
-      'science': _i5.ScienceEndpoint()
+      'science': _i6.ScienceEndpoint()
         ..initialize(
           server,
           'science',
           null,
         ),
-      'solutions': _i6.SolutionsEndpoint()
+      'solutions': _i7.SolutionsEndpoint()
         ..initialize(
           server,
           'solutions',
           null,
         ),
-      'team': _i7.TeamEndpoint()
+      'team': _i8.TeamEndpoint()
         ..initialize(
           server,
           'team',
@@ -88,7 +97,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'request': _i1.ParameterDescription(
               name: 'request',
-              type: _i1.getType<_i8.B2bSampleRequest>(),
+              type: _i1.getType<_i9.B2bSampleRequest>(),
               nullable: false,
             )
           },
@@ -99,6 +108,41 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['b2b'] as _i2.B2bEndpoint).submitSampleRequest(
             session,
             params['request'],
+          ),
+        ),
+      },
+    );
+    connectors['collaborations'] = _i1.EndpointConnector(
+      name: 'collaborations',
+      endpoint: endpoints['collaborations']!,
+      methodConnectors: {
+        'getCollaborationsContent': _i1.MethodConnector(
+          name: 'getCollaborationsContent',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['collaborations'] as _i3.CollaborationsEndpoint)
+                  .getCollaborationsContent(session),
+        ),
+        'submitCollaborationInquiry': _i1.MethodConnector(
+          name: 'submitCollaborationInquiry',
+          params: {
+            'inquiry': _i1.ParameterDescription(
+              name: 'inquiry',
+              type: _i1.getType<_i10.CollaborationInquiry>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['collaborations'] as _i3.CollaborationsEndpoint)
+                  .submitCollaborationInquiry(
+            session,
+            params['inquiry'],
           ),
         ),
       },
@@ -114,7 +158,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['health'] as _i3.HealthEndpoint).ping(session),
+              (endpoints['health'] as _i4.HealthEndpoint).ping(session),
         ),
         'status': _i1.MethodConnector(
           name: 'status',
@@ -123,7 +167,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['health'] as _i3.HealthEndpoint).status(session),
+              (endpoints['health'] as _i4.HealthEndpoint).status(session),
         ),
       },
     );
@@ -138,14 +182,14 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).getHomeContent(session),
+              (endpoints['home'] as _i5.HomeEndpoint).getHomeContent(session),
         ),
         'createPillar': _i1.MethodConnector(
           name: 'createPillar',
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i9.PillarItem>(),
+              type: _i1.getType<_i11.PillarItem>(),
               nullable: false,
             )
           },
@@ -153,7 +197,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).createPillar(
+              (endpoints['home'] as _i5.HomeEndpoint).createPillar(
             session,
             params['item'],
           ),
@@ -163,7 +207,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i9.PillarItem>(),
+              type: _i1.getType<_i11.PillarItem>(),
               nullable: false,
             )
           },
@@ -171,7 +215,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).updatePillar(
+              (endpoints['home'] as _i5.HomeEndpoint).updatePillar(
             session,
             params['item'],
           ),
@@ -189,7 +233,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).deletePillar(
+              (endpoints['home'] as _i5.HomeEndpoint).deletePillar(
             session,
             params['id'],
           ),
@@ -199,7 +243,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i10.ExecutiveStat>(),
+              type: _i1.getType<_i12.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -207,7 +251,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).createExecutiveStat(
+              (endpoints['home'] as _i5.HomeEndpoint).createExecutiveStat(
             session,
             params['stat'],
           ),
@@ -217,7 +261,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i10.ExecutiveStat>(),
+              type: _i1.getType<_i12.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -225,7 +269,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).updateExecutiveStat(
+              (endpoints['home'] as _i5.HomeEndpoint).updateExecutiveStat(
             session,
             params['stat'],
           ),
@@ -243,7 +287,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).deleteExecutiveStat(
+              (endpoints['home'] as _i5.HomeEndpoint).deleteExecutiveStat(
             session,
             params['id'],
           ),
@@ -253,7 +297,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i11.ProductVertical>(),
+              type: _i1.getType<_i13.ProductVertical>(),
               nullable: false,
             )
           },
@@ -261,7 +305,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).createProductVertical(
+              (endpoints['home'] as _i5.HomeEndpoint).createProductVertical(
             session,
             params['vertical'],
           ),
@@ -271,7 +315,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i11.ProductVertical>(),
+              type: _i1.getType<_i13.ProductVertical>(),
               nullable: false,
             )
           },
@@ -279,7 +323,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).updateProductVertical(
+              (endpoints['home'] as _i5.HomeEndpoint).updateProductVertical(
             session,
             params['vertical'],
           ),
@@ -297,7 +341,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['home'] as _i4.HomeEndpoint).deleteProductVertical(
+              (endpoints['home'] as _i5.HomeEndpoint).deleteProductVertical(
             session,
             params['id'],
           ),
@@ -315,7 +359,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint)
+              (endpoints['science'] as _i6.ScienceEndpoint)
                   .getScienceContent(session),
         ),
         'getScienceSteps': _i1.MethodConnector(
@@ -325,7 +369,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint)
+              (endpoints['science'] as _i6.ScienceEndpoint)
                   .getScienceSteps(session),
         ),
         'getHeaderMetrics': _i1.MethodConnector(
@@ -335,7 +379,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint)
+              (endpoints['science'] as _i6.ScienceEndpoint)
                   .getHeaderMetrics(session),
         ),
         'getClinicalQa': _i1.MethodConnector(
@@ -345,7 +389,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint)
+              (endpoints['science'] as _i6.ScienceEndpoint)
                   .getClinicalQa(session),
         ),
         'createScienceStep': _i1.MethodConnector(
@@ -353,7 +397,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i12.ScienceStep>(),
+              type: _i1.getType<_i14.ScienceStep>(),
               nullable: false,
             )
           },
@@ -361,7 +405,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).createScienceStep(
+              (endpoints['science'] as _i6.ScienceEndpoint).createScienceStep(
             session,
             params['step'],
           ),
@@ -371,7 +415,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i12.ScienceStep>(),
+              type: _i1.getType<_i14.ScienceStep>(),
               nullable: false,
             )
           },
@@ -379,7 +423,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).updateScienceStep(
+              (endpoints['science'] as _i6.ScienceEndpoint).updateScienceStep(
             session,
             params['step'],
           ),
@@ -397,7 +441,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).deleteScienceStep(
+              (endpoints['science'] as _i6.ScienceEndpoint).deleteScienceStep(
             session,
             params['id'],
           ),
@@ -407,7 +451,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i13.ScienceHeaderMetric>(),
+              type: _i1.getType<_i15.ScienceHeaderMetric>(),
               nullable: false,
             )
           },
@@ -415,7 +459,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).createHeaderMetric(
+              (endpoints['science'] as _i6.ScienceEndpoint).createHeaderMetric(
             session,
             params['metric'],
           ),
@@ -425,7 +469,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i13.ScienceHeaderMetric>(),
+              type: _i1.getType<_i15.ScienceHeaderMetric>(),
               nullable: false,
             )
           },
@@ -433,7 +477,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).updateHeaderMetric(
+              (endpoints['science'] as _i6.ScienceEndpoint).updateHeaderMetric(
             session,
             params['metric'],
           ),
@@ -451,7 +495,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['science'] as _i5.ScienceEndpoint).deleteHeaderMetric(
+              (endpoints['science'] as _i6.ScienceEndpoint).deleteHeaderMetric(
             session,
             params['id'],
           ),
@@ -469,7 +513,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['solutions'] as _i6.SolutionsEndpoint)
+              (endpoints['solutions'] as _i7.SolutionsEndpoint)
                   .getSolutionsContent(session),
         ),
         'getSolutions': _i1.MethodConnector(
@@ -479,7 +523,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['solutions'] as _i6.SolutionsEndpoint)
+              (endpoints['solutions'] as _i7.SolutionsEndpoint)
                   .getSolutions(session),
         ),
         'getSolutionsByCategory': _i1.MethodConnector(
@@ -495,7 +539,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['solutions'] as _i6.SolutionsEndpoint)
+              (endpoints['solutions'] as _i7.SolutionsEndpoint)
                   .getSolutionsByCategory(
             session,
             params['category'],
@@ -508,7 +552,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['solutions'] as _i6.SolutionsEndpoint)
+              (endpoints['solutions'] as _i7.SolutionsEndpoint)
                   .getSolutionMetrics(session),
         ),
       },
@@ -524,7 +568,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['team'] as _i7.TeamEndpoint)
+              (endpoints['team'] as _i8.TeamEndpoint)
                   .getLeadershipContent(session),
         ),
         'getTeamMembers': _i1.MethodConnector(
@@ -534,7 +578,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['team'] as _i7.TeamEndpoint).getTeamMembers(session),
+              (endpoints['team'] as _i8.TeamEndpoint).getTeamMembers(session),
         ),
         'getTeamMembersByCategory': _i1.MethodConnector(
           name: 'getTeamMembersByCategory',
@@ -549,7 +593,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['team'] as _i7.TeamEndpoint).getTeamMembersByCategory(
+              (endpoints['team'] as _i8.TeamEndpoint).getTeamMembersByCategory(
             session,
             params['category'],
           ),

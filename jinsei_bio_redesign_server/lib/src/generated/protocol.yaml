@@ -1,6 +1,9 @@
 b2b:
   - getModalContent:
   - submitSampleRequest:
+collaborations:
+  - getCollaborationsContent:
+  - submitCollaborationInquiry:
 health:
   - ping:
   - status:

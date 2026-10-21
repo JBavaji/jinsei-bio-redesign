@@ -1,0 +1,8 @@
+class: CollaborationTrack
+fields:
+  trackId: String
+  title: String
+  badge: String
+  description: String
+  deliverables: List<String>
+  iconKey: String
