@@ -4,6 +4,7 @@ import '../../../core/widgets/app_error_state_view.dart';
 import '../../../core/widgets/app_footer_bar.dart';
 import '../../../core/widgets/app_loading_indicator.dart';
 import '../domain/models/solution_card_model.dart';
+import '../../b2b/presentation/widgets/b2b_sample_modal.dart';
 import 'bloc/solutions_bloc.dart';
 import 'bloc/solutions_event.dart';
 import 'bloc/solutions_state.dart';
@@ -42,14 +43,7 @@ class _SolutionsScreenView extends StatelessWidget {
       context,
       solution: solution,
       onRequestSample: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Sample formulation request logged for ${solution.title}',
-            ),
-            duration: const Duration(seconds: 3),
-          ),
-        );
+        B2bSampleModal.show(context, initialStrainId: solution.solutionId);
       },
     );
   }

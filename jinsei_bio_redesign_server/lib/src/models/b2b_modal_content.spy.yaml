@@ -1,0 +1,10 @@
+class: B2bModalContent
+fields:
+  badgeText: String
+  title: String
+  subtitle: String
+  strains: List<StrainVerticalOption>
+  formulationFormats: List<FormulationFormatOption>
+  complianceNote: String
+  certifications: List<String>
+  dispatchNotice: String
