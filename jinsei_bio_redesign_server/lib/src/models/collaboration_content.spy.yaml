@@ -1,0 +1,9 @@
+class: CollaborationContent
+fields:
+  headlineBadge: String
+  heroTitle: String
+  heroSubtitle: String
+  tracks: List<CollaborationTrack>
+  contactInfo: CollaborationContactInfo
+  governanceTitle: String
+  governanceDescription: String

@@ -1,0 +1,5 @@
+class: CollaborationComplianceStandard
+fields:
+  title: String
+  description: String
+  badge: String

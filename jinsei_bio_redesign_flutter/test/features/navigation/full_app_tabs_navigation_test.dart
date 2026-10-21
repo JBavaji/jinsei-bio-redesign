@@ -110,8 +110,7 @@ void main() {
       expect(find.text('Leadership & R&D Team'), findsOneWidget);
     });
 
-    testWidgets('Renders CollaborationsScreen coming soon route cleanly',
-        (tester) async {
+    testWidgets('Renders CollaborationsScreen route cleanly', (tester) async {
       tester.view.physicalSize = const Size(1280, 1024);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
@@ -133,7 +132,7 @@ void main() {
       await tester.pumpWidget(buildTestApp(router));
       await tester.pump(const Duration(milliseconds: 500));
 
-      expect(find.text('Global Collaborations'), findsOneWidget);
+      expect(find.text('STRATEGIC ALLIANCES & CRO SERVICES'), findsOneWidget);
     });
   });
 }
