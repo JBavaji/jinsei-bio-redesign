@@ -1,0 +1,11 @@
+class: CollaborationInquiry
+table: collaboration_inquiry
+fields:
+  name: String
+  email: String
+  organization: String?
+  partnershipTrack: String
+  message: String
+  trackingId: String
+  submittedAt: DateTime
+  status: String

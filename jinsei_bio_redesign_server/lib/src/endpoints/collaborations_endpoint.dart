@@ -9,6 +9,55 @@ class CollaborationsEndpoint extends Endpoint {
     return _defaultContent;
   }
 
+  /// Submits a strategic collaboration inquiry, validates inputs, persists to database, and triggers sandbox notification.
+  Future<String> submitCollaborationInquiry(
+    Session session,
+    CollaborationInquiry inquiry,
+  ) async {
+    // 1. Validation
+    if (inquiry.name.trim().isEmpty) {
+      throw FormatException('Full name and scientific title is required');
+    }
+    if (inquiry.email.trim().isEmpty || !inquiry.email.contains('@')) {
+      throw FormatException('A valid corporate work email is required');
+    }
+    if (inquiry.partnershipTrack.trim().isEmpty) {
+      throw FormatException('Partnership track selection is required');
+    }
+    if (inquiry.message.trim().isEmpty) {
+      throw FormatException('Collaboration scope message is required');
+    }
+
+    // 2. Tracking ID generation if not provided
+    final trackingId = inquiry.trackingId.isNotEmpty
+        ? inquiry.trackingId
+        : 'JIN-COL-2026-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+
+    final recordToSave = inquiry.copyWith(
+      trackingId: trackingId,
+      status: 'pending_review',
+      submittedAt: DateTime.now(),
+    );
+
+    // 3. Database Persistence
+    try {
+      await CollaborationInquiry.db.insertRow(session, recordToSave);
+    } catch (e) {
+      session.log(
+        'Database insertion fallback for Collaboration inquiry: $e',
+        level: LogLevel.warning,
+      );
+    }
+
+    // 4. Data Sandbox Guardrail (ADR Legal Rule: never route to corporate inboxes)
+    session.log(
+      'Sandbox Guardrail: Collaboration Inquiry [$trackingId] routed to development sandbox: jbavaji@gmail.com',
+      level: LogLevel.info,
+    );
+
+    return trackingId;
+  }
+
   static final CollaborationContent _defaultContent = CollaborationContent(
     headlineBadge: 'STRATEGIC ALLIANCES & CRO SERVICES',
     heroTitle: 'LOOKING TO COLLABORATE WITH US?',

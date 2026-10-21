@@ -19,16 +19,18 @@ import '../endpoints/solutions_endpoint.dart' as _i7;
 import '../endpoints/team_endpoint.dart' as _i8;
 import 'package:jinsei_bio_redesign_server/src/generated/b2b_sample_request.dart'
     as _i9;
-import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/collaboration_inquiry.dart'
     as _i10;
-import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/pillar_item.dart'
     as _i11;
-import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/executive_stat.dart'
     as _i12;
-import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/product_vertical.dart'
     as _i13;
-import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+import 'package:jinsei_bio_redesign_server/src/generated/science_step.dart'
     as _i14;
+import 'package:jinsei_bio_redesign_server/src/generated/science_header_metric.dart'
+    as _i15;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -123,7 +125,26 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['collaborations'] as _i3.CollaborationsEndpoint)
                   .getCollaborationsContent(session),
-        )
+        ),
+        'submitCollaborationInquiry': _i1.MethodConnector(
+          name: 'submitCollaborationInquiry',
+          params: {
+            'inquiry': _i1.ParameterDescription(
+              name: 'inquiry',
+              type: _i1.getType<_i10.CollaborationInquiry>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['collaborations'] as _i3.CollaborationsEndpoint)
+                  .submitCollaborationInquiry(
+            session,
+            params['inquiry'],
+          ),
+        ),
       },
     );
     connectors['health'] = _i1.EndpointConnector(
@@ -168,7 +189,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i10.PillarItem>(),
+              type: _i1.getType<_i11.PillarItem>(),
               nullable: false,
             )
           },
@@ -186,7 +207,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'item': _i1.ParameterDescription(
               name: 'item',
-              type: _i1.getType<_i10.PillarItem>(),
+              type: _i1.getType<_i11.PillarItem>(),
               nullable: false,
             )
           },
@@ -222,7 +243,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i11.ExecutiveStat>(),
+              type: _i1.getType<_i12.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -240,7 +261,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'stat': _i1.ParameterDescription(
               name: 'stat',
-              type: _i1.getType<_i11.ExecutiveStat>(),
+              type: _i1.getType<_i12.ExecutiveStat>(),
               nullable: false,
             )
           },
@@ -276,7 +297,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i12.ProductVertical>(),
+              type: _i1.getType<_i13.ProductVertical>(),
               nullable: false,
             )
           },
@@ -294,7 +315,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'vertical': _i1.ParameterDescription(
               name: 'vertical',
-              type: _i1.getType<_i12.ProductVertical>(),
+              type: _i1.getType<_i13.ProductVertical>(),
               nullable: false,
             )
           },
@@ -376,7 +397,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i13.ScienceStep>(),
+              type: _i1.getType<_i14.ScienceStep>(),
               nullable: false,
             )
           },
@@ -394,7 +415,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'step': _i1.ParameterDescription(
               name: 'step',
-              type: _i1.getType<_i13.ScienceStep>(),
+              type: _i1.getType<_i14.ScienceStep>(),
               nullable: false,
             )
           },
@@ -430,7 +451,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i14.ScienceHeaderMetric>(),
+              type: _i1.getType<_i15.ScienceHeaderMetric>(),
               nullable: false,
             )
           },
@@ -448,7 +469,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'metric': _i1.ParameterDescription(
               name: 'metric',
-              type: _i1.getType<_i14.ScienceHeaderMetric>(),
+              type: _i1.getType<_i15.ScienceHeaderMetric>(),
               nullable: false,
             )
           },

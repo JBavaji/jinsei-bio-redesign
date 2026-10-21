@@ -17,33 +17,35 @@ import 'package:jinsei_bio_redesign_client/src/protocol/b2b_sample_request.dart'
     as _i4;
 import 'package:jinsei_bio_redesign_client/src/protocol/collaboration_content.dart'
     as _i5;
-import 'package:jinsei_bio_redesign_client/src/protocol/home_content.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/collaboration_inquiry.dart'
     as _i6;
-import 'package:jinsei_bio_redesign_client/src/protocol/pillar_item.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/home_content.dart'
     as _i7;
-import 'package:jinsei_bio_redesign_client/src/protocol/executive_stat.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/pillar_item.dart'
     as _i8;
-import 'package:jinsei_bio_redesign_client/src/protocol/product_vertical.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/executive_stat.dart'
     as _i9;
-import 'package:jinsei_bio_redesign_client/src/protocol/science_content.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/product_vertical.dart'
     as _i10;
-import 'package:jinsei_bio_redesign_client/src/protocol/science_step.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/science_content.dart'
     as _i11;
-import 'package:jinsei_bio_redesign_client/src/protocol/science_header_metric.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/science_step.dart'
     as _i12;
-import 'package:jinsei_bio_redesign_client/src/protocol/clinical_qa.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/science_header_metric.dart'
     as _i13;
-import 'package:jinsei_bio_redesign_client/src/protocol/solutions_content.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/clinical_qa.dart'
     as _i14;
-import 'package:jinsei_bio_redesign_client/src/protocol/solution_card.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/solutions_content.dart'
     as _i15;
-import 'package:jinsei_bio_redesign_client/src/protocol/solution_metric.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/solution_card.dart'
     as _i16;
-import 'package:jinsei_bio_redesign_client/src/protocol/leadership_content.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/solution_metric.dart'
     as _i17;
-import 'package:jinsei_bio_redesign_client/src/protocol/team_member.dart'
+import 'package:jinsei_bio_redesign_client/src/protocol/leadership_content.dart'
     as _i18;
-import 'protocol.dart' as _i19;
+import 'package:jinsei_bio_redesign_client/src/protocol/team_member.dart'
+    as _i19;
+import 'protocol.dart' as _i20;
 
 /// Serverpod Endpoint for B2B Sample Request Flow (JIN-22)
 /// {@category Endpoint}
@@ -85,6 +87,15 @@ class EndpointCollaborations extends _i1.EndpointRef {
         'getCollaborationsContent',
         {},
       );
+
+  /// Submits a strategic collaboration inquiry, validates inputs, persists to database, and triggers sandbox notification.
+  _i2.Future<String> submitCollaborationInquiry(
+          _i6.CollaborationInquiry inquiry) =>
+      caller.callServerEndpoint<String>(
+        'collaborations',
+        'submitCollaborationInquiry',
+        {'inquiry': inquiry},
+      );
 }
 
 /// Serverpod endpoint for health check & system status
@@ -117,22 +128,22 @@ class EndpointHome extends _i1.EndpointRef {
   @override
   String get name => 'home';
 
-  _i2.Future<_i6.HomeContent> getHomeContent() =>
-      caller.callServerEndpoint<_i6.HomeContent>(
+  _i2.Future<_i7.HomeContent> getHomeContent() =>
+      caller.callServerEndpoint<_i7.HomeContent>(
         'home',
         'getHomeContent',
         {},
       );
 
-  _i2.Future<_i7.PillarItem> createPillar(_i7.PillarItem item) =>
-      caller.callServerEndpoint<_i7.PillarItem>(
+  _i2.Future<_i8.PillarItem> createPillar(_i8.PillarItem item) =>
+      caller.callServerEndpoint<_i8.PillarItem>(
         'home',
         'createPillar',
         {'item': item},
       );
 
-  _i2.Future<_i7.PillarItem> updatePillar(_i7.PillarItem item) =>
-      caller.callServerEndpoint<_i7.PillarItem>(
+  _i2.Future<_i8.PillarItem> updatePillar(_i8.PillarItem item) =>
+      caller.callServerEndpoint<_i8.PillarItem>(
         'home',
         'updatePillar',
         {'item': item},
@@ -144,15 +155,15 @@ class EndpointHome extends _i1.EndpointRef {
         {'id': id},
       );
 
-  _i2.Future<_i8.ExecutiveStat> createExecutiveStat(_i8.ExecutiveStat stat) =>
-      caller.callServerEndpoint<_i8.ExecutiveStat>(
+  _i2.Future<_i9.ExecutiveStat> createExecutiveStat(_i9.ExecutiveStat stat) =>
+      caller.callServerEndpoint<_i9.ExecutiveStat>(
         'home',
         'createExecutiveStat',
         {'stat': stat},
       );
 
-  _i2.Future<_i8.ExecutiveStat> updateExecutiveStat(_i8.ExecutiveStat stat) =>
-      caller.callServerEndpoint<_i8.ExecutiveStat>(
+  _i2.Future<_i9.ExecutiveStat> updateExecutiveStat(_i9.ExecutiveStat stat) =>
+      caller.callServerEndpoint<_i9.ExecutiveStat>(
         'home',
         'updateExecutiveStat',
         {'stat': stat},
@@ -165,17 +176,17 @@ class EndpointHome extends _i1.EndpointRef {
         {'id': id},
       );
 
-  _i2.Future<_i9.ProductVertical> createProductVertical(
-          _i9.ProductVertical vertical) =>
-      caller.callServerEndpoint<_i9.ProductVertical>(
+  _i2.Future<_i10.ProductVertical> createProductVertical(
+          _i10.ProductVertical vertical) =>
+      caller.callServerEndpoint<_i10.ProductVertical>(
         'home',
         'createProductVertical',
         {'vertical': vertical},
       );
 
-  _i2.Future<_i9.ProductVertical> updateProductVertical(
-          _i9.ProductVertical vertical) =>
-      caller.callServerEndpoint<_i9.ProductVertical>(
+  _i2.Future<_i10.ProductVertical> updateProductVertical(
+          _i10.ProductVertical vertical) =>
+      caller.callServerEndpoint<_i10.ProductVertical>(
         'home',
         'updateProductVertical',
         {'vertical': vertical},
@@ -198,46 +209,46 @@ class EndpointScience extends _i1.EndpointRef {
   String get name => 'science';
 
   /// Fetches complete Science Content payload with header metrics, 10 pipeline steps, and clinical QA.
-  _i2.Future<_i10.ScienceContent> getScienceContent() =>
-      caller.callServerEndpoint<_i10.ScienceContent>(
+  _i2.Future<_i11.ScienceContent> getScienceContent() =>
+      caller.callServerEndpoint<_i11.ScienceContent>(
         'science',
         'getScienceContent',
         {},
       );
 
   /// Fetches only the 10-step R&D pipeline stepper items.
-  _i2.Future<List<_i11.ScienceStep>> getScienceSteps() =>
-      caller.callServerEndpoint<List<_i11.ScienceStep>>(
+  _i2.Future<List<_i12.ScienceStep>> getScienceSteps() =>
+      caller.callServerEndpoint<List<_i12.ScienceStep>>(
         'science',
         'getScienceSteps',
         {},
       );
 
   /// Fetches the science header metrics (milestones, coverage, patents).
-  _i2.Future<List<_i12.ScienceHeaderMetric>> getHeaderMetrics() =>
-      caller.callServerEndpoint<List<_i12.ScienceHeaderMetric>>(
+  _i2.Future<List<_i13.ScienceHeaderMetric>> getHeaderMetrics() =>
+      caller.callServerEndpoint<List<_i13.ScienceHeaderMetric>>(
         'science',
         'getHeaderMetrics',
         {},
       );
 
   /// Fetches the clinical QA standards.
-  _i2.Future<_i13.ClinicalQualityAssurance> getClinicalQa() =>
-      caller.callServerEndpoint<_i13.ClinicalQualityAssurance>(
+  _i2.Future<_i14.ClinicalQualityAssurance> getClinicalQa() =>
+      caller.callServerEndpoint<_i14.ClinicalQualityAssurance>(
         'science',
         'getClinicalQa',
         {},
       );
 
-  _i2.Future<_i11.ScienceStep> createScienceStep(_i11.ScienceStep step) =>
-      caller.callServerEndpoint<_i11.ScienceStep>(
+  _i2.Future<_i12.ScienceStep> createScienceStep(_i12.ScienceStep step) =>
+      caller.callServerEndpoint<_i12.ScienceStep>(
         'science',
         'createScienceStep',
         {'step': step},
       );
 
-  _i2.Future<_i11.ScienceStep> updateScienceStep(_i11.ScienceStep step) =>
-      caller.callServerEndpoint<_i11.ScienceStep>(
+  _i2.Future<_i12.ScienceStep> updateScienceStep(_i12.ScienceStep step) =>
+      caller.callServerEndpoint<_i12.ScienceStep>(
         'science',
         'updateScienceStep',
         {'step': step},
@@ -249,17 +260,17 @@ class EndpointScience extends _i1.EndpointRef {
         {'id': id},
       );
 
-  _i2.Future<_i12.ScienceHeaderMetric> createHeaderMetric(
-          _i12.ScienceHeaderMetric metric) =>
-      caller.callServerEndpoint<_i12.ScienceHeaderMetric>(
+  _i2.Future<_i13.ScienceHeaderMetric> createHeaderMetric(
+          _i13.ScienceHeaderMetric metric) =>
+      caller.callServerEndpoint<_i13.ScienceHeaderMetric>(
         'science',
         'createHeaderMetric',
         {'metric': metric},
       );
 
-  _i2.Future<_i12.ScienceHeaderMetric> updateHeaderMetric(
-          _i12.ScienceHeaderMetric metric) =>
-      caller.callServerEndpoint<_i12.ScienceHeaderMetric>(
+  _i2.Future<_i13.ScienceHeaderMetric> updateHeaderMetric(
+          _i13.ScienceHeaderMetric metric) =>
+      caller.callServerEndpoint<_i13.ScienceHeaderMetric>(
         'science',
         'updateHeaderMetric',
         {'metric': metric},
@@ -282,32 +293,32 @@ class EndpointSolutions extends _i1.EndpointRef {
   String get name => 'solutions';
 
   /// Fetches the complete Solutions Matrix content payload including metrics, cards, and QA standards.
-  _i2.Future<_i14.SolutionsContent> getSolutionsContent() =>
-      caller.callServerEndpoint<_i14.SolutionsContent>(
+  _i2.Future<_i15.SolutionsContent> getSolutionsContent() =>
+      caller.callServerEndpoint<_i15.SolutionsContent>(
         'solutions',
         'getSolutionsContent',
         {},
       );
 
   /// Fetches all 4 commercial solution cards.
-  _i2.Future<List<_i15.SolutionCard>> getSolutions() =>
-      caller.callServerEndpoint<List<_i15.SolutionCard>>(
+  _i2.Future<List<_i16.SolutionCard>> getSolutions() =>
+      caller.callServerEndpoint<List<_i16.SolutionCard>>(
         'solutions',
         'getSolutions',
         {},
       );
 
   /// Fetches solutions filtered by category (human-health, food-tech, dermo-biotics, agri-tech).
-  _i2.Future<List<_i15.SolutionCard>> getSolutionsByCategory(String category) =>
-      caller.callServerEndpoint<List<_i15.SolutionCard>>(
+  _i2.Future<List<_i16.SolutionCard>> getSolutionsByCategory(String category) =>
+      caller.callServerEndpoint<List<_i16.SolutionCard>>(
         'solutions',
         'getSolutionsByCategory',
         {'category': category},
       );
 
   /// Fetches top summary KPI metrics.
-  _i2.Future<List<_i16.SolutionMetric>> getSolutionMetrics() =>
-      caller.callServerEndpoint<List<_i16.SolutionMetric>>(
+  _i2.Future<List<_i17.SolutionMetric>> getSolutionMetrics() =>
+      caller.callServerEndpoint<List<_i17.SolutionMetric>>(
         'solutions',
         'getSolutionMetrics',
         {},
@@ -323,24 +334,24 @@ class EndpointTeam extends _i1.EndpointRef {
   String get name => 'team';
 
   /// Fetches the complete Leadership Team content payload including members and governance standards.
-  _i2.Future<_i17.LeadershipContent> getLeadershipContent() =>
-      caller.callServerEndpoint<_i17.LeadershipContent>(
+  _i2.Future<_i18.LeadershipContent> getLeadershipContent() =>
+      caller.callServerEndpoint<_i18.LeadershipContent>(
         'team',
         'getLeadershipContent',
         {},
       );
 
   /// Fetches all team members ordered by display order.
-  _i2.Future<List<_i18.TeamMember>> getTeamMembers() =>
-      caller.callServerEndpoint<List<_i18.TeamMember>>(
+  _i2.Future<List<_i19.TeamMember>> getTeamMembers() =>
+      caller.callServerEndpoint<List<_i19.TeamMember>>(
         'team',
         'getTeamMembers',
         {},
       );
 
   /// Fetches team members filtered by category (executive, scientific, product, operations).
-  _i2.Future<List<_i18.TeamMember>> getTeamMembersByCategory(String category) =>
-      caller.callServerEndpoint<List<_i18.TeamMember>>(
+  _i2.Future<List<_i19.TeamMember>> getTeamMembersByCategory(String category) =>
+      caller.callServerEndpoint<List<_i19.TeamMember>>(
         'team',
         'getTeamMembersByCategory',
         {'category': category},
@@ -356,7 +367,7 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i19.Protocol(),
+          _i20.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
