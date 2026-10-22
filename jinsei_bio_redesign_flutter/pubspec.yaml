@@ -1,7 +1,7 @@
 name: jinsei_bio_redesign
 description: "Jinsei Bio Redesign — Premium Multi-Platform Flutter App (Web + Android + iOS)"
 publish_to: 'none'
-version: 1.8.1+33
+version: 1.8.2+34
 
 resolution: workspace
 
