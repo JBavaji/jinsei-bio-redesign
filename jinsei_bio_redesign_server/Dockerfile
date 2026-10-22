@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY --from=build /app/jinsei_bio_redesign_server/bin/main /app/bin/main
 COPY --from=build /app/jinsei_bio_redesign_server/config /app/config
 COPY --from=build /app/jinsei_bio_redesign_server/web /app/web
+COPY --from=build /app/jinsei_bio_redesign_server/migrations /app/migrations
 
 EXPOSE 8080
 EXPOSE 8081
