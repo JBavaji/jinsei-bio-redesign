@@ -5,3 +5,4 @@
 ### the conflict by removing and recreating the conflicting migration.
 
 20260925103528334
+20261022041133122-complete-postgresql-schema
