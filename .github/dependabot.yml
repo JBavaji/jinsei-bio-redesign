@@ -1,0 +1,69 @@
+# Dependabot Configuration — Jinsei Bio Redesign
+# Automated security updates and dependency version monitoring
+
+version: 2
+updates:
+  # Maintain GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "ci-cd"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # Maintain Dart & Flutter dependencies (Root monorepo)
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:30"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "dart"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # Maintain Flutter App dependencies
+  - package-ecosystem: "pub"
+    directory: "/jinsei_bio_redesign_flutter"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "flutter"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # Maintain Serverpod Backend dependencies
+  - package-ecosystem: "pub"
+    directory: "/jinsei_bio_redesign_server"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:30"
+      timezone: "Asia/Kolkata"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "serverpod"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"

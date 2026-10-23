@@ -1,0 +1,72 @@
+name: Security Audit & Toolchain Verification
+
+on:
+  push:
+    branches: [ main, staging, develop ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'assets/images/**'
+  pull_request:
+    branches: [ main, staging, develop ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'assets/images/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  security_audit:
+    name: "Security, Secret Scanning & Toolchain Audit"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🛡️ Audit for Leaked Credentials & Secret Files in Git
+        run: |
+          echo "Scanning git repository for prohibited credential artifacts..."
+          PROHIBITED_PATTERNS=("*.keystore" "*.jks" "*.pem" "*.p12" "*.key" ".env" ".env.*" "id_rsa" "id_ed25519")
+          FOUND_LEAKS=0
+          for pattern in "${PROHIBITED_PATTERNS[@]}"; do
+            MATCHES=$(git ls-files "$pattern" 2>/dev/null || true)
+            if [ -n "$MATCHES" ]; then
+              echo "❌ Prohibited credential artifact tracked in git: $MATCHES"
+              FOUND_LEAKS=1
+            fi
+          done
+          if [ $FOUND_LEAKS -ne 0 ]; then
+            echo "Security audit failed: Committed secret or credential artifacts found in git index."
+            exit 1
+          fi
+          echo "✅ No prohibited credential artifacts tracked in git."
+
+      - name: 🔍 Verify Immutability & Toolchain Pinning
+        run: |
+          echo "Verifying CI/CD toolchain pinning across workflows..."
+          if grep -q "uses: FirebaseExtended/action-hosting-deploy" .github/workflows/deploy-web-firebase.yml; then
+            if ! grep -q "firebaseToolsVersion:" .github/workflows/deploy-web-firebase.yml; then
+              echo "❌ Error: deploy-web-firebase.yml contains unpinned firebaseToolsVersion"
+              exit 1
+            fi
+          fi
+          echo "✅ Toolchain pinning verified (no floating latest versions)."
+
+      - name: ⚖️ Verify Legal Brand Guardrail & Disclaimer Flag
+        run: |
+          echo "Verifying mandatory --dart-define=APP_MODE=UNOFFICIAL_DEMO in build workflows..."
+          for workflow in .github/workflows/ci.yml .github/workflows/deploy-web-firebase.yml; do
+            if grep -q "flutter build web" "$workflow"; then
+              if ! grep -q "APP_MODE=UNOFFICIAL_DEMO" "$workflow"; then
+                echo "❌ Legal Guardrail violation: $workflow missing APP_MODE=UNOFFICIAL_DEMO"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ Legal disclaimer build flags verified across all release workflows."
