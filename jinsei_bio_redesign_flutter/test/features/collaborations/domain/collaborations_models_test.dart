@@ -123,5 +123,28 @@ void main() {
       expect(modified.status, equals('reviewed'));
       expect(modified.name, equals('Dr. Jane Foster'));
     });
+
+    test(
+        'Models safely handle null or missing tracks/standards/deliverables without TypeError',
+        () {
+      // Empty or unexpected map (such as server error response)
+      final emptyContent = CollaborationContentModel.fromJson(const {
+        'status': 'OK',
+        'path': '/collaborations',
+      });
+      expect(emptyContent.headlineBadge, equals(''));
+      expect(emptyContent.tracks, isEmpty);
+      expect(emptyContent.contactInfo.standards, isEmpty);
+
+      final emptyContact = CollaborationContactInfoModel.fromJson(const {
+        'standards': null,
+      });
+      expect(emptyContact.standards, isEmpty);
+
+      final emptyTrack = CollaborationTrackModel.fromJson(const {
+        'deliverables': null,
+      });
+      expect(emptyTrack.deliverables, isEmpty);
+    });
   });
 }

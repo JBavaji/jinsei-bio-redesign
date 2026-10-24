@@ -62,11 +62,12 @@ class CollaborationContactInfoModel extends Equatable {
       facilityCoordinates: json['facilityCoordinates'] as String? ?? '',
       visitingTimings: json['visitingTimings'] as String? ?? '',
       visitingStatus: json['visitingStatus'] as String? ?? '',
-      standards: (json['standards'] as List<dynamic>?)
-              ?.map((e) => CollaborationComplianceStandardModel.fromJson(
+      standards: (json['standards'] is List
+          ? (json['standards'] as List<dynamic>)
+              .map((e) => CollaborationComplianceStandardModel.fromJson(
                   e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+              .toList()
+          : const <CollaborationComplianceStandardModel>[]),
     );
   }
 

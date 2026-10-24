@@ -46,6 +46,14 @@ import 'package:jinsei_bio_redesign_client/src/protocol/solution_metric.dart'
     as _i29;
 import 'package:jinsei_bio_redesign_client/src/protocol/team_member.dart'
     as _i30;
+import 'package:jinsei_bio_redesign_client/src/protocol/collaboration_track.dart'
+    as _i31;
+import 'package:jinsei_bio_redesign_client/src/protocol/collaboration_compliance_standard.dart'
+    as _i32;
+import 'package:jinsei_bio_redesign_client/src/protocol/strain_vertical_option.dart'
+    as _i33;
+import 'package:jinsei_bio_redesign_client/src/protocol/formulation_format_option.dart'
+    as _i34;
 export 'b2b_modal_content.dart';
 export 'b2b_sample_request.dart';
 export 'clinical_qa.dart';
@@ -256,94 +264,118 @@ class Protocol extends _i1.SerializationManager {
       return (data != null ? _i24.TeamMember.fromJson(data, this) : null) as T;
     }
     if (t == List<_i25.StrainVerticalOption>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.StrainVerticalOption>(e))
           .toList() as dynamic;
     }
+    if (t == List<_i33.StrainVerticalOption>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i33.StrainVerticalOption>(e))
+          .toList() as dynamic;
+    }
     if (t == List<_i25.FormulationFormatOption>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.FormulationFormatOption>(e))
           .toList() as dynamic;
     }
+    if (t == List<_i34.FormulationFormatOption>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i34.FormulationFormatOption>(e))
+          .toList() as dynamic;
+    }
     if (t == List<String>) {
-      return (data as List).map((e) => deserialize<String>(e)).toList()
-          as dynamic;
+      return (data is List ? data : const [])
+          .map((e) => deserialize<String>(e))
+          .toList() as dynamic;
     }
     if (t == List<_i25.CollaborationComplianceStandard>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.CollaborationComplianceStandard>(e))
           .toList() as dynamic;
     }
+    if (t == List<_i32.CollaborationComplianceStandard>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i32.CollaborationComplianceStandard>(e))
+          .toList() as dynamic;
+    }
     if (t == List<_i25.CollaborationTrack>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.CollaborationTrack>(e))
           .toList() as dynamic;
     }
+    if (t == List<_i31.CollaborationTrack>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i31.CollaborationTrack>(e))
+          .toList() as dynamic;
+    }
     if (t == List<_i25.PillarItem>) {
-      return (data as List).map((e) => deserialize<_i25.PillarItem>(e)).toList()
-          as dynamic;
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.PillarItem>(e))
+          .toList() as dynamic;
     }
     if (t == List<_i25.ExecutiveStat>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.ExecutiveStat>(e))
           .toList() as dynamic;
     }
     if (t == List<_i25.ProductVertical>) {
-      return (data as List)
+      return (data is List ? data : const [])
           .map((e) => deserialize<_i25.ProductVertical>(e))
           .toList() as dynamic;
     }
     if (t == List<_i25.TeamMember>) {
-      return (data as List).map((e) => deserialize<_i25.TeamMember>(e)).toList()
-          as dynamic;
-    }
-    if (t == List<_i25.ScienceHeaderMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i25.ScienceHeaderMetric>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i25.ScienceStep>) {
-      return (data as List)
-          .map((e) => deserialize<_i25.ScienceStep>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i25.SolutionMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i25.SolutionMetric>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i25.SolutionCard>) {
-      return (data as List)
-          .map((e) => deserialize<_i25.SolutionCard>(e))
-          .toList() as dynamic;
-    }
-    if (t == Map<String, String>) {
-      return (data as Map).map((k, v) =>
-          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
-    }
-    if (t == List<_i26.ScienceStep>) {
-      return (data as List)
-          .map((e) => deserialize<_i26.ScienceStep>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i27.ScienceHeaderMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i27.ScienceHeaderMetric>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i28.SolutionCard>) {
-      return (data as List)
-          .map((e) => deserialize<_i28.SolutionCard>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i29.SolutionMetric>) {
-      return (data as List)
-          .map((e) => deserialize<_i29.SolutionMetric>(e))
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.TeamMember>(e))
           .toList() as dynamic;
     }
     if (t == List<_i30.TeamMember>) {
-      return (data as List).map((e) => deserialize<_i30.TeamMember>(e)).toList()
-          as dynamic;
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i30.TeamMember>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i25.ScienceHeaderMetric>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.ScienceHeaderMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i27.ScienceHeaderMetric>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i27.ScienceHeaderMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i25.ScienceStep>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.ScienceStep>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i26.ScienceStep>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i26.ScienceStep>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i25.SolutionMetric>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.SolutionMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i29.SolutionMetric>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i29.SolutionMetric>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i25.SolutionCard>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i25.SolutionCard>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i28.SolutionCard>) {
+      return (data is List ? data : const [])
+          .map((e) => deserialize<_i28.SolutionCard>(e))
+          .toList() as dynamic;
+    }
+    if (t == Map<String, String>) {
+      return (data is Map ? data : const {}).map((k, v) =>
+          MapEntry(deserialize<String>(k), deserialize<String>(v))) as dynamic;
     }
     return super.deserialize<T>(data, t);
   }

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jinsei_bio_redesign/src/features/collaborations/data/datasources/collaborations_hive_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/collaborations/data/datasources/collaborations_local_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/collaborations/data/datasources/collaborations_remote_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/collaborations/data/repositories/collaborations_repository_impl.dart';
@@ -69,11 +70,39 @@ class MockLocalDataSource implements ICollaborationsLocalDataSource {
       'JIN-COL-2026-SANDBOX999';
 }
 
+class MockCollaborationsHiveDataSource
+    implements ICollaborationsHiveDataSource {
+  CollaborationContentModel? cachedData;
+  CollaborationContentModel? savedData;
+  bool clearCacheCalled = false;
+
+  MockCollaborationsHiveDataSource({this.cachedData});
+
+  @override
+  Future<CollaborationContentModel?> getCachedCollaborationsContent() async {
+    return cachedData;
+  }
+
+  @override
+  Future<void> saveCollaborationsContent(
+      CollaborationContentModel content) async {
+    savedData = content;
+    cachedData = content;
+  }
+
+  @override
+  Future<void> clearCache() async {
+    clearCacheCalled = true;
+    cachedData = null;
+  }
+}
+
 void main() {
   group('CollaborationsRepositoryImpl 3-Tier Fallback Tests (JIN-68 / JIN-70)',
       () {
     late MockRemoteDataSource remoteDataSource;
     late MockLocalDataSource localDataSource;
+    late MockCollaborationsHiveDataSource hiveDataSource;
     late CollaborationsRepositoryImpl repository;
 
     const dummyInquiry = CollaborationInquiryModel(
@@ -86,14 +115,16 @@ void main() {
     setUp(() {
       remoteDataSource = MockRemoteDataSource();
       localDataSource = MockLocalDataSource();
+      hiveDataSource = MockCollaborationsHiveDataSource();
       repository = CollaborationsRepositoryImpl(
         remoteDataSource: remoteDataSource,
         localDataSource: localDataSource,
+        hiveDataSource: hiveDataSource,
       );
     });
 
     test(
-        'Tier 1: getCollaborationsContent returns remote data when remote succeeds',
+        'Tier 1: getCollaborationsContent returns remote data and saves to Hive when remote succeeds',
         () async {
       remoteDataSource.mockContent = const CollaborationContentModel(
         headlineBadge: 'REMOTE BADGE',
@@ -116,12 +147,41 @@ void main() {
 
       final result = await repository.getCollaborationsContent();
       expect(result.headlineBadge, equals('REMOTE BADGE'));
+      expect(hiveDataSource.savedData?.headlineBadge, equals('REMOTE BADGE'));
     });
 
     test(
-        'Tier 2: getCollaborationsContent falls back to local data when remote returns null',
+        'Tier 2: getCollaborationsContent falls back to Hive DB cache when remote returns null',
         () async {
       remoteDataSource.mockContent = null;
+      hiveDataSource.cachedData = const CollaborationContentModel(
+        headlineBadge: 'HIVE CACHED BADGE',
+        heroTitle: 'Hive Title',
+        heroSubtitle: 'Hive Subtitle',
+        tracks: [],
+        contactInfo: CollaborationContactInfoModel(
+          supportEmail: 'hive@jinseibio.com',
+          supportNotice: '',
+          facilityName: '',
+          facilityAddress: '',
+          facilityCoordinates: '',
+          visitingTimings: '',
+          visitingStatus: '',
+          standards: [],
+        ),
+        governanceTitle: '',
+        governanceDescription: '',
+      );
+
+      final result = await repository.getCollaborationsContent();
+      expect(result.headlineBadge, equals('HIVE CACHED BADGE'));
+    });
+
+    test(
+        'Tier 3: getCollaborationsContent falls back to local asset data when remote and Hive cache are empty',
+        () async {
+      remoteDataSource.shouldThrow = true;
+      hiveDataSource.cachedData = null;
 
       final result = await repository.getCollaborationsContent();
       expect(result.headlineBadge, equals('LOCAL BADGE'));
@@ -129,18 +189,10 @@ void main() {
     });
 
     test(
-        'Tier 2: getCollaborationsContent falls back to local data when remote throws',
+        'Tier 4: getCollaborationsContent falls back to in-memory model when remote, Hive, and local all fail',
         () async {
       remoteDataSource.shouldThrow = true;
-
-      final result = await repository.getCollaborationsContent();
-      expect(result.headlineBadge, equals('LOCAL BADGE'));
-    });
-
-    test(
-        'Tier 3: getCollaborationsContent falls back to in-memory model when both remote and local fail',
-        () async {
-      remoteDataSource.shouldThrow = true;
+      hiveDataSource.cachedData = null;
       localDataSource.shouldThrow = true;
 
       final result = await repository.getCollaborationsContent();

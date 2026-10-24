@@ -31,6 +31,7 @@ Before executing code, AI agents MUST reference:
 - **Agile Lifecycle & Epics:** [`@development/agile-project-management/AGILE_MASTER_INDEX.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/agile-project-management/AGILE_MASTER_INDEX.md)
 - **AI SDLC Knowledge Base:** [`@development/ai-sdlc-knowledge-base/README.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/ai-sdlc-knowledge-base/README.md)
 - **Tech Stack Architecture:** [`@development/ai-sdlc-knowledge-base/02-tech-stack/TECH_ARCHITECTURE.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/ai-sdlc-knowledge-base/02-tech-stack/TECH_ARCHITECTURE.md)
+- **QA Lead Process Standard:** [`@development/agile-project-management/quality-gates/QA_LEAD_PROCESS_AND_TESTING_STANDARD.md`](file:///Users/jbavaji/Documents/work/2026/Jinsei-Bio/development/agile-project-management/quality-gates/QA_LEAD_PROCESS_AND_TESTING_STANDARD.md)
 - **Design Tokens & Screens:** `@data/modern/design/DESIGN.md` & `@data/modern/design/screens/`
 
 ---
@@ -60,6 +61,10 @@ Before executing code, AI agents MUST reference:
 5. **Launch Priority:** **Splash / Launch Screen** (Priority 0) with centered logo redesign animation MUST be implemented and verified across Web, Android, and iOS before any feature screens are built (ADR-010).
 6. **Component Modularity:** Keep UI components simple, focused, and modular. Maximum lines of code per component file MUST NOT exceed 100-150 lines. Decompose lengthy widgets into dedicated sub-component files.
 7. **Mandatory Screen Implementation Plan & Design Alignment:** During screen implementation planning and coding, AI agents MUST inspect and validate both the respective `.html` design reference (`data/modern/design/screens/*.html`) and its corresponding `.png` screenshot image (`data/modern/design/screenshots/*.png`) to ensure zero missing UI elements, layout discrepancies, or unhandled states.
+8. **3-Tier Clean Architecture & Repository Standard:** Every feature repository MUST strictly implement the 3-Tier Offline-First Strategy: Tier 1 Remote (Serverpod Client) ➔ Tier 2 Local DB Cache (Hive Box `<feature>_cache_box`) ➔ Tier 3 Bundled Asset Fallback (`rootBundle` `.json`). Silent `try-catch` fallbacks and bypassing Hive DB are strictly prohibited.
+9. **Mandatory 6-Step QA Testing Standard:** Every new feature implementation MUST follow the QA Lead 6-Step Verification Standard (Pure Dart Unit, BLoC State Lifecycle, Responsive Widget UI/UX, Network/Offline 3-Tier Fallback, GoRouter User Flow, and Data Sandbox Guardrail Audit) with $\ge 80\%$ line coverage.
+10. **Pre-Flight Golden Baseline Parity Rule:** BEFORE planning or implementing any feature, AI agents MUST inspect `lib/src/features/home/` as the canonical golden reference and guarantee 100% architectural parity across data sources, Hive caching, repositories, BLoC lifecycle, and sub-widgets.
+11. **Atomic Incremental Execution Rule:** Monolithic "all-in-one-go" generation across multiple layers or entire pages is STRICTLY PROHIBITED. Execution MUST follow the 5-Stage Atomic Slicing Protocol (`jinsei-feature-slice` skill) with test verification and an atomic git commit checkpoint per stage.
 
 ---
 

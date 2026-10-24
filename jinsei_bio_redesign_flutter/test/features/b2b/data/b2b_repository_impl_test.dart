@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:jinsei_bio_redesign/src/features/b2b/data/datasources/b2b_hive_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/b2b/data/datasources/b2b_local_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/b2b/data/datasources/b2b_remote_data_source.dart';
 import 'package:jinsei_bio_redesign/src/features/b2b/data/repositories/b2b_repository_impl.dart';
@@ -61,10 +62,36 @@ class MockLocalDataSource implements IB2bLocalDataSource {
       'JIN-REQ-2026-SANDBOX999';
 }
 
+class MockB2bHiveDataSource implements IB2bHiveDataSource {
+  B2bModalContentModel? cachedData;
+  B2bModalContentModel? savedData;
+  bool clearCacheCalled = false;
+
+  MockB2bHiveDataSource({this.cachedData});
+
+  @override
+  Future<B2bModalContentModel?> getCachedModalContent() async {
+    return cachedData;
+  }
+
+  @override
+  Future<void> saveModalContent(B2bModalContentModel content) async {
+    savedData = content;
+    cachedData = content;
+  }
+
+  @override
+  Future<void> clearCache() async {
+    clearCacheCalled = true;
+    cachedData = null;
+  }
+}
+
 void main() {
-  group('B2bRepositoryImpl 3-Tier Fallback Tests (JIN-22)', () {
+  group('B2bRepositoryImpl 3-Tier Fallback Tests (JIN-22 / JIN-76)', () {
     late MockRemoteDataSource remoteDataSource;
     late MockLocalDataSource localDataSource;
+    late MockB2bHiveDataSource hiveDataSource;
     late B2bRepositoryImpl repository;
 
     const dummyRequest = B2bSampleRequestModel(
@@ -78,13 +105,17 @@ void main() {
     setUp(() {
       remoteDataSource = MockRemoteDataSource();
       localDataSource = MockLocalDataSource();
+      hiveDataSource = MockB2bHiveDataSource();
       repository = B2bRepositoryImpl(
         remoteDataSource: remoteDataSource,
         localDataSource: localDataSource,
+        hiveDataSource: hiveDataSource,
       );
     });
 
-    test('getModalContent returns remote data when remote succeeds', () async {
+    test(
+        'Tier 1: getModalContent returns remote data and saves to Hive when remote succeeds',
+        () async {
       remoteDataSource.mockModalContent = const B2bModalContentModel(
         badgeText: 'REMOTE BADGE',
         title: 'Remote Title',
@@ -98,23 +129,37 @@ void main() {
 
       final result = await repository.getModalContent();
       expect(result.badgeText, equals('REMOTE BADGE'));
+      expect(hiveDataSource.savedData?.badgeText, equals('REMOTE BADGE'));
     });
 
-    test('getModalContent falls back to local data when remote returns null',
+    test(
+        'Tier 2: getModalContent falls back to Hive DB cache when remote returns null',
         () async {
       remoteDataSource.mockModalContent = null;
+      hiveDataSource.cachedData = const B2bModalContentModel(
+        badgeText: 'HIVE CACHED BADGE',
+        title: 'Hive Title',
+        subtitle: 'Hive Subtitle',
+        strains: [],
+        formulationFormats: [],
+        complianceNote: '',
+        certifications: [],
+        dispatchNotice: '',
+      );
+
+      final result = await repository.getModalContent();
+      expect(result.badgeText, equals('HIVE CACHED BADGE'));
+    });
+
+    test(
+        'Tier 3: getModalContent falls back to local data when remote throws and Hive cache is empty',
+        () async {
+      remoteDataSource.shouldThrow = true;
+      hiveDataSource.cachedData = null;
 
       final result = await repository.getModalContent();
       expect(result.badgeText, equals('LOCAL BADGE'));
       expect(result.strains.length, equals(1));
-    });
-
-    test('getModalContent falls back to local data when remote throws',
-        () async {
-      remoteDataSource.shouldThrow = true;
-
-      final result = await repository.getModalContent();
-      expect(result.badgeText, equals('LOCAL BADGE'));
     });
 
     test('submitSampleRequest returns remote tracking ID when remote succeeds',

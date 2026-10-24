@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'src/core/router/app_router.dart';
 import 'src/core/theme/app_theme.dart';
@@ -10,6 +11,7 @@ import 'src/features/splash/presentation/widgets/boot_gateway.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Hive.initFlutter();
   runApp(const JinseiBioApp());

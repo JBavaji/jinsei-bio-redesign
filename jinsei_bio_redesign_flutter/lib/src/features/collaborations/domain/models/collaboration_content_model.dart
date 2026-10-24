@@ -26,12 +26,13 @@ class CollaborationContentModel extends Equatable {
       headlineBadge: json['headlineBadge'] as String? ?? '',
       heroTitle: json['heroTitle'] as String? ?? '',
       heroSubtitle: json['heroSubtitle'] as String? ?? '',
-      tracks: (json['tracks'] as List<dynamic>?)
-              ?.map((e) =>
+      tracks: (json['tracks'] is List
+          ? (json['tracks'] as List<dynamic>)
+              .map((e) =>
                   CollaborationTrackModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      contactInfo: json['contactInfo'] != null
+              .toList()
+          : const <CollaborationTrackModel>[]),
+      contactInfo: json['contactInfo'] is Map<String, dynamic>
           ? CollaborationContactInfoModel.fromJson(
               json['contactInfo'] as Map<String, dynamic>)
           : const CollaborationContactInfoModel(
