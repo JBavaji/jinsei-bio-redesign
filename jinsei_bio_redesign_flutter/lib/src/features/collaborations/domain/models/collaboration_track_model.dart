@@ -23,10 +23,11 @@ class CollaborationTrackModel extends Equatable {
       title: json['title'] as String? ?? '',
       badge: json['badge'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      deliverables: (json['deliverables'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          const [],
+      deliverables: (json['deliverables'] is List
+          ? (json['deliverables'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList()
+          : const <String>[]),
       iconKey: json['iconKey'] as String? ?? '',
     );
   }

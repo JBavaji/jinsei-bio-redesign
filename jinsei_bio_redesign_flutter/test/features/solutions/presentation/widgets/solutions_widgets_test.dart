@@ -63,6 +63,61 @@ void main() {
       expect(find.text('Bio-Formulations'), findsOneWidget);
     });
 
+    testWidgets(
+        'SolutionsMetricsRow renders responsive Row on Desktop and Column on Mobile',
+        (tester) async {
+      final metrics = [
+        SolutionMetricModel.fromJson({
+          'iconKey': 'hub_rounded',
+          'value': '4',
+          'label': 'Commercial Verticals',
+          'accentColorHex': '#7BD4E2',
+          'displayOrder': 1,
+        }),
+        SolutionMetricModel.fromJson({
+          'iconKey': 'biotech_rounded',
+          'value': '54+',
+          'label': 'Bio-Formulations',
+          'accentColorHex': '#66DD8B',
+          'displayOrder': 2,
+        }),
+      ];
+
+      // Desktop Viewport (1024 x 768)
+      tester.view.physicalSize = const Size(1024, 768);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(() {
+        tester.view.resetPhysicalSize();
+        tester.view.resetDevicePixelRatio();
+      });
+
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.darkTheme,
+          home: Scaffold(
+            body: SolutionsMetricsRow(metrics: metrics),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Row), findsWidgets);
+
+      // Mobile Viewport (400 x 800)
+      tester.view.physicalSize = const Size(400, 800);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.darkTheme,
+          home: Scaffold(
+            body: SolutionsMetricsRow(metrics: metrics),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.byType(Column), findsWidgets);
+    });
+
     testWidgets('SolutionsQaBanner renders standards, badge, and title',
         (tester) async {
       const qa = SolutionsQualityAssuranceModel(
