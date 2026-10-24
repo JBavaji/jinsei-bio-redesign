@@ -3,19 +3,23 @@ import '../../domain/models/collaboration_content_model.dart';
 import '../../domain/models/collaboration_inquiry_model.dart';
 import '../../domain/models/collaboration_track_model.dart';
 import '../../domain/repositories/i_collaborations_repository.dart';
+import '../datasources/collaborations_hive_data_source.dart';
 import '../datasources/collaborations_local_data_source.dart';
 import '../datasources/collaborations_remote_data_source.dart';
 
 class CollaborationsRepositoryImpl implements ICollaborationsRepository {
   final ICollaborationsLocalDataSource _localDataSource;
   final ICollaborationsRemoteDataSource _remoteDataSource;
+  final ICollaborationsHiveDataSource _hiveDataSource;
 
   CollaborationsRepositoryImpl({
     ICollaborationsLocalDataSource? localDataSource,
     ICollaborationsRemoteDataSource? remoteDataSource,
+    ICollaborationsHiveDataSource? hiveDataSource,
   })  : _localDataSource = localDataSource ?? CollaborationsLocalDataSource(),
         _remoteDataSource =
-            remoteDataSource ?? CollaborationsRemoteDataSource();
+            remoteDataSource ?? CollaborationsRemoteDataSource(),
+        _hiveDataSource = hiveDataSource ?? CollaborationsHiveDataSource();
 
   @override
   Future<CollaborationContentModel> getCollaborationsContent() async {
@@ -23,17 +27,25 @@ class CollaborationsRepositoryImpl implements ICollaborationsRepository {
       // 1. Attempt remote Serverpod endpoint first
       final remoteData = await _remoteDataSource.getCollaborationsContent();
       if (remoteData != null) {
+        // Save fresh API payload to Local Hive DB
+        await _hiveDataSource.saveCollaborationsContent(remoteData);
         return remoteData;
       }
     } catch (_) {
-      // Graceful fallback to local asset data
+      // Graceful fallback to local cache
+    }
+
+    // 2. If API fails/offline, check Local Device Hive DB Cache
+    final cachedData = await _hiveDataSource.getCachedCollaborationsContent();
+    if (cachedData != null) {
+      return cachedData;
     }
 
     try {
-      // 2. Fall back gracefully to bundled asset JSON on error / offline / timeout
+      // 3. Fall back gracefully to bundled asset JSON on empty Hive cache
       return await _localDataSource.fetchCollaborationsContent();
     } catch (_) {
-      // 3. Fall back to in-memory default model if asset loading fails
+      // 4. Fall back to in-memory default model if asset loading fails
       return _inMemoryFallbackContent;
     }
   }
