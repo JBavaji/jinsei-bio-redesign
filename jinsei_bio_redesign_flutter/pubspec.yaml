@@ -1,7 +1,7 @@
 name: jinsei_bio_redesign
 description: "Jinsei Bio Redesign — Premium Multi-Platform Flutter App (Web + Android + iOS)"
 publish_to: 'none'
-version: 1.9.2+37
+version: 1.9.3+38
 
 resolution: workspace
 
@@ -13,6 +13,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
+    sdk: flutter
+  flutter_web_plugins:
     sdk: flutter
 
   # Serverpod Auto-Generated Client SDK
