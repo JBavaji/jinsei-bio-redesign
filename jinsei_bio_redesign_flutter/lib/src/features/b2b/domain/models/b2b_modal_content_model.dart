@@ -28,21 +28,24 @@ class B2bModalContentModel extends Equatable {
       badgeText: json['badgeText'] as String? ?? '',
       title: json['title'] as String? ?? '',
       subtitle: json['subtitle'] as String? ?? '',
-      strains: (json['strains'] as List<dynamic>?)
-              ?.map((e) =>
+      strains: (json['strains'] is List
+          ? (json['strains'] as List<dynamic>)
+              .map((e) =>
                   StrainVerticalOptionModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-      formulationFormats: (json['formulationFormats'] as List<dynamic>?)
-              ?.map((e) => FormulationFormatOptionModel.fromJson(
+              .toList()
+          : const <StrainVerticalOptionModel>[]),
+      formulationFormats: (json['formulationFormats'] is List
+          ? (json['formulationFormats'] as List<dynamic>)
+              .map((e) => FormulationFormatOptionModel.fromJson(
                   e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+              .toList()
+          : const <FormulationFormatOptionModel>[]),
       complianceNote: json['complianceNote'] as String? ?? '',
-      certifications: (json['certifications'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          const [],
+      certifications: (json['certifications'] is List
+          ? (json['certifications'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList()
+          : const <String>[]),
       dispatchNotice: json['dispatchNotice'] as String? ?? '',
     );
   }

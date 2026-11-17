@@ -158,6 +158,74 @@ void main() {
       client.close();
     });
 
+    test('GET /collaborations returns headline, tracks, and contactInfo',
+        () async {
+      final response = await http
+          .get(Uri.parse('http://localhost:$testPort/collaborations'));
+      expect(response.statusCode, equals(200));
+
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      expect(
+          data['headlineBadge'], equals('STRATEGIC ALLIANCES & CRO SERVICES'));
+      expect(data['tracks'], isList);
+      expect((data['tracks'] as List).length, equals(3));
+      expect(data['contactInfo'], isMap);
+      expect((data['contactInfo'] as Map)['standards'], isList);
+    });
+
+    test(
+        'POST /collaborations with submitCollaborationInquiry returns generated tracking ID',
+        () async {
+      final response = await http.post(
+        Uri.parse('http://localhost:$testPort/collaborations'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'method': 'submitCollaborationInquiry',
+          'name': 'Dr. Test Partner',
+          'email': 'partner@sandbox.com',
+          'partnershipTrack': 'fmcg_integration',
+          'message': 'Sandbox integration test',
+        }),
+      );
+      expect(response.statusCode, equals(200));
+      final trackingId = jsonDecode(response.body) as String;
+      expect(trackingId, startsWith('JIN-COL-2026-'));
+    });
+
+    test('GET /b2b returns badgeText, strains, and formulationFormats',
+        () async {
+      final response =
+          await http.get(Uri.parse('http://localhost:$testPort/b2b'));
+      expect(response.statusCode, equals(200));
+
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      expect(data['badgeText'],
+          equals('COMMERCIAL FORMULATION & ISOLATE SAMPLING'));
+      expect(data['strains'], isList);
+      expect((data['strains'] as List).length, equals(4));
+      expect(data['formulationFormats'], isList);
+      expect((data['formulationFormats'] as List).length, equals(4));
+    });
+
+    test('POST /b2b with submitSampleRequest returns generated tracking ID',
+        () async {
+      final response = await http.post(
+        Uri.parse('http://localhost:$testPort/b2b'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'method': 'submitSampleRequest',
+          'fullName': 'Dr. Pharma Researcher',
+          'email': 'researcher@sandbox.com',
+          'company': 'Sandbox Pharma',
+          'strainId': 'gut_pro',
+          'formulationFormat': 'lyophilized_powder',
+        }),
+      );
+      expect(response.statusCode, equals(200));
+      final trackingId = jsonDecode(response.body) as String;
+      expect(trackingId, startsWith('JIN-REQ-2026-'));
+    });
+
     test('GET unrecognized path returns fallback OK status payload', () async {
       final response =
           await http.get(Uri.parse('http://localhost:$testPort/unknown/route'));

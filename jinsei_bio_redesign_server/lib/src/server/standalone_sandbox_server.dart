@@ -21,6 +21,13 @@ Future<void> startStandaloneLocalServer(int port) async {
         return;
       }
 
+      String requestBody = '';
+      if (request.method == 'POST') {
+        try {
+          requestBody = await utf8.decoder.bind(request).join();
+        } catch (_) {}
+      }
+
       final rawPath = request.uri.path.toLowerCase();
       // Strip /api prefix if present for unified routing
       final path = rawPath.startsWith('/api')
@@ -656,6 +663,189 @@ Future<void> startStandaloneLocalServer(int port) async {
             }
           ]
         }));
+      } else if (path.contains('collaborations')) {
+        response.statusCode = HttpStatus.ok;
+        final isSubmit = requestBody.contains('submitCollaborationInquiry') ||
+            request.uri.queryParameters['method'] ==
+                'submitCollaborationInquiry';
+        if (isSubmit) {
+          final trackingId =
+              'JIN-COL-2026-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+          response.write(jsonEncode(trackingId));
+        } else {
+          response.write(jsonEncode({
+            'headlineBadge': 'STRATEGIC ALLIANCES & CRO SERVICES',
+            'heroTitle': 'LOOKING TO COLLABORATE WITH US?',
+            'heroSubtitle':
+                'Partnering with FMCG leaders, bio-pharma enterprises, and academic institutions to co-develop, optimize, and commercialize validated indigenous strain formulations.',
+            'tracks': [
+              {
+                'trackId': 'fmcg_integration',
+                'title': '1. FMCG Integration',
+                'badge': 'Pillar 1',
+                'description':
+                    'Include indigenous strains for fermentation, biopreservation, functional foods, or probiotic enrichment.',
+                'deliverables': [
+                  'Fermentation optimization',
+                  'Biopreservation dossiers',
+                  'Probiotic enrichment',
+                ],
+                'iconKey': 'sanitizer',
+              },
+              {
+                'trackId': 'lab_cro',
+                'title': '2. LAB CRO Services',
+                'badge': 'Pillar 2',
+                'description':
+                    'Process development, yield optimization, and contract research for lactic acid bacteria strains.',
+                'deliverables': [
+                  'Yield enhancement',
+                  'Pilot bioreactor runs',
+                  'Phenotypic screening',
+                ],
+                'iconKey': 'science',
+              },
+              {
+                'trackId': 'co_development',
+                'title': '3. Co-Development',
+                'badge': 'Pillar 3',
+                'description':
+                    'Joint R&D with enterprises or academic pioneers to build healthier microbial applications.',
+                'deliverables': [
+                  'Joint IP development',
+                  'Clinical protocol design',
+                  'Multi-strain consortiums',
+                ],
+                'iconKey': 'biotech',
+              },
+            ],
+            'contactInfo': {
+              'supportEmail': 'info@jinseibio.com',
+              'supportNotice':
+                  'Guaranteed response within 24 business hours from our R&D secretariat.',
+              'facilityName': 'State-of-the-art incubation campus',
+              'facilityAddress':
+                  'NCL Innovation Park, Doctor Homi Bhabha Road, Ward No. 8, NCL Colony, Pashan, Pune, Maharashtra, India',
+              'facilityCoordinates': '18.5362° N, 73.8152° E',
+              'visitingTimings':
+                  'Monday - Saturday: By Appointment | Sunday: Closed',
+              'visitingStatus': 'By Appointment',
+              'standards': [
+                {
+                  'title': 'ISO 9001:2015',
+                  'description':
+                      'Quality Management Systems for Laboratory R&D',
+                  'badge': 'Certified',
+                },
+                {
+                  'title': 'GMP Certified',
+                  'description':
+                      'Good Manufacturing Practices for Probiotic Formulations',
+                  'badge': 'Certified',
+                },
+                {
+                  'title': 'FSSAI Compliant',
+                  'description':
+                      'Food Safety and Standards Authority of India Standards',
+                  'badge': 'Compliant',
+                },
+                {
+                  'title': 'Bio-Prospecting Ethics',
+                  'description':
+                      'Adherence to National Biodiversity Authority Protocols',
+                  'badge': 'Compliant',
+                },
+              ],
+            },
+            'governanceTitle': 'Scientific Governance & Ethics Assurance',
+            'governanceDescription':
+                'ISO 9001:2015 & GMP Certified R&D Standards • Ethical Bio-Prospecting',
+          }));
+        }
+      } else if (path.contains('b2b')) {
+        response.statusCode = HttpStatus.ok;
+        final isSubmit = requestBody.contains('submitSampleRequest') ||
+            request.uri.queryParameters['method'] == 'submitSampleRequest';
+        if (isSubmit) {
+          final trackingId =
+              'JIN-REQ-2026-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}';
+          response.write(jsonEncode(trackingId));
+        } else {
+          response.write(jsonEncode({
+            'badgeText': 'COMMERCIAL FORMULATION & ISOLATE SAMPLING',
+            'title': 'Request B2B Formulation Sample',
+            'subtitle':
+                'Order certified research-grade batches of proprietary indigenous Lactobacillus isolates. Formulated for pharmaceutical trial pipelines and FMCG product developers.',
+            'strains': [
+              {
+                'strainId': 'gut_pro',
+                'category': 'HUMAN HEALTH',
+                'name': 'Jinsei-Gut Pro',
+                'strainCode': 'L. plantarum JN-04',
+                'highlight': 'Epithelial adhesion >94%',
+                'defaultFormat': 'lyophilized_powder',
+                'displayOrder': 1,
+              },
+              {
+                'strainId': 'femme_flora',
+                'category': "WOMEN'S FLORA",
+                'name': 'FemmeFlora Bio-Shield',
+                'strainCode': 'L. crispatus FF-02',
+                'highlight': 'Microflora pH regulation',
+                'defaultFormat': 'lyophilized_powder',
+                'displayOrder': 2,
+              },
+              {
+                'strainId': 'metabolimet',
+                'category': 'METABOLIC AXIS',
+                'name': 'MetaboliMet Probiotic',
+                'strainCode': 'L. gasseri JN-08',
+                'highlight': 'SCFA signalling pathways',
+                'defaultFormat': 'lyophilized_powder',
+                'displayOrder': 3,
+              },
+              {
+                'strainId': 'custom_cro',
+                'category': 'CUSTOM ISOLATE',
+                'name': 'Custom LAB Isolate',
+                'strainCode': 'CRO Co-Development',
+                'highlight': 'Screened native library',
+                'defaultFormat': 'slurry_concentrate',
+                'displayOrder': 4,
+              },
+            ],
+            'formulationFormats': [
+              {
+                'formatId': 'lyophilized_powder',
+                'label': 'Lyophilized Bulk Powder (100 Billion CFU/g)',
+                'displayOrder': 1,
+              },
+              {
+                'formatId': 'microencapsulated',
+                'label': 'Micro-Encapsulated Enteric Pellets',
+                'displayOrder': 2,
+              },
+              {
+                'formatId': 'slurry_concentrate',
+                'label': 'Active Ferment Slurry (Cold-Chain)',
+                'displayOrder': 3,
+              },
+              {
+                'formatId': 'oral_sachet',
+                'label': 'Pre-formulated Sachet Prototypes (2g)',
+                'displayOrder': 4,
+              },
+            ],
+            'complianceNote':
+                'Includes Certificate of Analysis (CoA), Whole Genome Sequence (WGS) report & Material Safety Data Sheet.',
+            'certifications': [
+              'ISO 9001:2015',
+              'GMP Certified',
+            ],
+            'dispatchNotice':
+                'Protected by scientific NDA. Dispatched from Pune NCL Innovation Park within 48h.',
+          }));
+        }
       } else {
         response.statusCode = HttpStatus.ok;
         response.write(jsonEncode({
